@@ -1,0 +1,10 @@
+mock
+test
+.babelrc
+.npmignore
+.gitignore
+karma.conf.js
+webpack.config.js
+webpack.dev.config.js
+examples
+dist

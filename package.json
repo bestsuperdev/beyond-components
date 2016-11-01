@@ -1,0 +1,70 @@
+{
+  "name": "react-component-boilerplate",
+  "version": "0.2.1",
+  "description": "a react component boilerplate",
+  "main": "lib/index.js",
+  "style": "lib/index.css",
+  "scripts": {
+    "start": "node ./server.js",
+    "mock": "cd ./mock & json-server --watch db.json --routes routes.json --port 9001",
+    "lint": "eslint ./src",
+    "test": "karma start  --config karma.conf.js",
+    "clear": "rimraf lib",
+    "build": "npm run clear && cross-env NODE_ENV=production babel src --out-dir lib && webpack --config webpack.style.config.js",
+    "clear:example": "rimraf dist",
+    "build:example": "npm run clear:example && cross-env NODE_ENV=production webpack --config webpack.config.js"
+  },
+  "dependencies": {
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.3.1",
+    "babel-cli": "^6.4.0",
+    "babel-core": "^6.2.1",
+    "babel-loader": "^6.2.0",
+    "babel-plugin-transform-es3-member-expression-literals": "^6.3.13",
+    "babel-plugin-transform-es3-property-literals": "^6.3.13",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.1.18",
+    "babel-preset-react-hmre": "^1.1.0",
+    "cross-env": "^1.0.7",
+    "css-loader": "^0.23.0",
+    "eslint": "^1.10.2",
+    "eslint-plugin-react": "^3.11.3",
+    "exports-loader": "^0.6.2",
+    "extract-text-webpack-plugin": "^0.9.1",
+    "file-loader": "^0.8.5",
+    "html-webpack-plugin": "^1.6.2",
+    "imports-loader": "^0.6.5",
+    "json-server": "^0.8.4",
+    "karma": "^0.13.15",
+    "karma-babel-preprocessor": "^6.0.1",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-ie-launcher": "^0.2.0",
+    "karma-jasmine": "^0.3.6",
+    "karma-webpack": "^1.7.0",
+    "less": "^2.5.3",
+    "less-loader": "^2.2.2",
+    "opn": "^3.0.3",
+    "postcss-clearfix": "^0.2.0",
+    "postcss-loader": "^0.8.1",
+    "quick-local-ip": "^1.0.7",
+    "rimraf": "^2.5.2",
+    "style-loader": "^0.13.0",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.6",
+    "webpack-dev-server": "^1.12.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bestsuperdev/react-component-boilerplate.git"
+  },
+  "author": "Peng mingze <mingzepeng@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bestsuperdev/react-component-boilerplate/issues"
+  },
+  "homepage": "https://github.com/bestsuperdev/react-component-boilerplate.git"
+}
