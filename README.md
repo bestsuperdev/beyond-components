@@ -4,12 +4,12 @@
 
 计划组件（尚在整理中）
 
-- [] Container
-- [] Trigger
-- [] Selector
-- [] Placeholder
-- [] Message
-- [] Grid
-- [] Tooltip
-- [] Notification
-- [] Modal
+- [x] Container
+- [x] Placeholder
+- [ ] Trigger
+- [ ] Selector
+- [ ] Message
+- [ ] Grid
+- [ ] Tooltip
+- [ ] Notification
+- [ ] Modal
