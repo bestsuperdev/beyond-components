@@ -10,7 +10,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 // var postcssUrl = require("postcss-url");
 module.exports = {
     entry: {
-        main : path.join(__dirname,"./examples/scripts/main.js")   
+        main : path.join(__dirname,"./examples/scripts/main.tsx")   
     },
     output: {
         path: path.join(__dirname,'hot'),
@@ -22,7 +22,7 @@ module.exports = {
         loaders: [
             { test : /\.css$/,  loader : 'style-loader!css-loader!postcss-loader' },
             { test : /\.less$/, loader : 'style-loader!css-loader!postcss-loader!less-loader'},
-            { test : /\.jsx?$/, loader : 'babel', exclude: /(node_modules|bower_components)/},
+            { test : /\.tsx?$/, loaders: ["react-hot-loader/webpack","ts-loader"]},
             // { test : /\.jsx?$/ , loader : 'babel-loader' , query:{ presets : ['es2015','react'] } , exclude: /(node_modules|bower_components)/},
             //如果不超过30000/1024kb,那么就直接采用dataUrl的形式,超过则返回链接,图片会复制到dist目录下
             { test : /\.(png|jpg|jpeg|gif)$/, loader : "url-loader?limit=30000" },
@@ -31,11 +31,12 @@ module.exports = {
     },
 
     resolve : {
-        root : path.resolve('./')
+        root : path.resolve('./src'),
+        extensions: ["", ".webpack.js", ".web.js", ".js", ".ts" , ".jsx", ".tsx"]
     },
 
     postcss: function () {
-        return [require('autoprefixer') , require('postcss-clearfix')];
+        return [require('autoprefixer') , require('postcss-clearfix'),require('postcss-filter-gradient')];
     },
     plugins : [ 
         new webpack.DefinePlugin({
@@ -46,7 +47,7 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin("commons", "[name].bundle.js"),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-            template : 'examples/index.html',
+            template : path.join(__dirname,'examples/index.html'),
             inject: true
             // filename: '../index.html',
         })

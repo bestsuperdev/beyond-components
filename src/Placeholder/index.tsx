@@ -4,11 +4,13 @@
 </Placeholder>
 */
 
-const React = require('react')
+import React = require('react')
 const mergeFuncs = require('beyond-lib/lib/utilities/mergeFuncs')
-const assign = require('beyond-lib/lib/assign')
+import assign = require('beyond-lib/lib/assign')
 
-let support = null;
+// declare const mergeFuncs : ()=> void; 
+
+let support : boolean = null;
 
 
 function isPlaceholderSupport() {
@@ -19,13 +21,27 @@ function isPlaceholderSupport() {
 }
 
 
-class Placeholder extends React.Component {
+interface IPlaceholderProps {
+	children? : any;
+	color? : string | number;
+}
 
-	constructor(props){
+interface IPlaceholderState {
+	isPlaceholder? : boolean;
+	value? : string;
+}
+
+class Placeholder extends React.Component<IPlaceholderProps,IPlaceholderState> {
+
+	// state : any;
+
+	static defaultProps : IPlaceholderProps;
+
+	constructor(props : IPlaceholderProps){
 		super(props)
 		let children = props.children
 		let isPlaceholder = false
-		let value = null
+		let value : string = null
 		if (children && children.props) {
 			const {value : _value ,defaultValue} = children.props
 			isPlaceholder = !_value && !defaultValue
@@ -39,19 +55,17 @@ class Placeholder extends React.Component {
 		if (!isPlaceholderSupport() && children && children.props && children.props.placeholder && (children.type === 'input' || children.type === 'textarea') ) {
 			let props = children.props
 			const {isPlaceholder,value} = this.state
-			// let value = this.state.isPlaceholder ? props.placeholder : this.state.value
 			let nextProps = {
 				value : isPlaceholder ? props.placeholder : value,
 				onChange : mergeFuncs(props.onChange,this.handleChange.bind(this)),
 				onFocus : mergeFuncs(props.onFocus,this.handleFocus.bind(this)),
-				onBlur : mergeFuncs(props.onBlur,this.handleBlur.bind(this))
+				onBlur : mergeFuncs(props.onBlur,this.handleBlur.bind(this)) 				
 			}
-			// alert(props.style)
 			if (isPlaceholder) {
-				nextProps.style =  assign({},props.style,{color : this.props.color})
+				(nextProps as any).style = assign({},props.style,{color : this.props.color})
 			}
 			if (children.type === 'input' &&  children.props.type === 'password' && isPlaceholder) {
-				nextProps.type = 'text'	
+				(nextProps as any).type = 'text'	
 			}
 			return React.cloneElement(children,nextProps)
 		}else{
@@ -59,21 +73,21 @@ class Placeholder extends React.Component {
 		}
 	}
 
-	handleChange(event){
-		let value = event.target.value
-		this.setState((state, props) => ({value }))
+	handleChange(event : React.SyntheticEvent<Element>){
+		let value = (event.target as HTMLInputElement).value
+		this.setState({value})
 	}
 
-	handleBlur(event){
-		let value = event.target.value
+	handleBlur(event : React.SyntheticEvent<Element>){
+		let value = (event.target as HTMLInputElement).value
 		if (!value) {
-			this.setState((state, props) => ({isPlaceholder : true, value}))
+			this.setState({isPlaceholder : true, value})
 		}
 	}
 
-	handleFocus(event){
+	handleFocus(event : React.SyntheticEvent<Element>){
 		if (this.state.isPlaceholder) {
-			this.setState((state, props) => ({isPlaceholder : false, value : ''}))
+			this.setState({isPlaceholder : false, value : ''})
 		}
 	}
 
@@ -84,4 +98,4 @@ Placeholder.defaultProps = {
 	color : '#999'
 }
 
-module.exports = Placeholder
+export = Placeholder
