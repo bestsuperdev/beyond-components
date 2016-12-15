@@ -67,7 +67,7 @@ class App extends React.Component{
 
     render(){
         <Placeholder>
-            <input type="text" placeholder="请输入用户名" value={this.state.value} onChange={this.handlerInputChange.bind(this)}>
+            <input type="text" placeholder="请输入用户名" value={this.state.value} onChange={this.handlerInputChange.bind(this)} />
         </Placeholder>
     }
 }
@@ -83,6 +83,7 @@ class App extends React.Component{
 
 ```jsx
 const Modal = require('beyond-components/lib/Modal');
+require('beyond-components/lib/Modal/index.css')
 class App extends React.Component{
     constructor(props){
         super(props)
