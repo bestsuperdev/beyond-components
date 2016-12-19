@@ -7,7 +7,7 @@
 - [x] Document
 - [x] Placeholder
 - [x] Modal
-- [ ] Grid
+- [x] Grid
 - [ ] Trigger
 - [ ] Selector
 - [ ] Message
@@ -131,3 +131,56 @@ class App extends React.Component{
 | extraClassName    | string   | 外层元素增加class | - |
 | style        | object   |    外部样式    | - |
 
+
+
+### Grid(Row,Col)
+
+排版布局组件
+
+```jsx
+
+
+import "beyond-components/lib/Grid/index.less";
+import Col = require('beyond-components/lib/Grid/Col')
+import Row = require('beyond-components/lib/Grid/Row')
+class App extends React.Component{
+
+    render(){
+        <Row>
+            <Col col={4}>
+                this is content
+            </Col>
+            <Col col={4}>
+                this is content
+            </Col>
+            <Col col={4}>
+                this is content
+            </Col>
+        </Row>
+    }
+}
+
+
+```
+### Row
+
+| 属性        |  类型   |  默认值  | 说明 |
+| --------   | :----:   | :----:  |:----:  |
+| grids     | number |   12    | 非必需，总的grids数|
+| gutter    |  number   |   0   | 非必需，grid内容水平间隔|
+| verticalGutter  |   number    |  0  | 非必需，,grid内容垂直间隔 |
+| width  |    number/string    |   - | 非必需，宽度|
+| style  |    number    |  -  | 非必需，样式 |
+| className  |number    |  row  | 非必需，替换原有className，不建议|
+| extraClassName  |    number    |  -  | 非必需，增加className，定制样式 |
+
+### Col
+| 属性        |  类型   |  默认值  | 说明 |
+| --------   | :----:   | :----:  |:----:  |
+| col     | number |  -   | 非必需，所占grids数|
+| offsetCol    |  number   |   -   | 非必需，margin-right 推移的grids数|
+| width  |   number/string    |  -  | 非必需，宽度，单位是px |
+| offsetWidth  |    number/string    |   - | 非必需，margin-right 宽度，单位是px|
+| style  | Object |  -  | 非必需，样式 |
+| className  | string    |  col  | 非必需，替换原有className，不建议|
+| extraClassName  |    string    |  -  | 非必需，增加className，定制样式 |

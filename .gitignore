@@ -4,3 +4,4 @@ dist
 *.sublime-workspace
 npm-debug.log
 .vscode
+npm-debug.log.*
