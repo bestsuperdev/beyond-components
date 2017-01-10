@@ -8,10 +8,10 @@
 - [x] Placeholder
 - [x] Modal
 - [x] Grid
-- [ ] Trigger
+- [x] Tabs
+- [ ] Tooltip
 - [ ] Selector
 - [ ] Message
-- [ ] Tooltip
 - [ ] Notification
 
 ## 文档
@@ -138,11 +138,8 @@ class App extends React.Component{
 排版布局组件
 
 ```jsx
-
-
 import "beyond-components/lib/Grid/index.less";
-import Col = require('beyond-components/lib/Grid/Col')
-import Row = require('beyond-components/lib/Grid/Row')
+import {Col,Row} = require('beyond-components/lib/Grid')
 class App extends React.Component{
 
     render(){
@@ -159,8 +156,6 @@ class App extends React.Component{
         </Row>
     }
 }
-
-
 ```
 ### Row
 
@@ -170,9 +165,9 @@ class App extends React.Component{
 | gutter    |  number   |   0   | 非必需，grid内容水平间隔|
 | verticalGutter  |   number    |  0  | 非必需，,grid内容垂直间隔 |
 | width  |    number/string    |   - | 非必需，宽度|
-| style  |    number    |  -  | 非必需，样式 |
-| className  |number    |  row  | 非必需，替换原有className，不建议|
-| extraClassName  |    number    |  -  | 非必需，增加className，定制样式 |
+| style  |    object    |  -  | 非必需，样式 |
+| className  | string    |  row  | 非必需，替换原有className，不建议|
+| extraClassName  |    string    |  -  | 非必需，增加className，定制样式 |
 
 ### Col
 | 属性        |  类型   |  默认值  | 说明 |
@@ -184,3 +179,46 @@ class App extends React.Component{
 | style  | Object |  -  | 非必需，样式 |
 | className  | string    |  col  | 非必需，替换原有className，不建议|
 | extraClassName  |    string    |  -  | 非必需，增加className，定制样式 |
+
+
+### Tabs (Tabs Tab)
+
+Tab 组件
+
+```jsx
+import "beyond-components/lib/Tabs/index.less";
+import Tabs,{Tab} = require('beyond-components/lib/Tabs')
+class App extends React.Component{
+
+    render(){
+        <Tabs defaultActiveKey="0">
+            <Tab title="页面1" key="0">页面1的内容</Tab>
+            <Tab title="页面2" key="1" disabled>页面2的内容</Tab>
+            <Tab title="页面3" key="2">页面3的内容</Tab>
+            <Tab title="页面4" key="3">页面4的内容</Tab>
+        </Tabs>
+    }
+}
+
+
+```
+### Tabs
+
+| 属性        |  类型   |  默认值  | 说明 |
+| --------   | :----:   | :----:  |:----:  |
+| defaultActiveKey     | string |   -    | 默认的 active Tab，不受控 |
+| activeKey    |  string   |   0   | active Tab，受控 |
+| onChange  |   function   |  -  | 切换 tab 时的回掉函数 |
+| className  | string  |  tabs  | 非必需，替换原有className，不建议|
+| extraClassName  |    string    |  -  | 非必需，增加className，定制样式 |
+
+### Tab
+
+| 属性        |  类型   |  默认值  | 说明 |
+| --------   | :----:   | :----:  |:----:  |
+| navExtraClassName     | string |  -   | 增加 tab 的 nav 样式|
+| paneExtraClassName    |  string   |   -   | 增加 tab 的 pane 样式 |
+| key  |   string    |  -  | 必须，标识 key |
+| title  |    string    |   - | 每个 tab 的标题|
+| disabled  | boolean |  false  | 禁止切换到该 tab |
+

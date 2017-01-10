@@ -33,7 +33,6 @@ class Col extends React.Component<IColProps,IColState> {
     render() {
 		const style = this.getStyle()
         const {className, extraClassName, style : _style,children} = this.props
-		console.log(this.props)
 		return (
 			<div style={assign({},style,_style)} className={classnames(className,extraClassName)}>
 				{children}

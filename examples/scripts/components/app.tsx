@@ -1,17 +1,13 @@
+import "Modal/index.less";
+import "Grid/index.less";
+import "Tabs/index.less";
+
 import React = require('react')
-// import Test = require('src/index.js')
 import Placeholder = require('Placeholder')
 import Document = require('Document')
-
-import "Modal/index.less";
 import Modal = require('Modal')
-
-import "Grid/index.less";
-import Col = require('Grid/Col')
-import Row = require('Grid/Row')
-// const Document = require('src/Document')
-
-// const Placeholder = (props : any)=> <div></div>
+import {Col,Row} from 'Grid'
+import Tabs ,{Tab} from 'Tabs'
 
 class App extends React.Component<any,any> {
 
@@ -22,7 +18,8 @@ class App extends React.Component<any,any> {
 		this.state = {
 			value1 : "value control",
 			clickPosition : '',
-			showModal : false
+			showModal : false,
+			tabActiveKey : "0"
 		}
 	}
 
@@ -32,12 +29,15 @@ class App extends React.Component<any,any> {
 	}
 
 	handlerShowClickPosition(clickPosition : string){
-		console.log(clickPosition)
 		this.setState({clickPosition})
 	}
 
 	handlerToggleModal(showModal : boolean){
 		this.setState({showModal})
+	}
+
+	handlerToggleTab(key : string, event : React.MouseEvent<Element>){
+		this.setState({tabActiveKey : key})
 	}
 
 	render() {
@@ -125,7 +125,7 @@ class App extends React.Component<any,any> {
 						<p>this is modal content</p>
 					</Modal>
 				</div>
-				<div className='app'>
+				<div>
 
 					<Row  width={500} style={{marginBottom : '20px'}}>
 						<Col key="1" width={100}>width={100}</Col>
@@ -208,7 +208,34 @@ class App extends React.Component<any,any> {
 						<Col key="2" col={2}>2</Col>
 					</Row>
 				</div>
-					
+				<h1>Tabs</h1>
+				<div>
+					<h2>受控 Tabs</h2>
+					<Tabs activeKey={this.state.tabActiveKey} onChange={this.handlerToggleTab.bind(this)}>
+						<Tab title="页面1" key="0">页面1的内容</Tab>
+						<Tab navExtraClassName="red" paneExtraClassName="red" title="页面2" key="1">页面2的内容</Tab>
+						<Tab title="页面3" key="2">页面3的内容</Tab>
+						<Tab title="页面4" key="3">页面4的内容</Tab>
+					</Tabs>
+				</div>
+				<div>
+					<h2>不受控 Tabs</h2>
+					<Tabs defaultActiveKey={this.state.tabActiveKey}>
+						<Tab title="页面1" key="0">页面1的内容</Tab>
+						<Tab title="页面2" key="1">页面2的内容</Tab>
+						<Tab navExtraClassName="red" paneExtraClassName="red" title="页面3" key="2">页面3的内容</Tab>
+						<Tab title="页面4" key="3">页面4的内容</Tab>
+					</Tabs>
+				</div>
+				<div>
+					<h2>disabled Tab 1</h2>
+					<Tabs defaultActiveKey={this.state.tabActiveKey}>
+						<Tab title="页面1" key="0">页面1的内容</Tab>
+						<Tab disabled title="页面2" key="1">页面2的内容</Tab>
+						<Tab navExtraClassName="red" paneExtraClassName="red" title="页面3" key="2">页面3的内容</Tab>
+						<Tab title="页面4" key="3">页面4的内容</Tab>
+					</Tabs>
+				</div>
 			</div>
 		)
 	}
