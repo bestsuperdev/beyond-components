@@ -9,7 +9,7 @@
 - [x] Modal
 - [x] Grid
 - [x] Tabs
-- [ ] Tooltip
+- [x] Tooltip
 - [ ] Message
 - [ ] Notification
 - [ ] Selector

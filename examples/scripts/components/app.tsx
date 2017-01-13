@@ -1,14 +1,15 @@
+import * as classnames from 'classnames';
 import "Modal/index.less";
 import "Grid/index.less";
 import "Tabs/index.less";
-
+import "Tooltip/index.less";
 import React = require('react')
 import Placeholder = require('Placeholder')
 import Document = require('Document')
 import Modal = require('Modal')
 import {Col,Row} from 'Grid'
 import Tabs ,{Tab} from 'Tabs'
-
+import Tooltip,{Trigger} from 'Tooltip'
 class App extends React.Component<any,any> {
 
 	state : any;
@@ -21,6 +22,25 @@ class App extends React.Component<any,any> {
 			showModal : false,
 			tabActiveKey : "0"
 		}
+	}
+
+	componentDidMount(){
+		
+		let wrap = document.createElement('div')
+		let h2s  = Array.prototype.slice.call(document.querySelectorAll('h2'),0) as Array<HTMLHeadingElement>
+		h2s.forEach((h2,i)=>{
+			h2.id = i + ''
+			let a = document.createElement('a')
+			a.innerHTML = h2.innerHTML
+			a.href = `#${i}`
+			a.style.display = 'block'
+			wrap.appendChild(a)
+		})
+		wrap.style.position = 'fixed'
+		wrap.style.right = '0px'
+		wrap.style.top = '0px'
+		wrap.style.background = 'white'
+		document.body.appendChild(wrap)
 	}
 
 	handlerChange(event : React.KeyboardEvent<HTMLInputElement>){
@@ -45,7 +65,7 @@ class App extends React.Component<any,any> {
 			<div className='app'>
 				<h1>beyond components for react</h1>
 				<div>
-					<h3>Placeholder(支持 ie8&ie9)</h3>
+					<h2>Placeholder(支持 ie8&ie9)</h2>
 					<div>
 
 						<Placeholder>
@@ -72,7 +92,7 @@ class App extends React.Component<any,any> {
 				</div>
 
 				<div>
-					<h3>Document</h3>
+					<h2>Document</h2>
 					<div>
 						<Document onClick={this.handlerShowClickPosition.bind(this,'out')}>
 							<div onClick={this.handlerShowClickPosition.bind(this,'inner')} style={{border : '1px solid black'}}>
@@ -84,7 +104,7 @@ class App extends React.Component<any,any> {
 				</div>
 
 				<div>
-					<h3>Modal</h3>
+					<h2>Modal</h2>
 					<button onClick={this.handlerToggleModal.bind(this,true)}>点击弹窗</button>
 					<Modal onClose={this.handlerToggleModal.bind(this,false)} title="this is modal title" maxWidth="60%" bodyHeight="700px" visible={this.state.showModal} footer={<div>this is footer</div>} mask={true}>
 						<p>this is modal content</p>
@@ -125,6 +145,7 @@ class App extends React.Component<any,any> {
 						<p>this is modal content</p>
 					</Modal>
 				</div>
+					<h2>Grids</h2>
 				<div>
 
 					<Row  width={500} style={{marginBottom : '20px'}}>
@@ -138,7 +159,7 @@ class App extends React.Component<any,any> {
 						<Col key="2" width={100}>width={100}</Col>
 					</Row>
 
-					<h2>default 12 grids</h2>
+					<h4>default 12 grids</h4>
 					<Row style={{marginBottom : '20px'}}>
 						<Col key="1" col={12}>12</Col>
 					</Row>
@@ -169,7 +190,7 @@ class App extends React.Component<any,any> {
 						<Col key="12" col={1}>1</Col>
 					</Row>
 
-					<h2>set 24 grids</h2>
+					<h4>set 24 grids</h4>
 					<Row grids={24} verticalGutter={10} gutter={4}>
 						<Col key="1" col={1}>1</Col>
 						<Col key="2" col={1}>1</Col>
@@ -202,15 +223,15 @@ class App extends React.Component<any,any> {
 						<Col key="2" col={1}>12</Col>
 					</Row>
 
-					<h2>verticalGutter={10} gutter={4}</h2>
+					<h4>verticalGutter={10} gutter={4}</h4>
 					<Row verticalGutter={10} gutter={4}>
 						<Col key="1" col={2} offsetCol={8}>2(colOffset 8)</Col>
 						<Col key="2" col={2}>2</Col>
 					</Row>
 				</div>
-				<h1>Tabs</h1>
+				<h2>Tabs</h2>
 				<div>
-					<h2>受控 Tabs</h2>
+					<h4>受控 Tabs</h4>
 					<Tabs activeKey={this.state.tabActiveKey} onChange={this.handlerToggleTab.bind(this)}>
 						<Tab title="页面1" key="0">页面1的内容</Tab>
 						<Tab navExtraClassName="red" paneExtraClassName="red" title="页面2" key="1">页面2的内容</Tab>
@@ -219,7 +240,7 @@ class App extends React.Component<any,any> {
 					</Tabs>
 				</div>
 				<div>
-					<h2>不受控 Tabs</h2>
+					<h4>不受控 Tabs</h4>
 					<Tabs defaultActiveKey={this.state.tabActiveKey}>
 						<Tab title="页面1" key="0">页面1的内容</Tab>
 						<Tab title="页面2" key="1">页面2的内容</Tab>
@@ -228,13 +249,37 @@ class App extends React.Component<any,any> {
 					</Tabs>
 				</div>
 				<div>
-					<h2>disabled Tab 1</h2>
+					<h4>disabled Tab 1</h4>
 					<Tabs defaultActiveKey={this.state.tabActiveKey}>
 						<Tab title="页面1" key="0">页面1的内容</Tab>
 						<Tab disabled title="页面2" key="1">页面2的内容</Tab>
 						<Tab navExtraClassName="red" paneExtraClassName="red" title="页面3" key="2">页面3的内容</Tab>
 						<Tab title="页面4" key="3">页面4的内容</Tab>
 					</Tabs>
+				</div>
+				<h2>tooltip</h2>
+				<div>
+					<Tooltip style={{marginRight : 20}} visible duration={0}>hello world</Tooltip>
+					<Tooltip style={{marginRight : 20}} placement="left" visible duration={0}>hello world</Tooltip>
+					<Tooltip style={{marginRight : 20}} placement="right" visible duration={0}>hello world</Tooltip>
+					<Tooltip style={{marginRight : 20}} placement="bottom" visible duration={0}>hello world</Tooltip>
+					<Trigger tooltip={<Tooltip>hello world</Tooltip>}>
+						<button>hello world</button>
+					</Trigger>
+				</div>
+				<div style={{marginTop:30,marginBottom:30}}>
+					<Trigger tooltip={<Tooltip>hello world</Tooltip>}>
+						<span className="tooltip-btn">top</span>
+					</Trigger>
+					<Trigger tooltip={<Tooltip>hello world</Tooltip>}>
+						<span className="tooltip-btn">bottom</span>
+					</Trigger>
+					<Trigger tooltip={<Tooltip>hello world</Tooltip>}>
+						<span className="tooltip-btn">left</span>
+					</Trigger>
+					<Trigger tooltip={<Tooltip>hello world</Tooltip>}>
+						<span className="tooltip-btn">right</span>
+					</Trigger>
 				</div>
 			</div>
 		)

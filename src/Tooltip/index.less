@@ -1,0 +1,87 @@
+.triangle-reset(@width:10px,@top:transparent,@right:transparent,@bottom:transparent,@left:transparent){
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: @width;
+	border-color: @top @right @bottom @left ;
+}
+.center(){
+	position: absolute;
+	margin-right: auto;
+	margin-left: auto;
+	left: 0;
+	right: 0;
+}
+
+.middle(){
+	position: absolute;
+	margin-top: auto;
+	margin-bottom: auto;
+	top: 0;
+	bottom: 0;
+}
+.tooltip{
+	@width : 14px;
+	display: inline-block;
+	position: relative;
+	border-radius : 6px;
+	border : 1px solid #dddddd;
+	background : white;
+	z-index: 999;
+	&>&-content{
+		text-align: center;
+		padding : 6px 12px;
+		font-size: 12px;
+	}
+	&>&-triangle{
+		position: absolute;
+		.triangle-reset(@width/2);
+	    &:before{
+	    	content: "";
+	    	position: absolute;
+			.triangle-reset(@width/2);
+	    }
+	}
+	&.tooltip-top > &-triangle{
+		.center();
+		bottom : -@width;
+		border-top-color: #dddddd;
+		&:before{
+			border-top-color: white;
+	    	left: -@width/2;
+	    	bottom: -@width/2 + 1px;
+		}
+	}
+	&.tooltip-bottom > &-triangle{
+		.center();
+		top : -@width;
+		border-bottom-color: #dddddd;
+		&:before{
+			border-bottom-color: white;
+	    	left: -@width/2;
+	    	top: -@width/2 + 1px;
+		}
+	}
+
+	&.tooltip-left > &-triangle{
+		.middle();
+		right : -@width;
+		border-left-color: #dddddd;
+		&:before{
+			border-left-color: white;
+	    	right: -@width/2 + 1px;
+	    	bottom: -@width/2 ;
+		}
+
+	}
+	&.tooltip-right > &-triangle{
+		.middle();
+		left : -@width;
+		border-right-color: #dddddd;
+		&:before{
+			border-right-color: white;
+	    	right: -@width/2 - 1px;
+	    	bottom: -@width/2;
+		}
+	}
+}
