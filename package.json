@@ -20,8 +20,8 @@
     "@types/react-dom": ">=0.14.0",
     "beyond-lib": "^1.0.1",
     "classnames": "^2.2.5",
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "react": ">=0.14.0",
+    "react-dom": ">=0.14.0"
   },
   "devDependencies": {
     "@types/es6-shim": "^0.31.32",

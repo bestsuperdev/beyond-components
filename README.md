@@ -10,9 +10,9 @@
 - [x] Grid
 - [x] Tabs
 - [ ] Tooltip
-- [ ] Selector
 - [ ] Message
 - [ ] Notification
+- [ ] Selector
 
 ## 文档
 
