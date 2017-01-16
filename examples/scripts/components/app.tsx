@@ -3,6 +3,7 @@ import "Modal/index.less";
 import "Grid/index.less";
 import "Tabs/index.less";
 import "Tooltip/index.less";
+import "Notification/index.less";
 import React = require('react')
 import Placeholder = require('Placeholder')
 import Document = require('Document')
@@ -10,6 +11,8 @@ import Modal = require('Modal')
 import {Col,Row} from 'Grid'
 import Tabs ,{Tab} from 'Tabs'
 import {Trigger,Tooltip} from 'Tooltip'
+import Notification = require('Notification')
+// import {Content,Notification} from 'Notification'
 class App extends React.Component<any,any> {
 
 	state : any;
@@ -282,7 +285,21 @@ class App extends React.Component<any,any> {
 					</Trigger>
 				</div>
 
-
+				<h2>Notification</h2>
+				<div>
+					<Notification visible>
+						hello world
+					</Notification>
+					<Notification x="left">
+						hello world
+					</Notification>
+					<Notification x="left"  y="bottom">
+						hello world
+					</Notification>
+					<Notification>
+						hello world
+					</Notification>
+				</div>
 			</div>
 		)
 	}

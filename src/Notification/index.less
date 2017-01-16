@@ -1,0 +1,77 @@
+@prefix : .notification;
+@{prefix}{
+	position: fixed;
+	top: 20px;
+	left : 50%;
+	& &-content{
+		border-radius: 3px;
+		background: rgb(255, 255, 255);
+		background: rgba(255, 255, 255,0.95);
+		position: relative;
+		right: 50%;
+		vertical-align: middle;
+		padding: 7px 10px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+		border : 1px solid #d9d9d9;
+		// border: 0px solid rgba(0, 0, 0, 0);
+		line-height: 1.5;
+		margin-bottom: 10px;
+	}
+	& &-content&-content-reverse{
+		color: white;
+		background: rgb(0, 0, 0);
+		background: rgba(0, 0, 0,0.8);
+		box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+		border-color: black;
+	}
+}
+
+@{prefix}-left{
+	left: 20px;
+	right:auto;
+	& @{prefix}-content{
+		right: 0;
+	}
+}
+
+@{prefix}-right{
+	left: auto; 
+	right: 20px;
+	& .@{prefix}-content{
+		right: 0;
+	}
+}
+
+@{prefix}-middle{
+	top: 33.3%;
+	bottom: auto;
+}
+
+
+@{prefix}-bottom{
+	top: auto;
+	bottom: 20px;
+}
+
+
+@{prefix}-animation-enter {
+  opacity: 0.01;
+  transform : translate(0,-20px);
+}
+
+@{prefix}-animation-enter@{prefix}-animation-enter-active {
+  opacity: 1;
+  transform : translate(0,0);
+  transition: opacity 300ms ease-in,transform 300ms ease-in;
+}
+
+@{prefix}-animation-leave {
+  transform : translate(0,0);
+  opacity: 1;
+}
+
+@{prefix}-animation-leave@{prefix}-animation-leave-active {
+  opacity: 0.01;
+  transform : translate(0,-20px);
+  transition: opacity 300ms ease-in,transform 300ms ease-in;
+}

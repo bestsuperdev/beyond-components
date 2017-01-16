@@ -10,8 +10,7 @@
 - [x] Grid
 - [x] Tabs
 - [x] Tooltip
-- [ ] Notification
-- [ ] Message
+- [x] Notification
 
 ## 文档
 
