@@ -5,12 +5,9 @@ function test(event){
 }
 <button onClick={test}></button>
  */
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-// import React = require('react')
-// import ReactDom = require('react-dom')
-// import Tooltip = require('./Tooltip')
-import Tooltip,{ITooltipProps,ITooltipState} from './Tooltip'
+import React = require('react')
+import ReactDOM = require('react-dom')
+import Tooltip = require('./Tooltip')
 
 
 function offset(node : HTMLElement){
@@ -27,7 +24,7 @@ function offset(node : HTMLElement){
 }
 
 
-function getToolTipStyle(tooltip : Tooltip, target : HTMLElement){
+function getToolTipStyle(tooltip : any, target : HTMLElement){
 	let placement = tooltip.props.placement || 'top'
 	let toolTipNode = ReactDOM.findDOMNode(tooltip) as HTMLElement
 	let targetOffset = offset(target)
@@ -58,12 +55,12 @@ function getToolTipStyle(tooltip : Tooltip, target : HTMLElement){
 }
 
 
-export function getNewInstance(props : ITooltipProps, children : any) {
+export function getNewInstance(props : any, children : any) {
 	let wrap = document.createElement('div')
     let instance : Tooltip
 	document.body.appendChild(wrap)
 	
-	instance = ReactDOM.render(<Tooltip {...props}>{children}</Tooltip>,wrap) as Tooltip
+	instance = ReactDOM.render(<Tooltip {...props}>{children}</Tooltip>,wrap)  as Tooltip
     
 	return {
 		show(target : HTMLElement){

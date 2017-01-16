@@ -1,7 +1,7 @@
 import React = require('react')
 import assign = require('beyond-lib/lib/assign')
 import classnames = require('classnames')
-export interface ITooltipProps{
+interface ITooltipProps{
     visible? : boolean;
     duration? : number;
     placement? : 'top' | 'bottom' | 'left' | 'right';
@@ -10,18 +10,18 @@ export interface ITooltipProps{
     className? : string;
 }
 
-export interface ITooltipState{
+interface ITooltipState{
     visible? : boolean;
     style? : Object;
 }
 
 
-export default class Tooltip  extends React.Component<ITooltipProps,ITooltipState>{
+class Tooltip  extends React.Component<ITooltipProps,ITooltipState>{
 
     static defaultProps : ITooltipProps = {
         className : 'tooltip',
         visible : false,
-        duration : 3,
+        duration : 0,
         placement : 'top'
     }
 
@@ -104,3 +104,5 @@ export default class Tooltip  extends React.Component<ITooltipProps,ITooltipStat
         )
 	}
 }
+
+export= Tooltip

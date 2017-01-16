@@ -9,7 +9,7 @@ import Document = require('Document')
 import Modal = require('Modal')
 import {Col,Row} from 'Grid'
 import Tabs ,{Tab} from 'Tabs'
-import Tooltip,{Trigger} from 'Tooltip'
+import {Trigger,Tooltip} from 'Tooltip'
 class App extends React.Component<any,any> {
 
 	state : any;
@@ -61,6 +61,8 @@ class App extends React.Component<any,any> {
 	}
 
 	render() {
+		let a = <div></div>
+		let b = <Tooltip></Tooltip>
 		return (
 			<div className='app'>
 				<h1>beyond components for react</h1>
@@ -263,24 +265,24 @@ class App extends React.Component<any,any> {
 					<Tooltip style={{marginRight : 20}} placement="left" visible duration={0}>hello world</Tooltip>
 					<Tooltip style={{marginRight : 20}} placement="right" visible duration={0}>hello world</Tooltip>
 					<Tooltip style={{marginRight : 20}} placement="bottom" visible duration={0}>hello world</Tooltip>
-					<Trigger tooltip={<Tooltip>hello world</Tooltip>}>
-						<button>hello world</button>
-					</Trigger>
+	
 				</div>
 				<div style={{marginTop:30,marginBottom:30}}>
-					<Trigger tooltip={<Tooltip>hello world</Tooltip>}>
+					<Trigger tooltip={<Tooltip placement="top">hello world</Tooltip>}>
 						<span className="tooltip-btn">top</span>
 					</Trigger>
-					<Trigger tooltip={<Tooltip>hello world</Tooltip>}>
+					<Trigger tooltip={<Tooltip placement="bottom">hello world</Tooltip>}>
 						<span className="tooltip-btn">bottom</span>
 					</Trigger>
-					<Trigger tooltip={<Tooltip>hello world</Tooltip>}>
+					<Trigger tooltip={<Tooltip placement="left">hello world</Tooltip>}>
 						<span className="tooltip-btn">left</span>
 					</Trigger>
-					<Trigger tooltip={<Tooltip>hello world</Tooltip>}>
+					<Trigger tooltip={<Tooltip placement="right">hello world</Tooltip>}>
 						<span className="tooltip-btn">right</span>
 					</Trigger>
 				</div>
+
+
 			</div>
 		)
 	}

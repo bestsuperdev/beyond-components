@@ -7,8 +7,7 @@
 
 import React = require('react')
 import ReactDom = require('react-dom')
-import {getNewInstance} from './TooltipFactory'
-import Tooltip from './Tooltip'
+import {getNewInstance} from './tooltipFactory'
 
 
 function merge(fn1 : Function, fn2 : Function) : Function {
@@ -33,7 +32,7 @@ interface ITriggerState{
 
 }
 
-export default class Trigger extends React.Component<ITriggerProps,ITriggerState> {
+class Trigger extends React.Component<ITriggerProps,ITriggerState> {
 
     tooltip : {show : (node : Element)=>void; hide : ()=>void;};
 
@@ -67,3 +66,5 @@ export default class Trigger extends React.Component<ITriggerProps,ITriggerState
 		}
 	}
 }
+
+export = Trigger

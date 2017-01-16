@@ -1,6 +1,6 @@
-import Tooltip from './Tooltip'
-import Trigger from './Trigger'
+import Tooltip = require('./Tooltip')
+import Trigger = require('./Trigger')
 
-export default Tooltip
+// export default Tooltip
 
-export {Trigger}
+export {Trigger,Tooltip}

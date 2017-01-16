@@ -10,9 +10,8 @@
 - [x] Grid
 - [x] Tabs
 - [x] Tooltip
-- [ ] Message
 - [ ] Notification
-- [ ] Selector
+- [ ] Message
 
 ## 文档
 
@@ -157,7 +156,7 @@ class App extends React.Component{
     }
 }
 ```
-### Row
+#### Row
 
 | 属性        |  类型   |  默认值  | 说明 |
 | --------   | :----:   | :----:  |:----:  |
@@ -169,7 +168,7 @@ class App extends React.Component{
 | className  | string    |  row  | 非必需，替换原有className，不建议|
 | extraClassName  |    string    |  -  | 非必需，增加className，定制样式 |
 
-### Col
+#### Col
 | 属性        |  类型   |  默认值  | 说明 |
 | --------   | :----:   | :----:  |:----:  |
 | col     | number |  -   | 非必需，所占grids数|
@@ -202,7 +201,7 @@ class App extends React.Component{
 
 
 ```
-### Tabs
+#### Tabs
 
 | 属性        |  类型   |  默认值  | 说明 |
 | --------   | :----:   | :----:  |:----:  |
@@ -212,7 +211,7 @@ class App extends React.Component{
 | className  | string  |  tabs  | 非必需，替换原有className，不建议|
 | extraClassName  |    string    |  -  | 非必需，增加className，定制样式 |
 
-### Tab
+#### Tab
 
 | 属性        |  类型   |  默认值  | 说明 |
 | --------   | :----:   | :----:  |:----:  |
@@ -222,3 +221,36 @@ class App extends React.Component{
 | title  |    string    |   - | 每个 tab 的标题|
 | disabled  | boolean |  false  | 禁止切换到该 tab |
 
+
+### Tooltip (Tooltip Trigger)
+
+排版布局组件
+
+```jsx
+import "beyond-components/lib/Tooltip/index.less";
+import {Tooltip,Trigger} from 'beyond-components/lib/Tooltip'
+class App extends React.Component{
+
+    render(){
+        <Trigger tooltip={<Tooltip placement="top">hello world</Tooltip>}>
+            <span>hover me</span>
+        </Trigger>
+    }
+}
+```
+
+#### Tooltip
+
+| 属性        |  类型   |  默认值  | 说明 |
+| --------   | :----:   | :----:  |:----:  |
+| placement  |   string   |  top  | top/bottom/left/right 设置 tooltip 显示的位置 |
+| className  | string  |  tooltip  | 非必需，替换原有className，不建议|
+| extraClassName  |    string    |  -  | 非必需，增加className，定制样式 |
+| style    |  object   |   -   | 设置外层样式 |
+
+
+#### Trigger
+
+| 属性        |  类型   |  默认值  | 说明 |
+| --------   | :----:   | :----:  |:----:  |
+| tooltip | Tooltip |  -   | 必须 |
