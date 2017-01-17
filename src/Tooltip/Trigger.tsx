@@ -13,7 +13,7 @@ import {getNewInstance} from './tooltipFactory'
 function merge(fn1 : Function, fn2 : Function) : Function {
 	return function(){
 		let args = Array.prototype.slice.call(arguments,0)
-		let result
+		let result : any
 		if (typeof fn1 === 'function') {
 			result = fn1.apply(this,args)
 		}

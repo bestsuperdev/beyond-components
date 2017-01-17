@@ -28,7 +28,7 @@ function getToolTipStyle(tooltip : any, target : HTMLElement){
 	let placement = tooltip.props.placement || 'top'
 	let toolTipNode = ReactDOM.findDOMNode(tooltip) as HTMLElement
 	let targetOffset = offset(target)
-	let top , left
+	let top:string , left:string
 	if (placement === 'top') {
 		top  = (targetOffset.top - toolTipNode.offsetHeight - 15) + 'px',
 		left = (targetOffset.left - (toolTipNode.offsetWidth - targetOffset.width ) /2 ) + 'px'
