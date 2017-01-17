@@ -18,7 +18,7 @@ const prefix = 'notification'
 type X =  'center' | 'left' | 'right';
 type Y = 'top' | 'middle' | 'bottom';
 
-interface IContainerProps {
+export interface IContainerProps {
     className? : string;
     extraClassName? : string;
     x? : X;
@@ -40,4 +40,4 @@ const Container = (props : IContainerProps)=> {
 	return <div {...props} className={classnames(className, xClassName, yClassName, props.extraClassName)}>{props.children}</div>
 }
 
-export = Container
+export default Container

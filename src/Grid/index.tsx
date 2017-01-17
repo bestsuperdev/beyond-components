@@ -1,4 +1,4 @@
-import Col = require('./Col')
-import Row = require('./Row')
+import Col from './Col'
+import Row from './Row'
 
 export {Col,Row}

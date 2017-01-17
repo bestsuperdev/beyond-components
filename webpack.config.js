@@ -22,7 +22,7 @@ module.exports = {
         loaders: [
             { test : /\.css$/,  loader : ExtractTextPlugin.extract('style-loader','css-loader!postcss-loader')},
             { test : /\.less$/, loader : ExtractTextPlugin.extract('style-loader','css-loader!postcss-loader!less-loader')},
-             { test : /\.tsx?$/, loaders: ["react-hot-loader/webpack","ts-loader"]},
+             { test : /\.tsx?$/, loaders: ["ts-loader"]},
             // { test : /\.jsx?$/ , loader : 'babel-loader' , query:{ presets : ['es2015','react'] } , exclude: /(node_modules|bower_components)/},
             //如果不超过30000/1024kb,那么就直接采用dataUrl的形式,超过则返回链接,图片会复制到dist目录下
             { test: /\.(png|jpg|jpeg|gif)$/, loader: "url-loader?limit=30000" },
@@ -49,7 +49,7 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin("commons", "[name].bundle.js"),
         // new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-             template : path.join(__dirname,'examples/index.html'),
+            template : path.join(__dirname,'examples/index.html'),
             inject: true
             // filename: '../index.html',
         })

@@ -21,21 +21,23 @@ function isPlaceholderSupport() {
 }
 
 
-interface IPlaceholderProps {
+export interface IPlaceholderProps {
 	children? : any;
 	color? : string | number;
 }
 
-interface IPlaceholderState {
+export interface IPlaceholderState {
 	isPlaceholder? : boolean;
 	value? : string;
 }
 
-class Placeholder extends React.Component<IPlaceholderProps,IPlaceholderState> {
+export default class Placeholder extends React.Component<IPlaceholderProps,IPlaceholderState> {
 
 	// state : any;
 
-	static defaultProps : IPlaceholderProps;
+	static defaultProps : IPlaceholderProps = {
+		color : '#999'
+	}
 
 	constructor(props : IPlaceholderProps){
 		super(props)
@@ -92,10 +94,3 @@ class Placeholder extends React.Component<IPlaceholderProps,IPlaceholderState> {
 	}
 
 }
-
-
-Placeholder.defaultProps = {
-	color : '#999'
-}
-
-export = Placeholder

@@ -1,7 +1,7 @@
 import React = require('react')
 import ReactDOM = require('react-dom')
 import classnames = require('classnames')
-interface IContentProps  {
+export interface IContentProps  {
     className? : string;
     extraClassName? : string;
     reverse? : boolean;
@@ -13,4 +13,4 @@ const Content = (props : IContentProps)=> {
     return <div {...props} className={classnames(className,props.extraClassName,props.reverse && `${className}-reverse`)}>{props.children}</div>
 } 
 
-export = Content
+export default Content

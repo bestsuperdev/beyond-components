@@ -7,7 +7,7 @@ function test(event){
  */
 import React = require('react')
 import ReactDOM = require('react-dom')
-import Tooltip = require('./Tooltip')
+import Tooltip from './Tooltip'
 
 
 function offset(node : HTMLElement){

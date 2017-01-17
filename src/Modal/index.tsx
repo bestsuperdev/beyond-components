@@ -73,7 +73,7 @@ function getHeight(height : NS) : NS{
 
 type NS = number | string;
 
-interface IModalProps {
+export interface IModalProps {
     title? : string;
     close? : boolean;
     closeIcon? : any;
@@ -92,11 +92,18 @@ interface IModalProps {
     style? : Object;
 }
 
-interface IModalState {};
+export interface IModalState {};
 
-class Modal extends React.Component<IModalProps, IModalState> {
+export default class Modal extends React.Component<IModalProps, IModalState> {
 
-    static defaultProps : IModalProps;
+    static defaultProps : IModalProps = {
+		className : classPrefix,
+		maxBodyHeight : 0.7,
+		visible : false,
+		maskClickClose : true,
+		mask : true,
+		closeIcon : 'X'
+	}
 
     constructor(props : IModalProps){
         super(props)
@@ -187,16 +194,3 @@ class Modal extends React.Component<IModalProps, IModalState> {
 		}
 	}
 }
-
-
-Modal.defaultProps = {
-    className : classPrefix,
-    maxBodyHeight : 0.7,
-    visible : false,
-    maskClickClose : true,
-    mask : true,
-    closeIcon : 'X'
-}
-export = Modal
-
-

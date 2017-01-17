@@ -10,12 +10,12 @@
 	 	<Col xs={6}></Col>
 	 </Row>
  */
-import Col = require('./Col')
 import React = require('react')
 import classnames = require('classnames')
 import assign = require('beyond-lib/lib/assign')
+import Col from './Col'
 
-interface IRowProps {
+export interface IRowProps {
 	width?: number | string;
 	gutter?: number;
 	verticalGutter?: number;
@@ -25,9 +25,9 @@ interface IRowProps {
 	grids?: number;
 };
 
-interface IRowState { };
+export interface IRowState { };
 
-class Row extends React.Component<IRowProps, IRowState> {
+export default class Row extends React.Component<IRowProps, IRowState> {
 	static defaultProps: IRowProps = {
 		grids: 12,
 		className: 'row',
@@ -65,6 +65,3 @@ class Row extends React.Component<IRowProps, IRowState> {
 		return children.map((child : JSX.Element) => React.cloneElement(child, { style: assign({}, style, child.props.style), grids }))
 	}
 }
-
-
-export = Row

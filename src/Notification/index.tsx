@@ -1,8 +1,8 @@
 import ReactCSSTransitionGroup = require('react-addons-css-transition-group')
 import React = require('react')
 import ReactDOM = require('react-dom')
-import Content = require('./Content')
-import Container = require('./Container')
+import Content from './Content'
+import Container from './Container'
 import { getNewInstance } from '../Tooltip/tooltipFactory';
 
 
@@ -15,7 +15,7 @@ import { getNewInstance } from '../Tooltip/tooltipFactory';
 type X =  'center' | 'left' | 'right';
 type Y = 'top' | 'middle' | 'bottom';
 
-interface INotificationProps{
+export interface INotificationProps{
     visible? : boolean;
     duration? : number;
     reverse? : boolean;
@@ -24,13 +24,13 @@ interface INotificationProps{
 	extraClassName? : string;
 }
 
-interface INotificationState{
+export interface INotificationState{
     visible? : boolean;
 	message? : string;
 }
 
 
-class Notification extends React.Component<INotificationProps,INotificationState> {
+export default class Notification extends React.Component<INotificationProps,INotificationState> {
 
     static defaultProps : INotificationProps = {
         duration : 2,
@@ -111,5 +111,3 @@ class Notification extends React.Component<INotificationProps,INotificationState
 		)
 	}
 }
-
-export = Notification

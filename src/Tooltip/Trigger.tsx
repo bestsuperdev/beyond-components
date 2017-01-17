@@ -24,15 +24,15 @@ function merge(fn1 : Function, fn2 : Function) : Function {
 	}
 }
 
-interface ITriggerProps{
+export interface ITriggerProps{
     tooltip : any;
 }
 
-interface ITriggerState{
+export interface ITriggerState{
 
 }
 
-class Trigger extends React.Component<ITriggerProps,ITriggerState> {
+export default class Trigger extends React.Component<ITriggerProps,ITriggerState> {
 
     tooltip : {show : (node : Element)=>void; hide : ()=>void;};
 
@@ -66,5 +66,3 @@ class Trigger extends React.Component<ITriggerProps,ITriggerState> {
 		}
 	}
 }
-
-export = Trigger

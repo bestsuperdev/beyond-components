@@ -12,7 +12,7 @@ import classnames = require('classnames')
 import React = require('react')
 // import * as React  from 'react'
 
-interface ITabProps {
+export interface ITabProps {
     navExtraClassName? : string;
     paneExtraClassName? : string;
     key : string;
@@ -20,11 +20,11 @@ interface ITabProps {
     disabled? : boolean;
 }
 
-interface ITabState {
+export interface ITabState {
 
 }
 
-interface ITabsProps {
+export interface ITabsProps {
     defaultActiveKey? : string;
     activeKey? : string;
     onChange? : (key : string)=> void;
@@ -32,7 +32,7 @@ interface ITabsProps {
     extraClassName? : string;
 }
 
-interface ITabsState {
+export interface ITabsState {
     activeKey : string;
 }
 

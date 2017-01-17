@@ -5,13 +5,13 @@ import "Tabs/index.less";
 import "Tooltip/index.less";
 import "Notification/index.less";
 import React = require('react')
-import Placeholder = require('Placeholder')
-import Document = require('Document')
-import Modal = require('Modal')
+import Placeholder from 'Placeholder'
+import Document from 'Document'
+import Modal from 'Modal'
 import {Col,Row} from 'Grid'
 import Tabs ,{Tab} from 'Tabs'
 import {Trigger,Tooltip} from 'Tooltip'
-import Notification = require('Notification')
+import Notification from 'Notification'
 // import {Content,Notification} from 'Notification'
 
 class App extends React.Component<any,any> {
