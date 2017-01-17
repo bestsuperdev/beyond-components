@@ -1,7 +1,6 @@
 import React = require('react')
 import ReactDOM = require('react-dom')
 import classnames = require('classnames')
-
 interface IContentProps  {
     className? : string;
     extraClassName? : string;

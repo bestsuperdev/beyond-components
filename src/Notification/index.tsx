@@ -1,13 +1,16 @@
+import ReactCSSTransitionGroup = require('react-addons-css-transition-group')
+import React = require('react')
+import ReactDOM = require('react-dom')
 import Content = require('./Content')
 import Container = require('./Container')
+import { getNewInstance } from '../Tooltip/tooltipFactory';
 
 
 /**
- 
+ let n = Notification.getHandle(<Notification visible duration >show</Notification>)
+ n.show
  <Notification visible duration >show</Notification>
  */
-import ReactCSSTransitionGroup = require('react-addons-css-transition-group')
-import React = require('react')
 
 type X =  'center' | 'left' | 'right';
 type Y = 'top' | 'middle' | 'bottom';
@@ -18,10 +21,12 @@ interface INotificationProps{
     reverse? : boolean;
     x? : X;
     y? : Y;
+	extraClassName? : string;
 }
 
 interface INotificationState{
-    visible : boolean;
+    visible? : boolean;
+	message? : string;
 }
 
 
@@ -35,12 +40,31 @@ class Notification extends React.Component<INotificationProps,INotificationState
 
     static state : INotificationState
 
+
+	static getInstance(notification : JSX.Element){
+		if(notification){
+			let wrap = document.createElement('div')
+			document.body.appendChild(wrap)
+			let handle = ReactDOM.render(notification,wrap) as Notification
+			return {
+				show(message? : string){
+					handle.show(message)
+				},
+
+				hide(){	
+					handle.hide()
+				}
+			}
+		}
+	}
+
     handle : number
 
     constructor(props : INotificationProps){
         super(props)
         this.state = {
-            visible : props.visible
+            visible : props.visible,
+			message : ''
         }
         this.hide = this.hide.bind(this)
         this.show = this.show.bind(this)
@@ -52,30 +76,34 @@ class Notification extends React.Component<INotificationProps,INotificationState
 	}
 
 	componentDidUpdate(prevProps : INotificationProps, prevState : INotificationState) {
-		if (this.props.duration > 0 && this.state.visible) {
+		let {duration} = this.props
+		if (duration > 0 && this.state.visible) {
 			clearTimeout(this.handle)
-			this.handle = setTimeout(this.hide,this.props.duration * 1000)
+			this.handle = setTimeout(this.hide,duration * 1000)
 		}
 	}
 
 	componentDidMount() {
-		if (this.props.duration > 0 && this.state.visible) {
-			this.handle = setTimeout(this.hide,this.props.duration * 1000)
+		let {duration} = this.props
+		if (duration > 0 && this.state.visible) {
+			this.handle = setTimeout(this.hide,duration * 1000)
 		}
 	}
 
-    show(){
-        this.setState((state, props) => ({visible : true}))
+    show(message : string=''){
+        this.setState((state, props) => ({visible : true,message}))
     }
 
 	hide(){
-		this.setState((state, props) => ({visible : false}))
+		this.setState((state, props) => ({visible : false, message : ''}))
 	}
 
 	render() {
-		const child = this.state.visible ? (<Content reverse={this.props.reverse}>{this.props.children}</Content>) : null 
+		let {reverse,children,extraClassName,x,y} = this.props
+		let {message} = this.state
+		const child = this.state.visible ? (<Content extraClassName={extraClassName} reverse={reverse}>{children || message}</Content>) : null 
 		return (
-			<Container x={this.props.x} y={this.props.y}>
+			<Container x={x} y={y}>
 				<ReactCSSTransitionGroup transitionName="notification-animation" transitionEnterTimeout={300} transitionLeaveTimeout={300}>
 					{child}
 				</ReactCSSTransitionGroup>

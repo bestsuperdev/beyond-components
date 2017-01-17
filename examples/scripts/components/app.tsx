@@ -13,9 +13,12 @@ import Tabs ,{Tab} from 'Tabs'
 import {Trigger,Tooltip} from 'Tooltip'
 import Notification = require('Notification')
 // import {Content,Notification} from 'Notification'
+
 class App extends React.Component<any,any> {
 
 	state : any;
+
+	notice : {show : (message? : string)=>void; hide : ()=>void;}
 
 	constructor(props : any){
 		super(props)
@@ -61,6 +64,13 @@ class App extends React.Component<any,any> {
 
 	handlerToggleTab(key : string, event : React.MouseEvent<Element>){
 		this.setState({tabActiveKey : key})
+	}
+
+	handlerShowMessage(){
+		if(!this.notice){
+			this.notice = Notification.getInstance(<Notification duration={3}>hello world</Notification>)
+		}
+		this.notice.show()
 	}
 
 	render() {
@@ -287,18 +297,7 @@ class App extends React.Component<any,any> {
 
 				<h2>Notification</h2>
 				<div>
-					<Notification visible>
-						hello world
-					</Notification>
-					<Notification x="left">
-						hello world
-					</Notification>
-					<Notification x="left"  y="bottom">
-						hello world
-					</Notification>
-					<Notification>
-						hello world
-					</Notification>
+					<button type="button" onClick={this.handlerShowMessage.bind(this)}>click me to show notification</button>
 				</div>
 			</div>
 		)

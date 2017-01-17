@@ -253,3 +253,46 @@ class App extends React.Component{
 | 属性        |  类型   |  默认值  | 说明 |
 | --------   | :----:   | :----:  |:----:  |
 | tooltip | Tooltip |  -   | 必须 |
+
+
+
+### Notification
+
+消息组件
+
+```jsx
+require("beyond-components/lib/Notification/index.less");
+var Notification = require('Notification')
+class App extends React.Component{
+
+    handlerClick(){
+        if(!this.notice){
+            this.notice = Notification.getInstance(<Notification />)
+        }
+        this.notice.show('hello world:' + Math.random())
+    }
+
+    handlerClick(){
+        if(!this.notice2){
+            this.notice2 = Notification.getInstance(<Notification>hello world</Notification>)
+        }
+        this.notice.show()
+    }
+
+    render(){
+        <div>
+            <button onClick={this.handlerClick.bind(this)}>click me to show hello world</button>
+            <button onClick={this.handlerClick2.bind(this)}>click me to show another hello world</button>
+        </div>
+    }
+}
+```
+
+#### Notification (作为组件)
+
+| 属性        |  类型   |  默认值  | 说明 |
+| --------   | :----:   | :----:  |:----:  |
+| reverse  |   boolean   |  false  |设置反转颜色 |
+| className  | string  |  tooltip  | 非必需，替换原有className，不建议|
+| extraClassName  |    string    |  -  | 非必需，增加className，定制样式 |
+| style    |  object   |   -   | 设置外层样式 |
