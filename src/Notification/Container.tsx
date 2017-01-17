@@ -15,8 +15,8 @@ import classnames = require('classnames')
 
 const prefix = 'notification'
 
-type X =  'center' | 'left' | 'right';
-type Y = 'top' | 'middle' | 'bottom';
+export type X =  'center' | 'left' | 'right';
+export type Y = 'top' | 'middle' | 'bottom';
 
 export interface IContainerProps {
     className? : string;

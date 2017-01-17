@@ -33,6 +33,7 @@ class App extends React.Component<any,any> {
 	componentDidMount(){
 		
 		let wrap = document.createElement('div')
+		
 		let h2s  = Array.prototype.slice.call(document.querySelectorAll('h2'),0) as Array<HTMLHeadingElement>
 		h2s.forEach((h2,i)=>{
 			h2.id = i + ''

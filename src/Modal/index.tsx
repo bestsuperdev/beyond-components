@@ -71,7 +71,7 @@ function getHeight(height : NS) : NS{
 	return height
 }
 
-type NS = number | string;
+export type NS = number | string;
 
 export interface IModalProps {
     title? : string;

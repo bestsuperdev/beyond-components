@@ -2,7 +2,7 @@ import ReactCSSTransitionGroup = require('react-addons-css-transition-group')
 import React = require('react')
 import ReactDOM = require('react-dom')
 import Content from './Content'
-import Container from './Container'
+import Container,{X,Y} from './Container'
 import { getNewInstance } from '../Tooltip/tooltipFactory';
 
 
@@ -12,14 +12,14 @@ import { getNewInstance } from '../Tooltip/tooltipFactory';
  <Notification visible duration >show</Notification>
  */
 
-type X =  'center' | 'left' | 'right';
-type Y = 'top' | 'middle' | 'bottom';
+// type X =  'center' | 'left' | 'right';
+// type Y = 'top' | 'middle' | 'bottom';
 
 export interface INotificationProps{
     visible? : boolean;
     duration? : number;
     reverse? : boolean;
-    x? : X;
+    x? : X
     y? : Y;
 	extraClassName? : string;
 }

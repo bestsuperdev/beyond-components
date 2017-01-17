@@ -6,7 +6,7 @@ function percentage(num : number) {
 	return (num * 100) + '%'
 }
 
-type NS = number | string;
+export type NS = number | string;
 
 export interface IColProps {
     width? : NS;
