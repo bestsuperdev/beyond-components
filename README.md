@@ -12,7 +12,13 @@
 - [x] Tooltip
 - [x] Notification
 
-## 文档
+## 安装 install
+```bash
+npm install beyond-components  --save
+
+```
+
+## 文档 doc 
 
 ### Document
 

@@ -56,12 +56,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bestsuperdev/react-component-boilerplate.git"
+    "url": "https://github.com/bestsuperdev/beyond-components.git"
   },
+  "keywords": [
+    "react",
+    "comonents",
+    "Document",
+    "Placeholder",
+    "Modal",
+    "Grid",
+    "Notification",
+    "Tabs",
+    "Tooltip"
+  ],
   "author": "Peng mingze <mingzepeng@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bestsuperdev/react-component-boilerplate/issues"
+    "url": "https://github.com/bestsuperdev/beyond-components/issues"
   },
-  "homepage": "https://github.com/bestsuperdev/react-component-boilerplate.git"
+  "homepage": "https://github.com/bestsuperdev/beyond-components.git"
 }
