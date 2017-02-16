@@ -1,0 +1,86 @@
+.tooltip {
+  display: inline-block;
+  position: relative;
+  border-radius: 6px;
+  border: 1px solid #dddddd;
+  background: white;
+  z-index: 999;
+}
+.tooltip > .tooltip-content {
+  text-align: center;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+.tooltip > .tooltip-triangle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7px;
+  border-color: transparent transparent transparent transparent;
+}
+.tooltip > .tooltip-triangle:before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7px;
+  border-color: transparent transparent transparent transparent;
+}
+.tooltip.tooltip-top > .tooltip-triangle {
+  position: absolute;
+  margin-right: auto;
+  margin-left: auto;
+  left: 0;
+  right: 0;
+  bottom: -14px;
+  border-top-color: #dddddd;
+}
+.tooltip.tooltip-top > .tooltip-triangle:before {
+  border-top-color: white;
+  left: -7px;
+  bottom: -6px;
+}
+.tooltip.tooltip-bottom > .tooltip-triangle {
+  position: absolute;
+  margin-right: auto;
+  margin-left: auto;
+  left: 0;
+  right: 0;
+  top: -14px;
+  border-bottom-color: #dddddd;
+}
+.tooltip.tooltip-bottom > .tooltip-triangle:before {
+  border-bottom-color: white;
+  left: -7px;
+  top: -6px;
+}
+.tooltip.tooltip-left > .tooltip-triangle {
+  position: absolute;
+  margin-top: auto;
+  margin-bottom: auto;
+  top: 0;
+  bottom: 0;
+  right: -14px;
+  border-left-color: #dddddd;
+}
+.tooltip.tooltip-left > .tooltip-triangle:before {
+  border-left-color: white;
+  right: -6px;
+  bottom: -7px;
+}
+.tooltip.tooltip-right > .tooltip-triangle {
+  position: absolute;
+  margin-top: auto;
+  margin-bottom: auto;
+  top: 0;
+  bottom: 0;
+  left: -14px;
+  border-right-color: #dddddd;
+}
+.tooltip.tooltip-right > .tooltip-triangle:before {
+  border-right-color: white;
+  right: -8px;
+  bottom: -7px;
+}

@@ -1,0 +1,75 @@
+.notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+}
+.notification .notification-content {
+  border-radius: 3px;
+  background: #ffffff;
+  background: rgba(255, 255, 255, 0.95);
+  position: relative;
+  right: 50%;
+  vertical-align: middle;
+  padding: 7px 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid #d9d9d9;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.notification .notification-content.notification-content-reverse {
+  color: white;
+  background: #000000;
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  border-color: black;
+}
+.notification-left {
+  left: 20px;
+  right: auto;
+}
+.notification-left .notification-content {
+  right: 0;
+}
+.notification-right {
+  left: auto;
+  right: 20px;
+}
+.notification-right ..notification-content {
+  right: 0;
+}
+.notification-middle {
+  top: 33.3%;
+  bottom: auto;
+}
+.notification-bottom {
+  top: auto;
+  bottom: 20px;
+}
+.notification-animation-enter {
+  opacity: 0.01;
+  -webkit-transform: translate(0, -20px);
+          transform: translate(0, -20px);
+}
+.notification-animation-enter.notification-animation-enter-active {
+  opacity: 1;
+  -webkit-transform: translate(0, 0);
+          transform: translate(0, 0);
+  -webkit-transition: opacity 300ms ease-in, -webkit-transform 300ms ease-in;
+  transition: opacity 300ms ease-in, -webkit-transform 300ms ease-in;
+  transition: opacity 300ms ease-in, transform 300ms ease-in;
+  transition: opacity 300ms ease-in, transform 300ms ease-in, -webkit-transform 300ms ease-in;
+}
+.notification-animation-leave {
+  -webkit-transform: translate(0, 0);
+          transform: translate(0, 0);
+  opacity: 1;
+}
+.notification-animation-leave.notification-animation-leave-active {
+  opacity: 0.01;
+  -webkit-transform: translate(0, -20px);
+          transform: translate(0, -20px);
+  -webkit-transition: opacity 300ms ease-in, -webkit-transform 300ms ease-in;
+  transition: opacity 300ms ease-in, -webkit-transform 300ms ease-in;
+  transition: opacity 300ms ease-in, transform 300ms ease-in;
+  transition: opacity 300ms ease-in, transform 300ms ease-in, -webkit-transform 300ms ease-in;
+}
