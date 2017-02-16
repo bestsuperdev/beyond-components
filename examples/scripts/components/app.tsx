@@ -112,7 +112,7 @@ class App extends React.Component<any,any> {
 					<div>
 						<Document onClick={this.handlerShowClickPosition.bind(this,'out')}>
 							<div onClick={this.handlerShowClickPosition.bind(this,'inner')} style={{border : '1px solid black'}}>
-								in the document11(click position : {this.state.clickPosition})
+								in the document(click source from : {this.state.clickPosition})
 								<button type="button" onClick={this.handlerShowClickPosition.bind(this,'inner')}>click me</button>
 							</div>
 						</Document>
@@ -164,7 +164,7 @@ class App extends React.Component<any,any> {
 					<h2>Grids</h2>
 				<div>
 
-					<Row  width={500} style={{marginBottom : '20px'}}>
+					<Row width={500} style={{marginBottom : '20px'}}>
 						<Col key="1" width={100}>width={100}</Col>
 						<Col key="2" width={300}>width={300}</Col>
 						<Col key="3" width={100}>width={100}</Col>
@@ -207,8 +207,8 @@ class App extends React.Component<any,any> {
 					</Row>
 
 					<h4>set 24 grids</h4>
-					<Row grids={24} verticalGutter={10} gutter={4}>
-						<Col key="1" col={1}>1</Col>
+					<Row  grids={24} verticalGutter={10} gutter={4}>
+						<Col key="1"  col={1}>1</Col>
 						<Col key="2" col={1}>1</Col>
 						<Col key="3" col={1}>1</Col>
 						<Col key="4" col={1}>1</Col>
@@ -265,7 +265,7 @@ class App extends React.Component<any,any> {
 					</Tabs>
 				</div>
 				<div>
-					<h4>disabled Tab 1</h4>
+					<h4>disabled 页面 2</h4>
 					<Tabs defaultActiveKey={this.state.tabActiveKey}>
 						<Tab title="页面1" key="0">页面1的内容</Tab>
 						<Tab disabled title="页面2" key="1">页面2的内容</Tab>

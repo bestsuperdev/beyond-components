@@ -20,7 +20,7 @@ module.exports = {
     },
     module: {
         loaders: [
-            { test : /\.css$/,  loader : 'style-loader!css-loader!postcss-loader' },
+            { test : /\.css$/,  loader : 'style-loader!css-loader' },
             { test : /\.less$/, loader : 'style-loader!css-loader!postcss-loader!less-loader'},
             { test : /\.tsx?$/, loaders: ["react-hot-loader/webpack","ts-loader"]},
             // { test : /\.jsx?$/ , loader : 'babel-loader' , query:{ presets : ['es2015','react'] } , exclude: /(node_modules|bower_components)/},
