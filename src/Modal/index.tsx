@@ -144,7 +144,7 @@ export default class Modal extends React.Component<IModalProps, IModalState> {
 		}
 		let mask : JSX.Element = null
 		if (this.props.mask !== false) {
-			mask = (<div onClick={maskClickClose ? this.handlerClose : null} className={`${className}-mask`}></div>)
+			mask = (<div onClick={maskClickClose ? this.handlerClose.bind(this) : null} className={`${className}-mask`}></div>)
 		}
 
 		const dialogStyle  = {width,maxWidth}
