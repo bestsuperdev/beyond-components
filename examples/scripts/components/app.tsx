@@ -10,7 +10,7 @@ import Document from 'Document'
 import Modal from 'Modal'
 import {Col,Row} from 'Grid'
 import Tabs ,{Tab} from 'Tabs'
-import {Trigger,Tooltip} from 'Tooltip'
+import Tooltip,{Trigger} from 'Tooltip'
 import Notification from 'Notification'
 // import {Content,Notification} from 'Notification'
 

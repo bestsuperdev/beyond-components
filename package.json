@@ -1,9 +1,7 @@
 {
-  "name": "beyond-p-components",
-  "version": "0.1.0@beta",
-  "description": "a react component boilerplate",
-  "main": "lib/index.js",
-  "style": "lib/index.css",
+  "name": "beyond-components",
+  "version": "0.1.0beta",
+  "description": "react prototype components",
   "scripts": {
     "start": "node ./server.js",
     "mock": "cd ./mock & json-server --watch db.json --routes routes.json --port 9001",

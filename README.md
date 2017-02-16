@@ -21,7 +21,7 @@
 可用于弹窗、下拉框组件
 
 ```jsx
-const Document = require('beyond-components/lib/Document')
+import Document from 'beyond-components/lib/Document'
 class App extends React.Component{
 
     hide(){}
@@ -45,7 +45,9 @@ class App extends React.Component{
 
 ### Placeholder
 
-在不支持 Placeholder 的浏览器上（IE8,IE9）上模拟 Placeholder，会自动判断是否支持 Placeholder，如果支持则使用原生的。使用该组件一定要确认 input/textarea 组件的 value 是受控的
+在不支持 Placeholder 的浏览器上（IE8,IE9）上模拟 Placeholder，会自动判断是否支持 Placeholder，如果支持则使用原生的。  
+
+**使用该组件一定要确认 input/textarea 组件的 value 是受控的**
 
 ```jsx
 
@@ -80,7 +82,7 @@ class App extends React.Component{
 弹窗组件
 
 ```jsx
-const Modal = require('beyond-components/lib/Modal');
+import Modal from 'beyond-components/lib/Modal'
 require('beyond-components/lib/Modal/index.css')
 class App extends React.Component{
     constructor(props){
@@ -227,7 +229,7 @@ class App extends React.Component{
 
 ```jsx
 import "beyond-components/lib/Tooltip/index.less";
-import {Tooltip,Trigger} from 'beyond-components/lib/Tooltip'
+import Tooltip,{Trigger} from 'beyond-components/lib/Tooltip'
 class App extends React.Component{
 
     render(){
@@ -262,7 +264,7 @@ class App extends React.Component{
 
 ```jsx
 require("beyond-components/lib/Notification/index.less");
-var Notification = require('Notification')
+import Notification from 'beyond-components/lib/Notification'
 class App extends React.Component{
 
     handlerClick(){
