@@ -12,8 +12,8 @@ y : top(default)/bottom/middle
 import React = require('react')
 import ReactDOM = require('react-dom')
 import classnames = require('classnames')
-
-const prefix = 'notification'
+import {prefix} from '../consts'
+const containerClassName = `${prefix}notification`
 
 export type X =  'center' | 'left' | 'right';
 export type Y = 'top' | 'middle' | 'bottom';
@@ -28,7 +28,7 @@ export interface IContainerProps {
 
 
 const Container = (props : IContainerProps)=> {
-	const className = props.className || prefix
+	const className = props.className || containerClassName
 	let xClassName = ''
     let yClassName = ''
 	if(props.x === 'left' || props.x === 'right'){

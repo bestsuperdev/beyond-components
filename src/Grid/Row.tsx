@@ -14,6 +14,7 @@ import React = require('react')
 import classnames = require('classnames')
 import assign = require('beyond-lib/lib/assign')
 import Col from './Col'
+import {prefix} from '../consts'
 
 export interface IRowProps {
 	width?: number | string;
@@ -30,7 +31,7 @@ export interface IRowState { };
 export default class Row extends React.Component<IRowProps, IRowState> {
 	static defaultProps: IRowProps = {
 		grids: 12,
-		className: 'row',
+		className: `${prefix}row`,
 		gutter: 0,
 		verticalGutter: 0
 	}

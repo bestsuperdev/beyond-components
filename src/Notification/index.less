@@ -1,5 +1,6 @@
-@prefix : .notification;
-@{prefix}{
+@import "../mixins.less";
+@n_prefix : ~"@{prefix}notification";
+.@{n_prefix}{
 	position: fixed;
 	top: 20px;
 	left : 50%;
@@ -26,51 +27,51 @@
 	}
 }
 
-@{prefix}-left{
+.@{n_prefix}-left{
 	left: 20px;
 	right:auto;
-	& @{prefix}-content{
+	& .@{n_prefix}-content{
 		right: 0;
 	}
 }
 
-@{prefix}-right{
+.@{n_prefix}-right{
 	left: auto; 
 	right: 20px;
-	& .@{prefix}-content{
+	& .@{n_prefix}-content{
 		right: 0;
 	}
 }
 
-@{prefix}-middle{
+.@{n_prefix}-middle{
 	top: 33.3%;
 	bottom: auto;
 }
 
 
-@{prefix}-bottom{
+.@{n_prefix}-bottom{
 	top: auto;
 	bottom: 20px;
 }
 
 
-@{prefix}-animation-enter {
+.@{n_prefix}-animation-enter {
   opacity: 0.01;
   transform : translate(0,-20px);
 }
 
-@{prefix}-animation-enter@{prefix}-animation-enter-active {
+.@{n_prefix}-animation-enter.@{n_prefix}-animation-enter-active {
   opacity: 1;
   transform : translate(0,0);
   transition: opacity 300ms ease-in,transform 300ms ease-in;
 }
 
-@{prefix}-animation-leave {
+.@{n_prefix}-animation-leave {
   transform : translate(0,0);
   opacity: 1;
 }
 
-@{prefix}-animation-leave@{prefix}-animation-leave-active {
+.@{n_prefix}-animation-leave.@{n_prefix}-animation-leave-active {
   opacity: 0.01;
   transform : translate(0,-20px);
   transition: opacity 300ms ease-in,transform 300ms ease-in;

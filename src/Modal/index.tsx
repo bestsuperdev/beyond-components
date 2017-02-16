@@ -1,12 +1,13 @@
 import React = require('react')
 import classnames = require('classnames')
 import assign = require('beyond-lib/lib/assign')
-const classPrefix = 'modal'
+import {prefix} from '../consts'
+const classPrefix = `${prefix}modal`
 
 
 let scrollBarWidth : number = null
 let originBodyPaddingRight : string = null
-let modalBodyOpenClassName = 'modal-body-open'
+let modalBodyOpenClassName = `${prefix}modal-body-open`
 let isSetBodyPadding = false
 let count = 0
 

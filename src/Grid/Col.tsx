@@ -1,6 +1,7 @@
 import React = require('react')
 import classnames = require('classnames')
 import assign = require('beyond-lib/lib/assign')
+import {prefix} from '../consts'
 
 function percentage(num : number) {
 	return (num * 100) + '%'
@@ -40,7 +41,7 @@ function getStyle(props : IColProps) : Object{
 
 const Col = (props : IColProps)=>{
 	props = assign({},props) as IColProps
-	props.className = props.className || 'col'
+	props.className = props.className || `${prefix}col`
 	props.grids = props.grids || 12
 
 	const style = getStyle(props)

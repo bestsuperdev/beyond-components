@@ -1,26 +1,6 @@
-.triangle-reset(@width:10px,@top:transparent,@right:transparent,@bottom:transparent,@left:transparent){
-	width: 0;
-	height: 0;
-	border-style: solid;
-	border-width: @width;
-	border-color: @top @right @bottom @left ;
-}
-.center(){
-	position: absolute;
-	margin-right: auto;
-	margin-left: auto;
-	left: 0;
-	right: 0;
-}
-
-.middle(){
-	position: absolute;
-	margin-top: auto;
-	margin-bottom: auto;
-	top: 0;
-	bottom: 0;
-}
-.tooltip{
+@import "../mixins";
+@tprefix : ~"@{prefix}tooltip";
+.@{tprefix}{
 	@width : 14px;
 	display: inline-block;
 	position: relative;
@@ -42,7 +22,7 @@
 			.triangle-reset(@width/2);
 	    }
 	}
-	&.tooltip-top > &-triangle{
+	&&-top > &-triangle{
 		.center();
 		bottom : -@width;
 		border-top-color: #dddddd;
@@ -52,7 +32,7 @@
 	    	bottom: -@width/2 + 1px;
 		}
 	}
-	&.tooltip-bottom > &-triangle{
+	&&-bottom > &-triangle{
 		.center();
 		top : -@width;
 		border-bottom-color: #dddddd;
@@ -63,7 +43,7 @@
 		}
 	}
 
-	&.tooltip-left > &-triangle{
+	&&-left > &-triangle{
 		.middle();
 		right : -@width;
 		border-left-color: #dddddd;
@@ -74,7 +54,7 @@
 		}
 
 	}
-	&.tooltip-right > &-triangle{
+	&&-right > &-triangle{
 		.middle();
 		left : -@width;
 		border-right-color: #dddddd;

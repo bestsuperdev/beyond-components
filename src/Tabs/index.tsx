@@ -10,6 +10,7 @@ import Tabs , {Tab} from 'beyond-components'
  */
 import classnames = require('classnames')
 import React = require('react')
+import {prefix} from '../consts'
 // import * as React  from 'react'
 
 export interface ITabProps {
@@ -47,7 +48,7 @@ export class Tab extends React.Component<ITabProps,ITabState>{
 export default class Tabs extends React.Component<ITabsProps,ITabsState> {
 
     static defaultProps : ITabsProps = {
-        className : 'tabs'
+        className : `${prefix}tabs`
     }
 
     state : ITabsState;

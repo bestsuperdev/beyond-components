@@ -3,8 +3,8 @@ import React = require('react')
 import ReactDOM = require('react-dom')
 import Content from './Content'
 import Container,{X,Y} from './Container'
-import { getNewInstance } from '../Tooltip/tooltipFactory';
-
+import {getNewInstance} from '../Tooltip/tooltipFactory';
+import {prefix} from '../consts'
 
 /**
  let n = Notification.getHandle(<Notification visible duration >show</Notification>)
@@ -104,7 +104,7 @@ export default class Notification extends React.Component<INotificationProps,INo
 		const child = this.state.visible ? (<Content extraClassName={extraClassName} reverse={reverse}>{children || message}</Content>) : null 
 		return (
 			<Container x={x} y={y}>
-				<ReactCSSTransitionGroup transitionName="notification-animation" transitionEnterTimeout={300} transitionLeaveTimeout={300}>
+				<ReactCSSTransitionGroup transitionName={`${prefix}notification-animation`} transitionEnterTimeout={300} transitionLeaveTimeout={300}>
 					{child}
 				</ReactCSSTransitionGroup>
 			</Container>
