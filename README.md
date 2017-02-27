@@ -57,7 +57,7 @@ class App extends React.Component{
 
 ```jsx
 
-const Placeholder = require('beyond-components/lib/Placeholder')
+import Placeholder from 'beyond-components/lib/Placeholder'
 
 class App extends React.Component{
 
