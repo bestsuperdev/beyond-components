@@ -80,7 +80,7 @@ class App extends React.Component{
 ```
 | 属性     | 类型   |  说明  | 默认值 |
 | -------- | -----  | ----   | ---- |
-| color    | string | number   | placeholder 显示时候的默认颜色  | #999 |
+| color    | string  | placeholder 显示时候的默认颜色  | #999 |
 
 
 ### Modal
