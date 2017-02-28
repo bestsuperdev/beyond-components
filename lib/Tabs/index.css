@@ -1,27 +1,27 @@
-.tabs {
+.beyond_p-tabs {
   color: #999;
 }
-.tabs-navs {
+.beyond_p-tabs-navs {
   padding: 0;
   margin: 0;
   line-height: 1;
   border-bottom: 1px solid #d9dade;
   clear: fix;
 }
-.tabs-nav {
+.beyond_p-tabs-nav {
   padding: 10px;
   list-style: none;
   float: left;
   cursor: pointer;
 }
-.tabs-nav.active {
+.beyond_p-tabs-nav.active {
   color: #000;
 }
-.tabs-pane {
+.beyond_p-tabs-pane {
   text-align: left;
   padding: 10px;
   display: none;
 }
-.tabs-pane.active {
+.beyond_p-tabs-pane.active {
   display: block;
 }

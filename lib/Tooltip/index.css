@@ -1,4 +1,4 @@
-.tooltip {
+.beyond_p-tooltip {
   display: inline-block;
   position: relative;
   border-radius: 6px;
@@ -6,12 +6,12 @@
   background: white;
   z-index: 999;
 }
-.tooltip > .tooltip-content {
+.beyond_p-tooltip > .beyond_p-tooltip-content {
   text-align: center;
   padding: 6px 12px;
   font-size: 12px;
 }
-.tooltip > .tooltip-triangle {
+.beyond_p-tooltip > .beyond_p-tooltip-triangle {
   position: absolute;
   width: 0;
   height: 0;
@@ -19,7 +19,7 @@
   border-width: 7px;
   border-color: transparent transparent transparent transparent;
 }
-.tooltip > .tooltip-triangle:before {
+.beyond_p-tooltip > .beyond_p-tooltip-triangle:before {
   content: "";
   position: absolute;
   width: 0;
@@ -28,7 +28,7 @@
   border-width: 7px;
   border-color: transparent transparent transparent transparent;
 }
-.tooltip.tooltip-top > .tooltip-triangle {
+.beyond_p-tooltip.beyond_p-tooltip-top > .beyond_p-tooltip-triangle {
   position: absolute;
   margin-right: auto;
   margin-left: auto;
@@ -37,12 +37,12 @@
   bottom: -14px;
   border-top-color: #dddddd;
 }
-.tooltip.tooltip-top > .tooltip-triangle:before {
+.beyond_p-tooltip.beyond_p-tooltip-top > .beyond_p-tooltip-triangle:before {
   border-top-color: white;
   left: -7px;
   bottom: -6px;
 }
-.tooltip.tooltip-bottom > .tooltip-triangle {
+.beyond_p-tooltip.beyond_p-tooltip-bottom > .beyond_p-tooltip-triangle {
   position: absolute;
   margin-right: auto;
   margin-left: auto;
@@ -51,12 +51,12 @@
   top: -14px;
   border-bottom-color: #dddddd;
 }
-.tooltip.tooltip-bottom > .tooltip-triangle:before {
+.beyond_p-tooltip.beyond_p-tooltip-bottom > .beyond_p-tooltip-triangle:before {
   border-bottom-color: white;
   left: -7px;
   top: -6px;
 }
-.tooltip.tooltip-left > .tooltip-triangle {
+.beyond_p-tooltip.beyond_p-tooltip-left > .beyond_p-tooltip-triangle {
   position: absolute;
   margin-top: auto;
   margin-bottom: auto;
@@ -65,12 +65,12 @@
   right: -14px;
   border-left-color: #dddddd;
 }
-.tooltip.tooltip-left > .tooltip-triangle:before {
+.beyond_p-tooltip.beyond_p-tooltip-left > .beyond_p-tooltip-triangle:before {
   border-left-color: white;
   right: -6px;
   bottom: -7px;
 }
-.tooltip.tooltip-right > .tooltip-triangle {
+.beyond_p-tooltip.beyond_p-tooltip-right > .beyond_p-tooltip-triangle {
   position: absolute;
   margin-top: auto;
   margin-bottom: auto;
@@ -79,7 +79,7 @@
   left: -14px;
   border-right-color: #dddddd;
 }
-.tooltip.tooltip-right > .tooltip-triangle:before {
+.beyond_p-tooltip.beyond_p-tooltip-right > .beyond_p-tooltip-triangle:before {
   border-right-color: white;
   right: -8px;
   bottom: -7px;

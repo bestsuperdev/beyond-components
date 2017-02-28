@@ -1,16 +1,16 @@
-.beyond__p-row {
+.beyond_p-row {
   display: block;
   padding: 0;
   width: 100%;
   box-sizing: border-box;
   position: relative;
 }
-.beyond__p-row > .beyond__p-col {
+.beyond_p-row > .beyond_p-col {
   box-sizing: border-box;
   float: left;
   position: relative;
 }
-.beyond__p-row:after {
+.beyond_p-row:after {
   content: "";
   display: block;
   clear: both;

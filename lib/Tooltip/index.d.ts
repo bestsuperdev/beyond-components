@@ -1,3 +1,4 @@
 import Tooltip from './Tooltip';
 import Trigger from './Trigger';
-export { Trigger, Tooltip };
+export default Tooltip;
+export { Trigger };
