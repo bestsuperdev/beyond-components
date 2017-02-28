@@ -144,8 +144,8 @@ class App extends React.Component{
 排版布局组件
 
 ```jsx
-require("beyond-components/lib/Grid/index.css");
-import {Col,Row} = require('beyond-components/lib/Grid')
+require("beyond-components/lib/Grid/index.css")
+import {Col,Row} from 'beyond-components/lib/Grid'
 class App extends React.Component{
 
     render(){
@@ -193,7 +193,7 @@ Tab 组件
 
 ```jsx
 require("beyond-components/lib/Tabs/index.css");
-import Tabs,{Tab} = require('beyond-components/lib/Tabs')
+import Tabs,{Tab} from 'beyond-components/lib/Tabs'
 class App extends React.Component{
 
     render(){
