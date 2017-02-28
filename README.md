@@ -231,7 +231,7 @@ class App extends React.Component{
 
 ### Tooltip (Tooltip Trigger)
 
-排版布局组件
+提示气泡
 
 ```jsx
 require("beyond-components/lib/Tooltip/index.css");
