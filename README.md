@@ -126,7 +126,7 @@ class App extends React.Component{
 | footer   | mixin    |   尾部内容     | - |
 | visible   | boolean   |    是否显示弹窗    | false |
 | maxBodyHeight | number   |  最大内容高度（不包括头部和底部），超出会出现滚动条 | 浏览器高度的*0.7 |
-| bodyHeight | number   | 内容高度（不包括头部和底部） | 浏览器高度的*0.7 |
+| bodyHeight | number   | 内容高度（不包括头部和底部） | - |
 | width        | string   | 弹窗宽度       | - |
 | maxWidth        | string   | 弹窗最大宽度       | - |
 | mask        | boolean   | 是否显示遮罩层       | true |
