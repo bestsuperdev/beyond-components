@@ -280,7 +280,7 @@ class App extends React.Component{
         this.notice.show('hello world:' + Math.random())
     }
 
-    handlerClick(){
+    handlerClick2(){
         if(!this.notice2){
             this.notice2 = Notification.getInstance(<Notification>hello world</Notification>)
         }
@@ -300,6 +300,9 @@ class App extends React.Component{
 
 | 属性        |  类型   |  默认值  | 说明 |
 | --------   | :----:   | :----:  |:----:  |
+| duration    |  number   |   2  | 持续时间，单位为 秒 ，若为 0 则不自动消失 |
+| x  |   string   |  center/left/right  | 消息框水平位置 |
+| y  |   string   |  top/middle/bottom  | 消息框垂直位置 |
 | reverse  |   boolean   |  false  |设置反转颜色 |
 | className  | string  |  tooltip  | 非必需，替换原有className，不建议|
 | extraClassName  |    string    |  -  | 非必需，增加className，定制样式 |
