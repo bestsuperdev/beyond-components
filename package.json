@@ -1,6 +1,6 @@
 {
   "name": "beyond-components",
-  "version": "0.2.0beta",
+  "version": "0.2.0beta2",
   "description": "react prototype components",
   "scripts": {
     "start": "node ./server.js",
