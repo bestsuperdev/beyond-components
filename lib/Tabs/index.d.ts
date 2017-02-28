@@ -30,5 +30,5 @@ export default class Tabs extends React.Component<ITabsProps, ITabsState> {
     render(): JSX.Element;
     renderNavs(): JSX.Element;
     renderTabs(): JSX.Element;
-    handleClick(activeKey: string, event: React.MouseEvent<Element>): void;
+    handlerClick(activeKey: string, event: React.MouseEvent<Element>): void;
 }
