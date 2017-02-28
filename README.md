@@ -88,8 +88,8 @@ class App extends React.Component{
 弹窗组件
 
 ```jsx
-import Modal from 'beyond-components/lib/Modal'
 require('beyond-components/lib/Modal/index.css')
+import Modal from 'beyond-components/lib/Modal'
 class App extends React.Component{
     constructor(props){
         super(props)
@@ -144,7 +144,7 @@ class App extends React.Component{
 排版布局组件
 
 ```jsx
-import "beyond-components/lib/Grid/index.less";
+require("beyond-components/lib/Grid/index.css");
 import {Col,Row} = require('beyond-components/lib/Grid')
 class App extends React.Component{
 
@@ -192,7 +192,7 @@ class App extends React.Component{
 Tab 组件
 
 ```jsx
-import "beyond-components/lib/Tabs/index.less";
+require("beyond-components/lib/Tabs/index.css");
 import Tabs,{Tab} = require('beyond-components/lib/Tabs')
 class App extends React.Component{
 
@@ -234,7 +234,7 @@ class App extends React.Component{
 排版布局组件
 
 ```jsx
-import "beyond-components/lib/Tooltip/index.less";
+require("beyond-components/lib/Tooltip/index.css");
 import Tooltip,{Trigger} from 'beyond-components/lib/Tooltip'
 class App extends React.Component{
 
@@ -269,7 +269,7 @@ class App extends React.Component{
 消息组件
 
 ```jsx
-require("beyond-components/lib/Notification/index.less");
+require("beyond-components/lib/Notification/index.css");
 import Notification from 'beyond-components/lib/Notification'
 class App extends React.Component{
 
