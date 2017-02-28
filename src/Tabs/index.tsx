@@ -93,7 +93,7 @@ export default class Tabs extends React.Component<ITabsProps,ITabsState> {
             const {title,disabled,navExtraClassName} = child.props
             const events : {onClick? : (event : React.MouseEvent<Element>)=>void; } = {}
             if(!disabled){
-                events.onClick = this.handleClick.bind(this,key)
+                events.onClick = this.handlerClick.bind(this,key)
             }
             return (
                 <li key={key} className={classnames(`${prefix}-nav`,{ active : key == activeKey },navExtraClassName)}  {...events}>
@@ -125,7 +125,7 @@ export default class Tabs extends React.Component<ITabsProps,ITabsState> {
         return <div className={`${prefix}-panes`}>{panes}</div>
 	}
 
-	handleClick(activeKey : string , event : React.MouseEvent<Element>){
+	handlerClick(activeKey : string , event : React.MouseEvent<Element>){
         // let result
         if(typeof this.props.onChange === 'function'){
             this.props.onChange(activeKey)
