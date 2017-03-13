@@ -12,6 +12,7 @@ import {Col,Row} from 'Grid'
 import Tabs ,{Tab} from 'Tabs'
 import Tooltip,{Trigger} from 'Tooltip'
 import Notification from 'Notification'
+import Form from 'Form'
 // import {Content,Notification} from 'Notification'
 
 class App extends React.Component<any,any> {
@@ -69,9 +70,29 @@ class App extends React.Component<any,any> {
 
 	handlerShowMessage(){
 		if(!this.notice){
-			this.notice = Notification.getInstance(<Notification duration={3}>hello world</Notification>)
+			this.notice = Notification.getInstance(<Notification duration={3}>hello notification</Notification>)
 		}
 		this.notice.show()
+	}
+
+	handlerSubmit(event : React.FormEvent<any>){
+		// event.preventDefault()
+
+	}
+
+	handlerFormSuccess(res : any){
+		this.notice.show(res)
+		console.log('success')
+		console.log(res)
+	}
+	handlerFormError(res : any){
+		console.log('error')
+		console.log(res)
+	}
+	handlerFormComplete(res : any){
+		console.log('complete')
+		console.log(res)
+		
 	}
 
 	render() {
@@ -299,6 +320,18 @@ class App extends React.Component<any,any> {
 				<h2>Notification</h2>
 				<div>
 					<button type="button" onClick={this.handlerShowMessage.bind(this)}>click me to show notification</button>
+				</div>
+
+				<h2>Form</h2>
+				<div>
+					<Form action="/test/test.js" onSubmit={this.handlerSubmit.bind(this)} 
+						onSuccess={this.handlerFormSuccess.bind(this)}  
+						onError={this.handlerFormError.bind(this)}  
+						onComplete={this.handlerFormComplete.bind(this)}  
+					>
+						<input type="file"/>
+						<button type="submit">submit</button>
+					</Form>
 				</div>
 			</div>
 		)

@@ -6,7 +6,7 @@ var config = require('./webpack.dev.config');
 var opn = require('opn');
 // var ip = localIp.getLocalIP4();
 var ip = '0.0.0.0';
-var port = 9000;
+var port = 9001;
 
 var webpackDevServerEntries = ["react-hot-loader/patch","webpack-dev-server/client?http://"+ip+":"+port, "webpack/hot/only-dev-server"]
 if (typeof config.entry === 'string') {
@@ -18,7 +18,7 @@ if (typeof config.entry === 'string') {
   }
 }
 
-new WebpackDevServer(webpack(config), {
+var server = new WebpackDevServer(webpack(config), {
   contentBase: path.resolve(__dirname, './'),
   hot: true,
   //设置webpack-dev-server启动的时候，bundles的输出的路径，打包的时候这个publicPath没有作用
@@ -29,8 +29,19 @@ new WebpackDevServer(webpack(config), {
     '/api/*' : {
       target : 'http://127.0.0.1:9001'
     }
-  },
-}).listen(port, function (err) {
+  }
+})
+
+
+server.use('/test',function(req,res){
+  res.send('"hello world"')
+})
+
+// server.get('/test',function(req,res){
+//   res.send('hello world')
+// })
+
+server.listen(port, function (err) {
   if (err) {
     console.log(err); //eslint-disable-line no-console
   }else{
@@ -39,3 +50,4 @@ new WebpackDevServer(webpack(config), {
   }
 
 });
+

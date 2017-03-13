@@ -101,7 +101,7 @@ export default class Notification extends React.Component<INotificationProps,INo
 	render() {
 		let {reverse,children,extraClassName,x,y} = this.props
 		let {message} = this.state
-		const child = this.state.visible ? (<Content extraClassName={extraClassName} reverse={reverse}>{children || message}</Content>) : null 
+		const child = this.state.visible ? (<Content extraClassName={extraClassName} reverse={reverse}>{message || children}</Content>) : null 
 		return (
 			<Container x={x} y={y}>
 				<ReactCSSTransitionGroup transitionName={`${prefix}notification-animation`} transitionEnterTimeout={300} transitionLeaveTimeout={300}>

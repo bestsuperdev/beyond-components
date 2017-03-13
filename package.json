@@ -1,6 +1,6 @@
 {
   "name": "beyond-components",
-  "version": "0.2.0beta2",
+  "version": "0.3.0beta2",
   "description": "react prototype components",
   "scripts": {
     "start": "node ./server.js",
@@ -15,12 +15,12 @@
   "dependencies": {
     "@types/classnames": "0.0.32",
     "@types/react": ">=0.14.0",
-    "@types/react-addons-css-transition-group": "^15.0.0",
+    "@types/react-addons-css-transition-group": ">=0.14.0",
     "@types/react-dom": ">=0.14.0",
     "beyond-lib": "^1.0.1",
     "classnames": "^2.2.5",
     "react": ">=0.14.0",
-    "react-addons-css-transition-group": "^15.4.2",
+    "react-addons-css-transition-group": ">=0.14.0",
     "react-dom": ">=0.14.0"
   },
   "devDependencies": {

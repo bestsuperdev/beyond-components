@@ -307,3 +307,54 @@ class App extends React.Component{
 | className  | string  |  tooltip  | 非必需，替换原有className，不建议|
 | extraClassName  |    string    |  -  | 非必需，增加className，定制样式 |
 | style    |  object   |   -   | 设置外层样式 |
+
+
+
+### Form
+
+使用 iframe 模拟文件 ajax 上传，兼容到 IE8
+
+```jsx
+import Form from 'beyond-components/lib/Form'
+class App extends React.Component{
+
+    handlerSubmit(event){
+        if(typeof FormData !== 'undefined'){
+            //如果使用 FormData 上传，则阻止表单进行普通提交，使用 FormData进行文件上传
+            event.preventDefault()
+            //code here
+        }
+    }
+
+    handlerFormSuccess(res){
+        //不使用 iframe 上传文件，不会触发此方法
+        console.log(res)
+    }
+
+    render(){
+        <Form action="http://www.example.com" 
+                onSubmit={this.handlerSubmit.bind(this)} 
+				onSuccess={this.handlerFormSuccess.bind(this)}>
+            <input type="file"/>
+            <button type="submit">submit</button>
+        </Form>
+    }
+}
+```
+
+#### Form
+
+| 属性        |  类型   |  默认值  | 说明 |
+| --------   | :----:   | :----:  |:----:  |
+| className  | string  |  tooltip  | 设置 form 的 class |
+| style    |  object   |   -   | 设置 form 样式 |
+| encType    |  string   |   multipart/form-data   | - |
+| dataType |  string(json/html)   |   json   | 对返回数据进行处理 |
+| method |  string   |   POST   | - |
+| action |  string   |   -   | 提交地址 |
+| onSubmit |  function   |   -   | 表单提交触发事件 |
+| onSuccess |  function   |   -   | 提交成功事件，仅在使用 iframe 时候触发  |
+| onError |  function   |   -   | 提交成功，解析数据失败出发，仅在使用 iframe 时候触发 |
+| onComplete |  function   |   -   | 提交完成事件，仅在使用 iframe 时候触发 |
+
+
