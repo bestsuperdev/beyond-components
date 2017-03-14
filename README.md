@@ -312,7 +312,8 @@ class App extends React.Component{
 
 ### Form
 
-使用 iframe 模拟文件 ajax 上传，兼容到 IE8
+使用 iframe 模拟文件 ajax 上传，兼容到 IE8 ，假如浏览器支持 FormData，则不会自动生成 iframe 标签，请使用 FormData 上传文件  
+在这种情况下，IE 浏览器，包括最新的 IE11，请求返回的 content-type 不支持 json，建议服务端直接返回 text/plain
 
 ```jsx
 import Form from 'beyond-components/lib/Form'
@@ -346,7 +347,7 @@ class App extends React.Component{
 
 | 属性        |  类型   |  默认值  | 说明 |
 | --------   | :----:   | :----:  |:----:  |
-| className  | string  |  tooltip  | 设置 form 的 class |
+| className  | string  |  -  | 设置 form 的 class |
 | style    |  object   |   -   | 设置 form 样式 |
 | encType    |  string   |   multipart/form-data   | - |
 | dataType |  string(json/html)   |   json   | 对返回数据进行处理 |
@@ -354,7 +355,7 @@ class App extends React.Component{
 | action |  string   |   -   | 提交地址 |
 | onSubmit |  function   |   -   | 表单提交触发事件 |
 | onSuccess |  function   |   -   | 提交成功事件，仅在使用 iframe 时候触发  |
-| onError |  function   |   -   | 提交成功，解析数据失败出发，仅在使用 iframe 时候触发 |
+| onError |  function   |   -   | 提交成功，解析数据失败事件，仅在使用 iframe 时候触发 |
 | onComplete |  function   |   -   | 提交完成事件，仅在使用 iframe 时候触发 |
 
 

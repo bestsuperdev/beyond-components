@@ -41,7 +41,6 @@ function getIframeName(){
 export interface IFormProps {
 
 	onSubmit? : (event : React.FormEvent<any>)=> void;	
-	
 	onSuccess? : (res : any)=> void;
 	onError? : (res : any)=> void;
 	onComplete? : (res : any)=> void;
@@ -68,13 +67,15 @@ export default class Form extends React.Component<IFormProps,any> {
 
 	constructor(props : IFormProps){
 		super(props)
-		this.iframeName = getIframeName()
 		this.handlerIframeLoad = this.handlerIframeLoad.bind(this)
+		if(!supportFormData){
+			this.iframeName = getIframeName()
+		}
 
 	}
 
 	componentDidMount(){
-		if(!supportFormData || true){
+		if(!supportFormData){
 			this.iframe = document.createElement('iframe')
 			this.iframe.name = this.iframeName
 			this.iframe.id = this.iframeName
@@ -134,7 +135,7 @@ export default class Form extends React.Component<IFormProps,any> {
 		delete props.onError
 		delete props.onSuccess
 		return (
-			<form target={`${this.iframeName}`} {...props}>{children}</form>
+			<form target={this.iframeName} {...props}>{children}</form>
 		)
 	}
 }
