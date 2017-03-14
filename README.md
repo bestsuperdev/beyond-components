@@ -357,5 +357,3 @@ class App extends React.Component{
 | onSuccess |  function   |   -   | 提交成功事件，仅在使用 iframe 时候触发  |
 | onError |  function   |   -   | 提交成功，解析数据失败事件，仅在使用 iframe 时候触发 |
 | onComplete |  function   |   -   | 提交完成事件，仅在使用 iframe 时候触发 |
-
-
