@@ -31,6 +31,7 @@ export interface ITabsProps {
     onChange? : (key : string)=> void;
     className? : string;
     extraClassName? : string;
+    style? : object;
 }
 
 export interface ITabsState {
@@ -68,9 +69,9 @@ export default class Tabs extends React.Component<ITabsProps,ITabsState> {
     
 
     render() {
-        const {className,extraClassName} = this.props
+        const {className,extraClassName,style} = this.props
 		return (
-            <div {...(this.props as any)} className={classnames(className,extraClassName)}>
+            <div style={style} className={classnames(className,extraClassName)}>
 				{this.renderNavs()}
 				{this.renderTabs()}
 			</div>

@@ -45,12 +45,12 @@
   top: auto;
   bottom: 20px;
 }
-.beyond_p-notification-animation-enter {
+.beyond_p-notification-animation-entering {
   opacity: 0.01;
   -webkit-transform: translate(0, -20px);
           transform: translate(0, -20px);
 }
-.beyond_p-notification-animation-enter.beyond_p-notification-animation-enter-active {
+.beyond_p-notification-animation-entering.beyond_p-notification-animation-entered {
   opacity: 1;
   -webkit-transform: translate(0, 0);
           transform: translate(0, 0);
@@ -59,12 +59,12 @@
   transition: opacity 300ms ease-in, transform 300ms ease-in;
   transition: opacity 300ms ease-in, transform 300ms ease-in, -webkit-transform 300ms ease-in;
 }
-.beyond_p-notification-animation-leave {
+.beyond_p-notification-animation-leaving {
   -webkit-transform: translate(0, 0);
           transform: translate(0, 0);
   opacity: 1;
 }
-.beyond_p-notification-animation-leave.beyond_p-notification-animation-leave-active {
+.beyond_p-notification-animation-leaving.beyond_p-notification-animation-leaved {
   opacity: 0.01;
   -webkit-transform: translate(0, -20px);
           transform: translate(0, -20px);

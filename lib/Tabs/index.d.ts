@@ -15,6 +15,7 @@ export interface ITabsProps {
     onChange?: (key: string) => void;
     className?: string;
     extraClassName?: string;
+    style?: object;
 }
 export interface ITabsState {
     activeKey: string;

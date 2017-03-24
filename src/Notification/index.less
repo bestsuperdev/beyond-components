@@ -55,23 +55,23 @@
 }
 
 
-.@{n_prefix}-animation-enter {
+.@{n_prefix}-animation-entering {
   opacity: 0.01;
   transform : translate(0,-20px);
 }
 
-.@{n_prefix}-animation-enter.@{n_prefix}-animation-enter-active {
+.@{n_prefix}-animation-entering.@{n_prefix}-animation-entered {
   opacity: 1;
   transform : translate(0,0);
   transition: opacity 300ms ease-in,transform 300ms ease-in;
 }
 
-.@{n_prefix}-animation-leave {
+.@{n_prefix}-animation-leaving {
   transform : translate(0,0);
   opacity: 1;
 }
 
-.@{n_prefix}-animation-leave.@{n_prefix}-animation-leave-active {
+.@{n_prefix}-animation-leaving.@{n_prefix}-animation-leaved {
   opacity: 0.01;
   transform : translate(0,-20px);
   transition: opacity 300ms ease-in,transform 300ms ease-in;

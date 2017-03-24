@@ -309,6 +309,12 @@ class App extends React.Component{
 | style    |  object   |   -   | 设置外层样式 |
 
 
+### Notification （类）
+
+| 静态方法        |  返回类型   |  参数 | 说明 |
+| --------   | :----:   | :----:  |:----:  |
+| getInstance  |   -   |  -  | 返回一个 notice 对象 |
+
 
 ### Form
 

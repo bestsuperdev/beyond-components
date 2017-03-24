@@ -70,7 +70,7 @@ class App extends React.Component<any,any> {
 
 	handlerShowMessage(){
 		if(!this.notice){
-			this.notice = Notification.getInstance(<Notification duration={3}>hello notification</Notification>)
+			this.notice = Notification.getInstance(<Notification duration={2}>hello notification</Notification>)
 		}
 		this.notice.show()
 	}

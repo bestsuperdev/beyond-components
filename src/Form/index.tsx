@@ -128,7 +128,7 @@ export default class Form extends React.Component<IFormProps,any> {
 
 
 	render() {
-		let props = assign({},this.props)
+		let props = assign({},this.props) as any
 		let {children} = this.props
 		delete props.dataType
 		delete props.onComplete

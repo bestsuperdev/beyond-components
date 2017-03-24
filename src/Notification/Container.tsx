@@ -24,11 +24,13 @@ export interface IContainerProps {
     x? : X;
     y? : Y;
     children? : any; 
+
+	style? : object;
 }
 
 
 const Container = (props : IContainerProps)=> {
-	const className = props.className || containerClassName
+	const className = containerClassName
 	let xClassName = ''
     let yClassName = ''
 	if(props.x === 'left' || props.x === 'right'){
@@ -37,7 +39,8 @@ const Container = (props : IContainerProps)=> {
 	if(props.y === 'middle' || props.y === 'bottom'){
 		yClassName = `${className}-${props.y}`
 	}
-	return <div {...props} className={classnames(className, xClassName, yClassName, props.extraClassName)}>{props.children}</div>
+	
+	return <div style={props.style}  className={classnames(className, xClassName, yClassName, props.extraClassName)}>{props.children}</div>
 }
 
 export default Container

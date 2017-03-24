@@ -1,11 +1,13 @@
 /// <reference types="react" />
 import React = require('react');
 import { X, Y } from './Container';
-/**
- let n = Notification.getHandle(<Notification visible duration >show</Notification>)
- n.show
- <Notification visible duration >show</Notification>
- */
+export declare enum States {
+    none = 0,
+    entering = 1,
+    entered = 2,
+    leaveing = 3,
+    leaved = 4,
+}
 export interface INotificationProps {
     visible?: boolean;
     duration?: number;
@@ -13,10 +15,11 @@ export interface INotificationProps {
     x?: X;
     y?: Y;
     extraClassName?: string;
+    style?: object;
 }
 export interface INotificationState {
-    visible?: boolean;
     message?: string;
+    state?: States;
 }
 export default class Notification extends React.Component<INotificationProps, INotificationState> {
     static defaultProps: INotificationProps;

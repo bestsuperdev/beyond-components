@@ -8,11 +8,13 @@ export interface IContentProps  {
     extraClassName? : string;
     reverse? : boolean;
     children? : any;
+    style? : object;
 }
 
 const Content = (props : IContentProps)=> {
     let className = props.className || contentClassName
-    return <div {...props} className={classnames(className,props.extraClassName,props.reverse && `${className}-reverse`)}>{props.children}</div>
+    
+    return <div style={props.style} className={classnames(className,props.extraClassName,props.reverse && `${className}-reverse`)}>{props.children}</div>
 } 
 
 export default Content
