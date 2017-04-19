@@ -1,20 +1,4 @@
 @import "../mixins.less";
-.@{prefix}row{
-	display: block;
-	padding: 0;
-	// margin: 0 auto;
-	width: 100%;
-	// clear: fix;
-	box-sizing: border-box;
-	position: relative;
-	> .@{prefix}col {
-		box-sizing: border-box;
-		float: left;
-		position: relative;
-	}
-	&:after{
-		content: "";
-		display: block;
-		clear: both;
-	}
-}
+@import "mixin.less";
+
+.beyond_grid(@prefix);

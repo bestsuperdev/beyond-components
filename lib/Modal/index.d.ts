@@ -6,7 +6,7 @@ export interface IModalProps {
     close?: boolean;
     closeIcon?: any;
     footer?: any;
-    visible: boolean;
+    visible?: boolean;
     bodyHeight?: NS;
     maxBodyHeight?: NS;
     width?: NS;

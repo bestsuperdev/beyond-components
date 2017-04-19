@@ -4,7 +4,6 @@
 </Document>
 */
 
-
 import React = require('react')
 import ReactDOM = require('react-dom')
 
@@ -24,7 +23,9 @@ export default class Document extends React.Component<IDocumentProps,IDocumentSt
 
     private innerClick : boolean;
 
-    static defaultProps : IDocumentProps;
+    static defaultProps : IDocumentProps = {
+		delay : 100
+	}
 
 	constructor(props : IDocumentProps){
 		super(props)
@@ -78,8 +79,4 @@ export default class Document extends React.Component<IDocumentProps,IDocumentSt
 	render() {
 		return this.props.children
 	}
-}
-
-Document.defaultProps = { 
-	delay : 100
 }

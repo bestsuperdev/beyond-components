@@ -1,32 +1,4 @@
 @import "../mixins.less";
-.@{prefix}tabs{
-	color: #999;
-	&-navs {
-		padding : 0;
-		margin: 0;
-		line-height: 1;
-		border-bottom: 1px solid #d9dade;
-		// clear: fix;
-	}
+@import "mixin.less";
 
-	&-nav{
-		display: inline-block;
-		padding :10px;
-		list-style: none;
-		// float: left;
-		cursor: pointer;
-		&.active{
-			color: #000;
-		}
-	}
-
-	&-pane{
-		text-align: left;
-		padding : 10px;
-		display: none;
-		&.active{
-			display: block;
-		}
-
-	}
-}
+.beyond_tabs(@prefix);

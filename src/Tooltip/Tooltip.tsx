@@ -96,7 +96,7 @@ export default class Tooltip  extends React.Component<ITooltipProps,ITooltipStat
 			})
 		}
         return (
-            <div  {...this.props} className={classnames(className,`${className}-${placement}`,extraClassName)} style={style} >
+            <div className={classnames(className,`${className}-${placement}`,extraClassName)} style={style} >
                 <div className={`${className}-content`}>
                     {this.props.children}
                 </div>

@@ -316,7 +316,7 @@ class App extends React.Component{
 | getInstance  |   -   |  -  | 返回一个 notice 对象 |
 
 
-### Form
+### Form Ajax文件上传
 
 使用 iframe 模拟文件 ajax 上传，兼容到 IE8 ，假如浏览器支持 FormData，则不会自动生成 iframe 标签，请使用 FormData 上传文件  
 在这种情况下，IE 浏览器，包括最新的 IE11，请求返回的 content-type 不支持 json，建议服务端直接返回 text/plain

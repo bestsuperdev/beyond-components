@@ -12,6 +12,6 @@
 }
 .beyond_p-row:after {
   content: "";
-  display: block;
+  display: table;
   clear: both;
 }
