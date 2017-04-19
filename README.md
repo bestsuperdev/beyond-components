@@ -11,6 +11,7 @@
 - [x] Tabs
 - [x] Tooltip
 - [x] Notification
+- [x] Form
 
 ## 安装 install
 ```bash
@@ -47,6 +48,8 @@ class App extends React.Component{
 | -------- | -----  | ----   | ---- |
 | onClick    | function   |   | - |
 | delay    | number   | document 事件延迟触发，请勿修改小于50  | 100 |
+
+
 
 
 ### Placeholder
@@ -319,7 +322,7 @@ class App extends React.Component{
 ### Form Ajax文件上传
 
 使用 iframe 模拟文件 ajax 上传，兼容到 IE8 ，假如浏览器支持 FormData，则不会自动生成 iframe 标签，请使用 FormData 上传文件  
-在这种情况下，IE 浏览器，包括最新的 IE11，请求返回的 content-type 不支持 json，建议服务端直接返回 text/plain
+在使用 iframe 模拟文件上传的时候，IE 浏览器，包括最新的 IE11，请求返回的 content-type 不支持 json，建议服务端直接返回 text/plain
 
 ```jsx
 import Form from 'beyond-components/lib/Form'

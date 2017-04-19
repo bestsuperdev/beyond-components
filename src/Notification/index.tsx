@@ -3,7 +3,7 @@ import ReactDOM = require('react-dom')
 import Content from './Content'
 import Container,{X,Y} from './Container'
 import {getNewInstance} from '../Tooltip/tooltipFactory';
-import {prefix} from '../consts'
+import { prefix, IBaseProps } from '../consts'
 import classnames = require('classnames')
 
 const nprefix = `${prefix}notification`
@@ -17,21 +17,26 @@ export enum States {
 }
 
 
-const contentClassNames = {
-	[States.none] : '',
-	[States.entering] : `${nprefix}-animation-entering`, 
-	[States.entered] : `${nprefix}-animation-entering ${nprefix}-animation-entered`, 
-	[States.leaveing] : `${nprefix}-animation-leaving`, 
-	[States.leaved] : `${nprefix}-animation-leaving ${nprefix}-animation-leaved`
+const getAnimationClassName = (prefix : string, state : States)=>{
+	prefix = `${prefix}notification`
+	let states = {
+		[States.none] : '',
+		[States.entering] : `${prefix}-animation-entering`, 
+		[States.entered] : `${prefix}-animation-entering ${prefix}-animation-entered`, 
+		[States.leaveing] : `${prefix}-animation-leaving`, 
+		[States.leaved] : `${prefix}-animation-leaving ${prefix}-animation-leaved`
+	}
+	return states[state]
 }
 
-export interface INotificationProps{
+
+
+export interface INotificationProps  extends IBaseProps{
     visible? : boolean;
     duration? : number;
     reverse? : boolean;
     x? : X
     y? : Y;
-	extraClassName? : string;
 	style? : object;
 }
 
@@ -47,7 +52,8 @@ export default class Notification extends React.Component<INotificationProps,INo
     static defaultProps : INotificationProps = {
         duration : 2,
         visible : false,
-        reverse : false
+        reverse : false,
+		prefix  : prefix
     }
 
     static state : INotificationState
@@ -149,15 +155,15 @@ export default class Notification extends React.Component<INotificationProps,INo
 	}
 
 	render() {
-		let {reverse,children,extraClassName,x,y,style} = this.props
+		let {reverse,children,extraClassName,x,y,style,prefix} = this.props
 		let {message,state} = this.state
 		let child : JSX.Element = null
 		if(state !== States.none){
-			let className = classnames(extraClassName,contentClassNames[state]) 
-			child = <Content style={style} extraClassName={className} reverse={reverse}>{message || children}</Content>
+			let className = classnames(getAnimationClassName(prefix,state),extraClassName) 
+			child = <Content prefix={prefix} style={style} extraClassName={className} reverse={reverse}>{message || children}</Content>
 		}
 		return (
-			<Container x={x} y={y}>{child}</Container>
+			<Container prefix={prefix} x={x} y={y}>{child}</Container>
 		)
 	}
 }

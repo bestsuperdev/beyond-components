@@ -1,8 +1,7 @@
 import React = require('react')
 import classnames = require('classnames')
 import assign = require('beyond-lib/lib/assign')
-import {prefix} from '../consts'
-const classPrefix = `${prefix}modal`
+import { prefix, IBaseProps } from '../consts'
 
 
 let scrollBarWidth : number = null
@@ -74,7 +73,7 @@ function getHeight(height : NS) : NS{
 
 export type NS = number | string;
 
-export interface IModalProps {
+export interface IModalProps  extends IBaseProps{
     title? : string;
     close? : boolean;
     closeIcon? : any;
@@ -88,7 +87,6 @@ export interface IModalProps {
     maskClickClose? : boolean; 
     onOpen? : ()=>void;
     onClose? : ()=>void;
-    className? : string;
     extraClassName? : string;
     style? : Object;
 }
@@ -98,7 +96,7 @@ export interface IModalState {};
 export default class Modal extends React.Component<IModalProps, IModalState> {
 
     static defaultProps : IModalProps = {
-		className : classPrefix,
+		prefix : prefix,
 		maxBodyHeight : 0.7,
 		visible : false,
 		maskClickClose : true,
@@ -138,7 +136,8 @@ export default class Modal extends React.Component<IModalProps, IModalState> {
 
 
 	render() {
-		let {className,style,visible,extraClassName,maskClickClose,width,maxWidth,bodyHeight,maxBodyHeight} = this.props
+		let {prefix,style,visible,extraClassName,maskClickClose,width,maxWidth,bodyHeight,maxBodyHeight} = this.props
+		let className = `${prefix}modal`
 		style = assign({},style)
 		if (!visible) {
 			(style as any).display = 'none'
@@ -171,7 +170,8 @@ export default class Modal extends React.Component<IModalProps, IModalState> {
 
 	renderHeader(){
 		let title : JSX.Element , closeBtn : JSX.Element
-		const {title : _title, close, className, closeIcon} = this.props
+		const {title : _title, close, prefix, closeIcon} = this.props
+		let className = `${prefix}modal`
 		if (_title || close !== false) {
 			if (_title != null) {
 				title = <h4 title={_title} className={`${className}-title`}>{_title}</h4>
@@ -187,8 +187,10 @@ export default class Modal extends React.Component<IModalProps, IModalState> {
 
 	renderFooter(){
 		if (this.props.footer != null) {
+			const {prefix} = this.props
+			let className = `${prefix}modal`
 			return (
-				<div className={`${classPrefix}-footer`}>
+				<div className={`${className}-footer`}>
 					{this.props.footer}
 				</div>
 			)

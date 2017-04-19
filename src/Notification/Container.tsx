@@ -12,13 +12,13 @@ y : top(default)/bottom/middle
 import React = require('react')
 import ReactDOM = require('react-dom')
 import classnames = require('classnames')
-import {prefix} from '../consts'
-const containerClassName = `${prefix}notification`
+import { prefix, IBaseProps } from '../consts'
+// const containerClassName = `${prefix}notification`
 
 export type X =  'center' | 'left' | 'right';
 export type Y = 'top' | 'middle' | 'bottom';
 
-export interface IContainerProps {
+export interface IContainerProps extends IBaseProps {
     className? : string;
     extraClassName? : string;
     x? : X;
@@ -30,17 +30,19 @@ export interface IContainerProps {
 
 
 const Container = (props : IContainerProps)=> {
-	const className = containerClassName
-	let xClassName = ''
-    let yClassName = ''
-	if(props.x === 'left' || props.x === 'right'){
-		xClassName = `${className}-${props.x}`
+	let _prefix = props.prefix || prefix 
+	let className = `${_prefix}notification`
+	let xClassName
+    let yClassName
+	let {x,y,extraClassName,children} = props
+	if(x === 'left' || x === 'right'){
+		xClassName = `${className}-${x}`
 	}
-	if(props.y === 'middle' || props.y === 'bottom'){
-		yClassName = `${className}-${props.y}`
+	if(y === 'middle' || y === 'bottom'){
+		yClassName = `${className}-${y}`
 	}
 	
-	return <div style={props.style}  className={classnames(className, xClassName, yClassName, props.extraClassName)}>{props.children}</div>
+	return <div style={props.style}  className={classnames(className, xClassName, yClassName,extraClassName)}>{children}</div>
 }
 
 export default Container

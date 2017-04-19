@@ -1,7 +1,8 @@
 /// <reference types="react" />
 import React = require('react');
+import { IBaseProps } from '../consts';
 export declare type NS = number | string;
-export interface IModalProps {
+export interface IModalProps extends IBaseProps {
     title?: string;
     close?: boolean;
     closeIcon?: any;
@@ -15,7 +16,6 @@ export interface IModalProps {
     maskClickClose?: boolean;
     onOpen?: () => void;
     onClose?: () => void;
-    className?: string;
     extraClassName?: string;
     style?: Object;
 }

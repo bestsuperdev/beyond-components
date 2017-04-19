@@ -1,15 +1,13 @@
 import React = require('react')
 import assign = require('beyond-lib/lib/assign')
 import classnames = require('classnames')
-import {prefix} from '../consts'
+import { prefix, IBaseProps } from '../consts'
 
-export interface ITooltipProps{
+export interface ITooltipProps extends IBaseProps{
     visible? : boolean;
     duration? : number;
     placement? : 'top' | 'bottom' | 'left' | 'right';
     style? : Object;
-    extraClassName? : string;
-    className? : string;
 }
 
 export interface ITooltipState{
@@ -21,7 +19,8 @@ export interface ITooltipState{
 export default class Tooltip  extends React.Component<ITooltipProps,ITooltipState>{
 
     static defaultProps : ITooltipProps = {
-        className : `${prefix}tooltip`,
+        prefix : prefix,
+        // className : `${prefix}tooltip`,
         visible : false,
         duration : 0,
         placement : 'top'
@@ -83,9 +82,9 @@ export default class Tooltip  extends React.Component<ITooltipProps,ITooltipStat
 	}
 
 	render() {
-        let {className,extraClassName,placement} = this.props
-		let style = assign({},this.props.style,this.state.style)
-		
+        let {prefix,extraClassName,placement,style : _style, children} = this.props
+		let style = assign({},_style,this.state.style)
+		let className =  `${prefix}tooltip`
 		if (!this.state.visible) {
 			assign(style,{
 				opacity : 0,
@@ -98,7 +97,7 @@ export default class Tooltip  extends React.Component<ITooltipProps,ITooltipStat
         return (
             <div className={classnames(className,`${className}-${placement}`,extraClassName)} style={style} >
                 <div className={`${className}-content`}>
-                    {this.props.children}
+                    {children}
                 </div>
                 <div className={`${className}-triangle`}></div>
             </div>

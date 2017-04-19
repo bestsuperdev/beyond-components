@@ -134,8 +134,7 @@ export default class Form extends React.Component<IFormProps,any> {
 		delete props.onComplete
 		delete props.onError
 		delete props.onSuccess
-		return (
-			<form target={this.iframeName} {...props}>{children}</form>
-		)
+		return <form target={this.iframeName} {...props}>{children}</form>
+		
 	}
 }

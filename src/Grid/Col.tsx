@@ -1,7 +1,7 @@
 import React = require('react')
 import classnames = require('classnames')
 import assign = require('beyond-lib/lib/assign')
-import {prefix} from '../consts'
+import { prefix, IBaseProps } from '../consts'
 
 function percentage(num : number) {
 	return (num * 100) + '%'
@@ -9,14 +9,14 @@ function percentage(num : number) {
 
 export type NS = number | string;
 
-export interface IColProps {
+export interface IColProps extends IBaseProps {
     width? : NS;
     offsetWidth? : NS;
     col? : number;
     offsetCol? : number;
     style? :  any;
-    className? :  string;
-    extraClassName? :  string;
+    // className? :  string;
+    // extraClassName? :  string;
     grids? : number;
 	children? : any;
 }
@@ -41,11 +41,12 @@ function getStyle(props : IColProps) : Object{
 
 const Col = (props : IColProps)=>{
 	props = assign({},props) as IColProps
-	props.className = props.className || `${prefix}col`
+	props.prefix = props.prefix || prefix
 	props.grids = props.grids || 12
+	let {extraClassName, style : _style, prefix : _prefix} = props
+	let className =  `${_prefix}col`
 
 	const style = getStyle(props)
-	const {className, extraClassName, style : _style} = props
 	return (
 		<div style={assign({},style,_style)} className={classnames(className,extraClassName)}>
 			{props.children}

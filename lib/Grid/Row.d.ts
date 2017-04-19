@@ -1,12 +1,11 @@
 /// <reference types="react" />
 import React = require('react');
-export interface IRowProps {
+import { IBaseProps } from '../consts';
+export interface IRowProps extends IBaseProps {
     width?: number | string;
     gutter?: number;
     verticalGutter?: number;
     style?: any;
-    className?: string;
-    extraClassName?: string;
     grids?: number;
 }
 export interface IRowState {

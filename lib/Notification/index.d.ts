@@ -1,6 +1,7 @@
 /// <reference types="react" />
 import React = require('react');
 import { X, Y } from './Container';
+import { IBaseProps } from '../consts';
 export declare enum States {
     none = 0,
     entering = 1,
@@ -8,13 +9,12 @@ export declare enum States {
     leaveing = 3,
     leaved = 4,
 }
-export interface INotificationProps {
+export interface INotificationProps extends IBaseProps {
     visible?: boolean;
     duration?: number;
     reverse?: boolean;
     x?: X;
     y?: Y;
-    extraClassName?: string;
     style?: object;
 }
 export interface INotificationState {

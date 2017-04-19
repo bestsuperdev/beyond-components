@@ -10,26 +10,22 @@ import Tabs , {Tab} from 'beyond-components'
  */
 import classnames = require('classnames')
 import React = require('react')
-import {prefix} from '../consts'
+import { prefix, IBaseProps } from '../consts'
 // import * as React  from 'react'
 
-export interface ITabProps {
-    navExtraClassName? : string;
-    paneExtraClassName? : string;
+export interface ITabProps  {
     key : string;
     title : string;
     disabled? : boolean;
-}
+};
 
-export interface ITabState {
+export interface ITabState {};
 
-}
-
-export interface ITabsProps {
+export interface ITabsProps extends IBaseProps {
     defaultActiveKey? : string;
     activeKey? : string;
     onChange? : (key : string)=> void;
-    className? : string;
+    // className? : string;
     extraClassName? : string;
     style? : object;
 }
@@ -49,7 +45,7 @@ export class Tab extends React.Component<ITabProps,ITabState>{
 export default class Tabs extends React.Component<ITabsProps,ITabsState> {
 
     static defaultProps : ITabsProps = {
-        className : `${prefix}tabs`
+        prefix : prefix // `${prefix}tabs`
     }
 
     state : ITabsState;
@@ -69,7 +65,8 @@ export default class Tabs extends React.Component<ITabsProps,ITabsState> {
     
 
     render() {
-        const {className,extraClassName,style} = this.props
+        const {prefix,extraClassName,style} = this.props
+        let className = `${prefix}tabs`
 		return (
             <div style={style} className={classnames(className,extraClassName)}>
 				{this.renderNavs()}
@@ -80,8 +77,9 @@ export default class Tabs extends React.Component<ITabsProps,ITabsState> {
 
 	renderNavs(){
         let children : TabElement[]
-        const {children : _children,className : prefix} = this.props
+        const {children : _children,prefix} = this.props
         const {activeKey} = this.state
+        let className = `${prefix}tabs`
         if(!_children){
             children = []
         }else if(!Array.isArray(_children)){
@@ -91,25 +89,24 @@ export default class Tabs extends React.Component<ITabsProps,ITabsState> {
         }
         const navs = children.filter((child)=> child != null ).map((child :  TabElement)=>{
             const key = child.key
-            const {title,disabled,navExtraClassName} = child.props
-            const events : {onClick? : (event : React.MouseEvent<Element>)=>void; } = {}
-            if(!disabled){
-                events.onClick = this.handlerClick.bind(this,key)
-            }
+            const {title,disabled} = child.props
+            let navClassName = classnames(`${className}-nav`,{ active : key == activeKey })
+
             return (
-                <li key={key} className={classnames(`${prefix}-nav`,{ active : key == activeKey },navExtraClassName)}  {...events}>
+                <li key={key} className={navClassName} onClick={disabled ? null : this.handlerClick.bind(this,key)}>
                     {title}
                 </li>
             )
         })
-        return <ul className={`${prefix}-navs`}>{navs}</ul>
+        return <ul className={`${className}-navs`}>{navs}</ul>
 	}
 
 
 	renderTabs(){
         let children : TabElement[]
-        const {children : _children,className : prefix} = this.props
+        const {children : _children, prefix} = this.props
         const {activeKey} = this.state
+        let className = `${prefix}tabs`
         if(!_children){
             children = []
         }else if(!Array.isArray(_children)){
@@ -120,10 +117,10 @@ export default class Tabs extends React.Component<ITabsProps,ITabsState> {
         const panes = children.filter((child)=> child != null).map((child : TabElement)=>{ 
             const key = child.key
             const active = activeKey == key
-            const {paneExtraClassName} = child.props
-            return <div key={key} className={classnames(`${prefix}-pane`,{active},paneExtraClassName)}>{(child.props as any).children}</div>
+            // const {paneExtraClassName} = child.props
+            return <div key={key} className={classnames(`${className}-pane`,{active})}>{(child.props as any).children}</div>
         })
-        return <div className={`${prefix}-panes`}>{panes}</div>
+        return <div className={`${className}-panes`}>{panes}</div>
 	}
 
 	handlerClick(activeKey : string , event : React.MouseEvent<Element>){

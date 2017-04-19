@@ -1,12 +1,11 @@
 /// <reference types="react" />
 import React = require('react');
-export interface ITooltipProps {
+import { IBaseProps } from '../consts';
+export interface ITooltipProps extends IBaseProps {
     visible?: boolean;
     duration?: number;
     placement?: 'top' | 'bottom' | 'left' | 'right';
     style?: Object;
-    extraClassName?: string;
-    className?: string;
 }
 export interface ITooltipState {
     visible?: boolean;

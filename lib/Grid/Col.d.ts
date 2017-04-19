@@ -1,13 +1,12 @@
 /// <reference types="react" />
+import { IBaseProps } from '../consts';
 export declare type NS = number | string;
-export interface IColProps {
+export interface IColProps extends IBaseProps {
     width?: NS;
     offsetWidth?: NS;
     col?: number;
     offsetCol?: number;
     style?: any;
-    className?: string;
-    extraClassName?: string;
     grids?: number;
     children?: any;
 }

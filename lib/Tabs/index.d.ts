@@ -1,19 +1,17 @@
 /// <reference types="react" />
 import React = require('react');
+import { IBaseProps } from '../consts';
 export interface ITabProps {
-    navExtraClassName?: string;
-    paneExtraClassName?: string;
     key: string;
     title: string;
     disabled?: boolean;
 }
 export interface ITabState {
 }
-export interface ITabsProps {
+export interface ITabsProps extends IBaseProps {
     defaultActiveKey?: string;
     activeKey?: string;
     onChange?: (key: string) => void;
-    className?: string;
     extraClassName?: string;
     style?: object;
 }

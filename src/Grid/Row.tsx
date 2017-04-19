@@ -14,15 +14,15 @@ import React = require('react')
 import classnames = require('classnames')
 import assign = require('beyond-lib/lib/assign')
 import Col from './Col'
-import {prefix} from '../consts'
+import { prefix, IBaseProps } from '../consts'
 
-export interface IRowProps {
+export interface IRowProps extends IBaseProps {
 	width?: number | string;
 	gutter?: number;
 	verticalGutter?: number;
 	style?: any;
-	className?: string;
-	extraClassName?: string;
+	// className?: string;
+	// extraClassName?: string;
 	grids?: number;
 };
 
@@ -31,7 +31,7 @@ export interface IRowState { };
 export default class Row extends React.Component<IRowProps, IRowState> {
 	static defaultProps: IRowProps = {
 		grids: 12,
-		className: `${prefix}row`,
+		prefix : prefix,  //`${prefix}row`,
 		gutter: 0,
 		verticalGutter: 0
 	}
@@ -39,7 +39,8 @@ export default class Row extends React.Component<IRowProps, IRowState> {
 
 	render() {
 		let style : {width? : string | number} = {}
-		let {width,className,extraClassName,style : _style} = this.props
+		let className = `${prefix}row`
+		let {width,extraClassName,style : _style} = this.props
 		if (width != null) {
 			style.width = width
 		}

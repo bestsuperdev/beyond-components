@@ -1,7 +1,6 @@
 /// <reference types="react" />
-export interface IContentProps {
-    className?: string;
-    extraClassName?: string;
+import { IBaseProps } from '../consts';
+export interface IContentProps extends IBaseProps {
     reverse?: boolean;
     children?: any;
     style?: object;
