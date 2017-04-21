@@ -1,3 +1,41 @@
+@import "../../src/Modal/mixin";
+@import "../../src/Grid/mixin";
+@import "../../src/Tabs/mixin";
+@import "../../src/Tooltip/mixin";
+@import "../../src/Notification/mixin";
+
+.beyond_modal(example);
+.beyond_grid(example);
+.beyond_tabs(example);
+.beyond_tooltip(example);
+.beyond_notification(example);
+.example{
+
+	&row>&col{
+		border-color  : gold!important;
+	}
+	&tabs &tabs-pane{
+		background: #ccc;
+	}
+
+	&tooltip-content{
+		color: pink;
+		padding: 20px!important;
+	}
+	&tooltip-triangle{
+		&:before{
+			// border-
+		}
+	}
+
+	&notification-content{
+		background: pink!important;
+		color: white;
+	}
+
+}
+
+
 .app{
 	width: 80%;
 	// text-align: center;

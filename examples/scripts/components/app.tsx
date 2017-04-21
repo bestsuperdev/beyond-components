@@ -13,9 +13,10 @@ import Tabs ,{Tab} from 'Tabs'
 import Tooltip,{Trigger} from 'Tooltip'
 import Notification from 'Notification'
 import Form from 'Form'
-// import {Content,Notification} from 'Notification'
 
-class App extends React.Component<any,any> {
+
+class App extends React.Component<any, any> {
+	notice2: any;
 
 	state : any;
 
@@ -27,6 +28,7 @@ class App extends React.Component<any,any> {
 			value1 : "value control",
 			clickPosition : '',
 			showModal : false,
+			showModal2 : false,
 			tabActiveKey : "0"
 		}
 	}
@@ -64,15 +66,25 @@ class App extends React.Component<any,any> {
 		this.setState({showModal})
 	}
 
+	handlerToggleModal2(showModal2 : boolean){
+		this.setState({showModal2})
+	}
+
 	handlerToggleTab(key : string, event : React.MouseEvent<Element>){
 		this.setState({tabActiveKey : key})
 	}
 
 	handlerShowMessage(){
 		if(!this.notice){
-			this.notice = Notification.getInstance(<Notification duration={2}>hello notification</Notification>)
+			this.notice = Notification.getInstance(<Notification duration={3}>hello notification</Notification>)
 		}
 		this.notice.show()
+	}
+	handlerShowMessage2(){
+		if(!this.notice2){
+			this.notice2 = Notification.getInstance(<Notification prefix="example" duration={3}>hello notification</Notification>)
+		}
+		this.notice2.show()
 	}
 
 	handlerSubmit(event : React.FormEvent<any>){
@@ -102,7 +114,7 @@ class App extends React.Component<any,any> {
 			<div className='app'>
 				<h1>beyond components for react</h1>
 				<div>
-					<h2>Placeholder(支持 ie8&ie9)</h2>
+					<h2>Placeholder( 支持 ie8&ie9 )</h2>
 					<div>
 
 						<Placeholder>
@@ -143,7 +155,56 @@ class App extends React.Component<any,any> {
 				<div>
 					<h2>Modal</h2>
 					<button onClick={this.handlerToggleModal.bind(this,true)}>点击弹窗</button>
+					<button onClick={this.handlerToggleModal2.bind(this,true)}>点击弹窗(自定义前缀)</button>
+
 					<Modal onClose={this.handlerToggleModal.bind(this,false)} title="this is modal title" maxWidth="60%" bodyHeight="700px" visible={this.state.showModal} footer={<div>this is footer</div>} mask={true}>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+						<p>this is modal content</p>
+					</Modal>
+
+					<Modal 
+						prefix="example"
+						onClose={this.handlerToggleModal2.bind(this,false)} 
+						title="this is custom prefix modal title11111" 
+						maxWidth="70%" 
+						bodyHeight="700px" 
+						visible={this.state.showModal2} 
+						footer={<div>this is footer</div>} 
+						mask={true}>
 						<p>this is modal content</p>
 						<p>this is modal content</p>
 						<p>this is modal content</p>
@@ -265,6 +326,22 @@ class App extends React.Component<any,any> {
 						<Col key="1" col={2} offsetCol={8}>2(colOffset 8)</Col>
 						<Col key="2" col={2}>2</Col>
 					</Row>
+
+					<h4>custom prefix grid</h4>
+					<Row prefix="example" verticalGutter={10} gutter={4}>
+						<Col key="1" col={1}>1</Col>
+						<Col key="2" col={1}>1</Col>
+						<Col key="3" col={1}>1</Col>
+						<Col key="4" col={1}>1</Col>
+						<Col key="5" col={1}>1</Col>
+						<Col key="6" col={1}>1</Col>
+						<Col key="7" col={1}>1</Col>
+						<Col key="8" col={1}>1</Col>
+						<Col key="9" col={1}>1</Col>
+						<Col key="10" col={1}>1</Col>
+						<Col key="11" col={1}>1</Col>
+						<Col key="12" col={1}>1</Col>
+					</Row>
 				</div>
 				<h2>Tabs</h2>
 				<div>
@@ -294,17 +371,26 @@ class App extends React.Component<any,any> {
 						<Tab title="页面4" key="3">页面4的内容</Tab>
 					</Tabs>
 				</div>
+				<div>
+					<h4>自定义前缀</h4>
+					<Tabs prefix="example" defaultActiveKey={this.state.tabActiveKey}>
+						<Tab title="页面1" key="0">页面1的内容</Tab>
+						<Tab title="页面2" key="1">页面2的内容</Tab>
+						<Tab  title="页面3" key="2">页面3的内容</Tab>
+						<Tab title="页面4" key="3">页面4的内容</Tab>
+					</Tabs>
+				</div>
 				<h2>tooltip</h2>
 				<div>
-					<Tooltip style={{marginRight : 20}} visible duration={0}>hello world</Tooltip>
-					<Tooltip style={{marginRight : 20}} placement="left" visible duration={0}>hello world</Tooltip>
-					<Tooltip style={{marginRight : 20}} placement="right" visible duration={0}>hello world</Tooltip>
-					<Tooltip style={{marginRight : 20}} placement="bottom" visible duration={0}>hello world</Tooltip>
+					<Tooltip  style={{marginRight : 20}} visible >hello world</Tooltip>
+					<Tooltip style={{marginRight : 20}} placement="left" visible >hello world</Tooltip>
+					<Tooltip  style={{marginRight : 20}} placement="right" visible >hello world</Tooltip>
+					<Tooltip  style={{marginRight : 20}} placement="bottom" visible >hello world</Tooltip>
 	
 				</div>
 				<div style={{marginTop:30,marginBottom:30}}>
 					<Trigger tooltip={<Tooltip placement="top">hello world</Tooltip>}>
-						<span className="tooltip-btn">top</span>
+						<span onMouseEnter={(e)=> console.log('enter') } onMouseOut={(e)=> console.log('out')} className="tooltip-btn">top</span>
 					</Trigger>
 					<Trigger tooltip={<Tooltip placement="bottom">hello world</Tooltip>}>
 						<span className="tooltip-btn">bottom</span>
@@ -316,10 +402,18 @@ class App extends React.Component<any,any> {
 						<span className="tooltip-btn">right</span>
 					</Trigger>
 				</div>
-
+				<div>
+					<h4>自定义前缀 </h4>
+					<Tooltip prefix="example" style={{marginRight : 20}} visible >hello world</Tooltip>
+					<Tooltip prefix="example" style={{marginRight : 20}} placement="left" visible >hello world</Tooltip>
+					<Tooltip prefix="example" style={{marginRight : 20}} placement="right" visible >hello world</Tooltip>
+					<Tooltip prefix="example" style={{marginRight : 20}} placement="bottom" visible >hello world</Tooltip>
+	
+				</div>
 				<h2>Notification</h2>
 				<div>
 					<button type="button" onClick={this.handlerShowMessage.bind(this)}>click me to show notification</button>
+					<button type="button" onClick={this.handlerShowMessage2.bind(this)}>click me to show custom prefix notification</button>
 				</div>
 
 				<h2>Form</h2>

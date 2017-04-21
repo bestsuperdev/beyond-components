@@ -8,21 +8,21 @@
 import React = require('react')
 import ReactDom = require('react-dom')
 import {getNewInstance} from './tooltipFactory'
+import mergeFuncs = require('beyond-lib/lib/utilities/mergeFuncs')
 
-
-function merge(fn1 : Function, fn2 : Function) : Function {
-	return function(){
-		let args = Array.prototype.slice.call(arguments,0)
-		let result : any
-		if (typeof fn1 === 'function') {
-			result = fn1.apply(this,args)
-		}
-		if (typeof fn2 === 'function') {
-			fn2.apply(this,args)
-		}
-		return result
-	}
-}
+// function merge(fn1 : Function, fn2 : Function) : Function {
+// 	return function(){
+// 		let args = Array.prototype.slice.call(arguments,0)
+// 		let result : any
+// 		if (typeof fn1 === 'function') {
+// 			result = fn1.apply(this,args)
+// 		}
+// 		if (typeof fn2 === 'function') {
+// 			fn2.apply(this,args)
+// 		}
+// 		return result
+// 	}
+// }
 
 export interface ITriggerProps{
     tooltip : any;
@@ -48,8 +48,8 @@ export default class Trigger extends React.Component<ITriggerProps,ITriggerState
     render() {
 		let children = this.props.children as any
         let props = {
-            onMouseEnter : merge(children.props.onMouseEnter,this.show.bind(this)),
-            onMouseLeave : merge(children.props.onMouseLeave,this.hide.bind(this)) 
+            onMouseEnter : mergeFuncs(children.props.onMouseEnter,this.show.bind(this)),
+            onMouseLeave : mergeFuncs(children.props.onMouseLeave,this.hide.bind(this)) 
         }
 		return React.cloneElement(children,props) 
 	}

@@ -39,8 +39,9 @@ export default class Row extends React.Component<IRowProps, IRowState> {
 
 	render() {
 		let style : {width? : string | number} = {}
+		let {width,extraClassName,style : _style, prefix} = this.props
+
 		let className = `${prefix}row`
-		let {width,extraClassName,style : _style} = this.props
 		if (width != null) {
 			style.width = width
 		}
@@ -52,7 +53,7 @@ export default class Row extends React.Component<IRowProps, IRowState> {
 	}
 
 	renderCols() {
-		let {gutter, verticalGutter,grids} = this.props
+		let {gutter, verticalGutter,grids,prefix} = this.props
 		let children = (Array.isArray(this.props.children) ? this.props.children : [this.props.children]).filter((child) => child != null)
 		let style : {paddingLeft? : number; paddingRight? : number; paddingTop? : number; paddingBottom? : number;} = {}
 
@@ -64,6 +65,6 @@ export default class Row extends React.Component<IRowProps, IRowState> {
 			style.paddingTop = verticalGutter / 2
 			style.paddingBottom = verticalGutter / 2
 		}
-		return children.map((child : JSX.Element) => React.cloneElement(child, { style: assign({}, style, child.props.style), grids }))
+		return children.map((child : JSX.Element) => React.cloneElement(child, { style: assign({}, style, child.props.style), grids,prefix}))
 	}
 }

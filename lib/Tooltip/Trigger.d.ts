@@ -13,8 +13,8 @@ export default class Trigger extends React.Component<ITriggerProps, ITriggerStat
     target: Element;
     componentDidMount(): void;
     render(): React.SFCElement<{
-        onMouseEnter: Function;
-        onMouseLeave: Function;
+        onMouseEnter: {};
+        onMouseLeave: {};
     }>;
     show(): void;
     hide(): void;

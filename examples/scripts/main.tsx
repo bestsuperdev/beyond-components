@@ -30,7 +30,8 @@ ReactDOM.render(<App/>, $root)
 
 if(module.hot) {
 	module.hot.accept("../scripts/components/App", () => {
-		const NextApp = require("../scripts/components/App")['default']
+		const NextApp = require("../scripts/components/App")
+		console.log(NextApp)
 		ReactDOM.render(<AppContainer><App/></AppContainer>,$root)
 	})
 }

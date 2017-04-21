@@ -25,6 +25,7 @@
   background: #000;
 }
 .beyond_p-modal-dialog {
+  text-align: left;
   display: inline-block;
   vertical-align: middle;
   min-width: 20%;
@@ -39,12 +40,12 @@
   box-sizing: border-box;
   padding: 10px 20px;
   position: relative;
-  text-align: left;
 }
 .beyond_p-modal-header,
 .beyond_p-modal-footer {
   background: #f4f5f9;
   min-height: 38px;
+  padding-right: 25px;
 }
 .beyond_p-modal-body {
   word-wrap: break-word;
@@ -53,6 +54,7 @@
 .beyond_p-modal-close {
   position: absolute;
   height: 18px;
+  line-height: 18px;
   top: 0;
   bottom: 0;
   right: 10px;

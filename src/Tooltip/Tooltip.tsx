@@ -5,7 +5,7 @@ import { prefix, IBaseProps } from '../consts'
 
 export interface ITooltipProps extends IBaseProps{
     visible? : boolean;
-    duration? : number;
+    // duration? : number;
     placement? : 'top' | 'bottom' | 'left' | 'right';
     style? : Object;
 }
@@ -20,16 +20,12 @@ export default class Tooltip  extends React.Component<ITooltipProps,ITooltipStat
 
     static defaultProps : ITooltipProps = {
         prefix : prefix,
-        // className : `${prefix}tooltip`,
         visible : false,
-        duration : 0,
         placement : 'top'
     }
 
     state : ITooltipState;
     
-    handle : number;
-
     constructor(props : ITooltipProps){
         super(props)
         this.state = {
@@ -38,30 +34,7 @@ export default class Tooltip  extends React.Component<ITooltipProps,ITooltipStat
         }
     }
 
-	componentDidMount() {
-        const {duration} = this.props
-        const {visible} = this.state
-		if (visible && duration > 0) {
-			this.handle = setTimeout(()=> {
-				this.toggle(false)			
-				this.handle = null 
-			}, duration * 1000)
-		}
-	}
-
-    componentWillReceiveProps(nextProps : ITooltipProps) {
-        this.toggle(nextProps.visible)
-	}
-
-	componentDidUpdate() {
-		this.componentDidMount()
-	}
-
 	_setStyle(style : Object){
-		if (this.handle != null) {
-			clearTimeout(this.handle)
-			this.handle = null
-		}
 		this.setState((state, props) => ({style, visible : true}))
 	}
 
@@ -74,10 +47,6 @@ export default class Tooltip  extends React.Component<ITooltipProps,ITooltipStat
     }
 
 	toggle(visible : boolean){
-		if (this.handle != null) {
-			clearTimeout(this.handle)
-			this.handle = null
-		}
 		this.setState((state, props) => ({visible}))
 	}
 
@@ -93,7 +62,7 @@ export default class Tooltip  extends React.Component<ITooltipProps,ITooltipStat
 				top : '-9999px',
 				visibility : 'hidden'
 			})
-		}
+		}   
         return (
             <div className={classnames(className,`${className}-${placement}`,extraClassName)} style={style} >
                 <div className={`${className}-content`}>

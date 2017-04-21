@@ -3,7 +3,6 @@ import React = require('react');
 import { IBaseProps } from '../consts';
 export interface ITooltipProps extends IBaseProps {
     visible?: boolean;
-    duration?: number;
     placement?: 'top' | 'bottom' | 'left' | 'right';
     style?: Object;
 }
@@ -14,11 +13,7 @@ export interface ITooltipState {
 export default class Tooltip extends React.Component<ITooltipProps, ITooltipState> {
     static defaultProps: ITooltipProps;
     state: ITooltipState;
-    handle: number;
     constructor(props: ITooltipProps);
-    componentDidMount(): void;
-    componentWillReceiveProps(nextProps: ITooltipProps): void;
-    componentDidUpdate(): void;
     _setStyle(style: Object): void;
     show(): void;
     hide(): void;
