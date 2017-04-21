@@ -77,4 +77,23 @@
         overflow: hidden;
     }
 
+    .@{prefix}-animation-entering {
+        opacity: 0.01;
+        transform: translate(0, -50%);
+    }
+    .@{prefix}-animation-entering.@{prefix}-animation-entered {
+        opacity: 1;
+        transform: translate(0, 0);
+        transition: opacity 300ms ease-in, transform 300ms ease-in;
+    }
+    .@{prefix}-animation-leaving {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+    .@{prefix}-animation-leaving.@{prefix}-animation-leaved {
+        opacity: 0.01;
+        transform: translate(0, -50%);
+        transition: opacity 300ms ease-in, transform 300ms ease-in;
+    }
+
 }

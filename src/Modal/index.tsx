@@ -142,7 +142,7 @@ export default class Modal extends React.Component<IModalProps, IModalState> {
 		if (!visible) {
 			(style as any).display = 'none'
 		}
-		let mask : JSX.Element = null
+		let mask : JSX.Element
 		if (this.props.mask !== false) {
 			mask = (<div onClick={maskClickClose ? this.handlerClose.bind(this) : null} className={`${className}-mask`}></div>)
 		}

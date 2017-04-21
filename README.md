@@ -21,6 +21,7 @@ npm install beyond-components  --save
 
 ## 文档 doc 
 
+
 ### Document
 
 用 react 绑定的事件，会全部绑定在 document 元素上，如果用原生 js 在 document 上绑定点击事件，用 react 绑定的点击事件，即使阻止冒泡，也会触发原生绑定在 document 上的点击事件，该组件就是为了解决此类问题。
@@ -31,9 +32,13 @@ npm install beyond-components  --save
 import Document from 'beyond-components/lib/Document'
 class App extends React.Component{
 
-    hide(){}
+    hide(){
+        //hide modal
+    }
 
-    show(){}
+    show(){
+        //show modal
+    }
 
     render(){
         <Document onClick={this.hide.bind(this)}>
@@ -41,8 +46,9 @@ class App extends React.Component{
         </Document>
     }
 }
-
 ```
+
+#### API
 
 | 属性     | 类型   |  说明  | 默认值 |
 | -------- | -----  | ----   | ---- |
@@ -80,7 +86,12 @@ class App extends React.Component{
         </Placeholder>
     }
 }
+
 ```
+
+#### API
+
+
 | 属性     | 类型   |  说明  | 默认值 |
 | -------- | -----  | ----   | ---- |
 | color    | string  | placeholder 显示时候的默认颜色  | #999 |
@@ -121,6 +132,9 @@ class App extends React.Component{
 ```
 
 
+#### API
+
+
 | 属性     | 类型   |  说明  | 默认值 |
 | -------- | -----  | ----   | ---- |
 | title    | string   | 弹窗的标题  | - |
@@ -136,10 +150,34 @@ class App extends React.Component{
 | maskClickClose       | boolean   |   点击遮罩关闭     |  true |
 | onOpen | function   |   显示的时候触发，返回false则阻止该事件发生     |  - |
 | onClose | function   |   关闭的时候触发，返回false则阻止该事件发生     |  - |
-| className    | string   |     替换原有class，不建议如此操作   | - |
+| prefix    | string   | 改变class前缀，深度定制时候使用   | beyond_p- |
 | extraClassName    | string   | 外层元素增加class | - |
 | style        | object   |    外部样式    | - |
 
+
+#### 定制
+
+**dom 结构**
+
+```jsx
+<div className="beyond_p-modal">
+    <div className="beyond_p-modal-mask"></div>
+    <div className="beyond_p-modal-dialog">
+        <div className="beyond_p-modal-header">
+            {this.props.title}
+            <span className="beyond_p-modal-close">
+                {this.props.closeIcon}
+            </span>
+        </div>
+        <div className="beyond_p-modal-dialog">
+            {this.props.children}
+        </div>
+        <div className="beyond_p-modal-footer">
+            {this.props.footer}
+        </div>
+    </div>
+</div>
+```
 
 
 ### Grid(Row,Col)
@@ -166,7 +204,10 @@ class App extends React.Component{
     }
 }
 ```
-#### Row
+
+#### API
+
+**Row**
 
 | 属性        |  类型   |  默认值  | 说明 |
 | --------   | :----:   | :----:  |:----:  |
@@ -175,10 +216,11 @@ class App extends React.Component{
 | verticalGutter  |   number    |  0  | 非必需，,grid内容垂直间隔 |
 | width  |    number/string    |   - | 非必需，宽度|
 | style  |    object    |  -  | 非必需，样式 |
-| className  | string    |  row  | 非必需，替换原有className，不建议|
+| prefix    | string   | 改变class前缀，深度定制时候使用   | beyond_p- |
 | extraClassName  |    string    |  -  | 非必需，增加className，定制样式 |
 
-#### Col
+**Col**
+
 | 属性        |  类型   |  默认值  | 说明 |
 | --------   | :----:   | :----:  |:----:  |
 | col     | number |  -   | 非必需，所占grids数|
@@ -186,8 +228,21 @@ class App extends React.Component{
 | width  |   number/string    |  -  | 非必需，宽度，单位是px |
 | offsetWidth  |    number/string    |   - | 非必需，margin-right 宽度，单位是px|
 | style  | Object |  -  | 非必需，样式 |
-| className  | string    |  col  | 非必需，替换原有className，不建议|
+| prefix    | string   | 改变class前缀，深度定制时候使用   | beyond_p- |
 | extraClassName  |    string    |  -  | 非必需，增加className，定制样式 |
+
+
+#### 定制
+
+**dom 结构**
+
+```jsx
+<div className="beyond_p-row">
+    <div className="beyond_p-col"></div>
+    <div className="beyond_p-col"></div>
+    <div className="beyond_p-col"></div>
+</div>
+```
 
 
 ### Tabs (Tabs Tab)
@@ -197,6 +252,7 @@ Tab 组件
 ```jsx
 require("beyond-components/lib/Tabs/index.css");
 import Tabs,{Tab} from 'beyond-components/lib/Tabs'
+
 class App extends React.Component{
 
     render(){
@@ -211,25 +267,45 @@ class App extends React.Component{
 
 
 ```
-#### Tabs
+
+
+#### API
+
+**Tabs**
 
 | 属性        |  类型   |  默认值  | 说明 |
 | --------   | :----:   | :----:  |:----:  |
 | defaultActiveKey     | string |   -    | 默认的 active Tab，不受控 |
 | activeKey    |  string   |   0   | active Tab，受控 |
 | onChange  |   function   |  -  | 切换 tab 时的回掉函数 |
-| className  | string  |  tabs  | 非必需，替换原有className，不建议|
+| prefix    | string   | 改变class前缀，深度定制时候使用   | beyond_p- |
 | extraClassName  |    string    |  -  | 非必需，增加className，定制样式 |
 
-#### Tab
+**Tab**
 
 | 属性        |  类型   |  默认值  | 说明 |
 | --------   | :----:   | :----:  |:----:  |
-| navExtraClassName     | string |  -   | 增加 tab 的 nav 样式|
-| paneExtraClassName    |  string   |   -   | 增加 tab 的 pane 样式 |
 | key  |   string    |  -  | 必须，标识 key |
 | title  |    string    |   - | 每个 tab 的标题|
 | disabled  | boolean |  false  | 禁止切换到该 tab |
+
+
+#### 定制
+
+**dom 结构**
+
+```jsx
+<div className="beyond_p-tabs">
+    <ul className="beyond_p-navs">
+        <li className="beyond_p-nav">{Tab.props.title}</li>
+        <li className="beyond_p-nav">{Tab.props.title}</li>
+    </ul>
+    <div className="beyond_p-panes">
+        <div className="beyond_p-pane">{Tab.props.children}</div>
+        <div className="beyond_p-pane">{Tab.props.children}</div>
+    </div>
+</div>
+```
 
 
 ### Tooltip (Tooltip Trigger)
@@ -249,21 +325,36 @@ class App extends React.Component{
 }
 ```
 
-#### Tooltip
+
+#### API
+
+**Tooltip**
 
 | 属性        |  类型   |  默认值  | 说明 |
 | --------   | :----:   | :----:  |:----:  |
 | placement  |   string   |  top  | top/bottom/left/right 设置 tooltip 显示的位置 |
-| className  | string  |  tooltip  | 非必需，替换原有className，不建议|
+| prefix    | string   | 改变class前缀，深度定制时候使用   | beyond_p- |
 | extraClassName  |    string    |  -  | 非必需，增加className，定制样式 |
 | style    |  object   |   -   | 设置外层样式 |
 
 
-#### Trigger
+**Trigger**
 
 | 属性        |  类型   |  默认值  | 说明 |
 | --------   | :----:   | :----:  |:----:  |
 | tooltip | Tooltip |  -   | 必须 |
+
+
+#### 定制
+
+** Tooltip dom 结构**
+
+```jsx
+<div className="beyond_p-tooltip">
+    <div className="beyond_p-content">{this.props.children}</div>
+    <div className="beyond_p-triangle"></div>
+</div>
+```
 
 
 
@@ -299,7 +390,9 @@ class App extends React.Component{
 }
 ```
 
-#### Notification (作为组件)
+#### API
+
+**Notification (作为组件)**
 
 | 属性        |  类型   |  默认值  | 说明 |
 | --------   | :----:   | :----:  |:----:  |
@@ -307,16 +400,31 @@ class App extends React.Component{
 | x  |   string   |  center/left/right  | 消息框水平位置 |
 | y  |   string   |  top/middle/bottom  | 消息框垂直位置 |
 | reverse  |   boolean   |  false  |设置反转颜色 |
-| className  | string  |  tooltip  | 非必需，替换原有className，不建议|
+| prefix    | string   | 改变class前缀，深度定制时候使用   | beyond_p- |
 | extraClassName  |    string    |  -  | 非必需，增加className，定制样式 |
 | style    |  object   |   -   | 设置外层样式 |
 
 
-### Notification （类）
+**Notification （类）**
 
 | 静态方法        |  返回类型   |  参数 | 说明 |
 | --------   | :----:   | :----:  |:----:  |
 | getInstance  |   -   |  -  | 返回一个 notice 对象 |
+
+
+
+#### 定制
+
+** Notification dom 结构**
+
+```jsx
+<div className="beyond_p-notification">
+    <div className="beyond_p-notification-content">
+        {this.props.children}
+    </div>
+</div>
+```
+
 
 
 ### Form Ajax文件上传
@@ -338,6 +446,7 @@ class App extends React.Component{
 
     handlerFormSuccess(res){
         //不使用 iframe 上传文件，不会触发此方法
+        //res 是服务单返回的body信息
         console.log(res)
     }
 
@@ -352,7 +461,9 @@ class App extends React.Component{
 }
 ```
 
-#### Form
+
+#### API
+
 
 | 属性        |  类型   |  默认值  | 说明 |
 | --------   | :----:   | :----:  |:----:  |

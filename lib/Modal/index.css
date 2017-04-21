@@ -71,3 +71,29 @@
 .beyond_p-modal-body-open {
   overflow: hidden;
 }
+.beyond_p--animation-entering {
+  opacity: 0.01;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+}
+.beyond_p--animation-entering.beyond_p--animation-entered {
+  opacity: 1;
+  -webkit-transform: translate(0, 0);
+          transform: translate(0, 0);
+  transition: opacity 300ms ease-in, -webkit-transform 300ms ease-in;
+  transition: opacity 300ms ease-in, transform 300ms ease-in;
+  transition: opacity 300ms ease-in, transform 300ms ease-in, -webkit-transform 300ms ease-in;
+}
+.beyond_p--animation-leaving {
+  -webkit-transform: translate(0, 0);
+          transform: translate(0, 0);
+  opacity: 1;
+}
+.beyond_p--animation-leaving.beyond_p--animation-leaved {
+  opacity: 0.01;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  transition: opacity 300ms ease-in, -webkit-transform 300ms ease-in;
+  transition: opacity 300ms ease-in, transform 300ms ease-in;
+  transition: opacity 300ms ease-in, transform 300ms ease-in, -webkit-transform 300ms ease-in;
+}
