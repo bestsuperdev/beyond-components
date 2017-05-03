@@ -347,12 +347,12 @@ class App extends React.Component{
 
 #### 定制
 
-** Tooltip dom 结构**
+**Tooltip dom 结构**
 
 ```jsx
 <div className="beyond_p-tooltip">
-    <div className="beyond_p-content">{this.props.children}</div>
-    <div className="beyond_p-triangle"></div>
+    <div className="beyond_p-tooltip-content">{this.props.children}</div>
+    <div className="beyond_p-tooltip-triangle"></div>
 </div>
 ```
 
