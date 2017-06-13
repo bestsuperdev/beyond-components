@@ -3,7 +3,7 @@ import assign = require('beyond-lib/lib/assign')
 import classnames = require('classnames')
 import { prefix, IBaseProps } from '../consts'
 
-export interface ITooltipProps extends IBaseProps{
+export interface ITooltipProps extends IBaseProps<HTMLDivElement>{
     visible? : boolean;
     // duration? : number;
     placement? : 'top' | 'bottom' | 'left' | 'right';

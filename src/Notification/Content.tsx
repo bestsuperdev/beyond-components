@@ -2,7 +2,7 @@ import React = require('react')
 import ReactDOM = require('react-dom')
 import classnames = require('classnames')
 import { prefix, IBaseProps } from '../consts'
-export interface IContentProps extends IBaseProps  {
+export interface IContentProps extends IBaseProps<HTMLDivElement>  {
     reverse? : boolean;
     children? : any;
     style? : object;

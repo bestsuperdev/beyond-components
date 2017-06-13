@@ -73,7 +73,7 @@ function getHeight(height : NS) : NS{
 
 export type NS = number | string;
 
-export interface IModalProps  extends IBaseProps{
+export interface IModalProps  extends IBaseProps<HTMLDivElement>{
     title? : string;
     close? : boolean;
     closeIcon? : any;

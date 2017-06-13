@@ -21,13 +21,14 @@ export interface ITabProps  {
 
 export interface ITabState {};
 
-export interface ITabsProps extends IBaseProps {
+export interface ITabsProps {
     defaultActiveKey? : string;
     activeKey? : string;
     onChange? : (key : string)=> void;
     // className? : string;
     extraClassName? : string;
     style? : object;
+    prefix? : string;
 }
 
 export interface ITabsState {

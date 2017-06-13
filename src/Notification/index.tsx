@@ -31,7 +31,7 @@ const getAnimationClassName = (prefix : string, state : States)=>{
 
 
 
-export interface INotificationProps  extends IBaseProps{
+export interface INotificationProps  extends IBaseProps<HTMLDivElement>{
     visible? : boolean;
     duration? : number;
     reverse? : boolean;

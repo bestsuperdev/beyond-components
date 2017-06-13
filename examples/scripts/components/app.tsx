@@ -106,6 +106,9 @@ class App extends React.Component<any, any> {
 		console.log(res)
 		
 	}
+	handlerColClick(){
+		console.log('col')
+	}
 
 	render() {
 		let a = <div></div>
@@ -247,7 +250,7 @@ class App extends React.Component<any, any> {
 				<div>
 
 					<Row width={500} style={{marginBottom : '20px'}}>
-						<Col key="1" width={100}>width={100}</Col>
+						<Col key="1" width={100} onClick={this.handlerColClick.bind(this)}>width={100}</Col>
 						<Col key="2" width={300}>width={300}</Col>
 						<Col key="3" width={100}>width={100}</Col>
 					</Row>

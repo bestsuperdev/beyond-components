@@ -18,7 +18,7 @@ import { prefix, IBaseProps } from '../consts'
 export type X =  'center' | 'left' | 'right';
 export type Y = 'top' | 'middle' | 'bottom';
 
-export interface IContainerProps extends IBaseProps {
+export interface IContainerProps extends IBaseProps<HTMLDivElement> {
     className? : string;
     extraClassName? : string;
     x? : X;

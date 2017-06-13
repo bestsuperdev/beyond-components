@@ -9,7 +9,7 @@ function percentage(num : number) {
 
 export type NS = number | string;
 
-export interface IColProps extends IBaseProps {
+export interface IColProps extends IBaseProps<HTMLDivElement> {
     width? : NS;
     offsetWidth? : NS;
     col? : number;
@@ -47,8 +47,17 @@ const Col = (props : IColProps)=>{
 	let className =  `${_prefix}col`
 
 	const style = getStyle(props)
+	let supProps = assign({},props)
+	// for(let prop in supProps){
+
+	// }
+	delete supProps.prefix
+	delete supProps.grids
+	delete supProps.col
+	delete supProps.offsetCol
+	delete supProps.offsetWidth
 	return (
-		<div style={assign({},style,_style)} className={classnames(className,extraClassName)}>
+		<div {...supProps} style={assign({},style,_style)} className={classnames(className,extraClassName)}>
 			{props.children}
 		</div>
 	)

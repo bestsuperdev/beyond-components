@@ -16,7 +16,7 @@ import assign = require('beyond-lib/lib/assign')
 import Col from './Col'
 import { prefix, IBaseProps } from '../consts'
 
-export interface IRowProps extends IBaseProps {
+export interface IRowProps extends IBaseProps<HTMLDivElement> {
 	width?: number | string;
 	gutter?: number;
 	verticalGutter?: number;
