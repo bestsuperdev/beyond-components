@@ -20,7 +20,7 @@ class App extends React.Component<any, any> {
 
 	state : any;
 
-	notice : {show : (message? : string)=>void; hide : ()=>void;}
+	notice : {show : (message? : string,tempShowState? :any)=>void; hide : ()=>void;}
 
 	constructor(props : any){
 		super(props)
@@ -76,15 +76,15 @@ class App extends React.Component<any, any> {
 
 	handlerShowMessage(){
 		if(!this.notice){
-			this.notice = Notification.getInstance(<Notification duration={3}>hello notification</Notification>)
+			this.notice = Notification.getInstance(<Notification duration={1} x={"left"} y={"top"}  reverse  >hello notification</Notification>)
 		}
-		this.notice.show()
+		this.notice.show("hello world",{reverse: false,x : "right",y:"bottom",duration :5})
 	}
 	handlerShowMessage2(){
 		if(!this.notice2){
 			this.notice2 = Notification.getInstance(<Notification prefix="example" duration={3}>hello notification</Notification>)
 		}
-		this.notice2.show()
+		this.notice2.show("hello world",{reverse: false,x : "right",y:"bottom",duration :5})
 	}
 
 	handlerSubmit(event : React.FormEvent<any>){

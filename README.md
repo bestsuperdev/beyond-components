@@ -369,16 +369,16 @@ class App extends React.Component{
 
     handlerClick(){
         if(!this.notice){
-            this.notice = Notification.getInstance(<Notification />)
+            this.notice = Notification.getInstance(<Notification duration={1} x={"left"} y={"top"}  reverse >hello notification</Notification>)
         }
-        this.notice.show('hello world:' + Math.random())
+        this.notice.show("hello world",{duration :5,reverse: false,x : "right",y:"bottom" })
     }
 
     handlerClick2(){
         if(!this.notice2){
             this.notice2 = Notification.getInstance(<Notification>hello world</Notification>)
         }
-        this.notice.show()
+        this.notice2.show("hello world1",{reverse: false,x : "right",y:"bottom",duration :5})
     }
 
     render(){
