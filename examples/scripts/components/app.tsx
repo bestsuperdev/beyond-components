@@ -24,6 +24,8 @@ class App extends React.Component<any, any> {
 	state : any;
 
 	notice : {show : (message? : string,tempShowState? :any)=>void; hide : ()=>void;}
+	
+	loading:any
 
 	constructor(props : any){
 		super(props)
@@ -81,7 +83,7 @@ class App extends React.Component<any, any> {
 		if(!this.notice){
 			this.notice = Notification.getInstance(<Notification duration={1} x={"left"} y={"top"}  reverse  >hello notification</Notification>)
 		}
-		this.notice.show("hello world",{reverse: false,x : "center",y:"middle",duration :5000})
+		this.notice.show("hello world",{reverse: false,x : "center",y:"middle",duration :5})
 	}
 	handlerShowMessage2(){
 		if(!this.notice2){
@@ -113,7 +115,9 @@ class App extends React.Component<any, any> {
 		console.log('col')
 	}
 	handlerShowLoading(){
-		Loading.getInstance(<Loading message={"正在加载中。。。"} maxShowTime={6} />)
+		if(!this.loading) {
+			this.loading = Loading.getInstance(<Loading message={"正在加载中。。。"} maxShowTime={6} />)
+		}
 	}
 	render() {
 		let a = <div></div>

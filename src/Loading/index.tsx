@@ -25,6 +25,11 @@ export default class Loading extends React.Component<ILoadingProps,ILoadingState
 			document.body.appendChild(wrap)
 			let handle = ReactDOM.render(loading,wrap) as Loading
 		}
+        return ({
+            hide(){
+                this.hide()  
+            }
+        })
 	}    
     constructor(props:ILoadingProps){
         super(props)
