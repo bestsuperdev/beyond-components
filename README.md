@@ -504,4 +504,4 @@ class App extends React.Component{
 | 属性        |  类型   |  默认值  | 说明 |
 | --------   | :----:   | :----:  |:----:  |
 | message     | boolean |   false  | 默认的 active Tab，不受控 |
-| maxShowTime  |  number   |   0   | 该组件显示最长时间 |
+| maxShowTime  |  number   |   -   | 该组件显示最长时间 |
