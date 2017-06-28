@@ -4,6 +4,9 @@ import "Grid/index.less";
 import "Tabs/index.less";
 import "Tooltip/index.less";
 import "Notification/index.less";
+import "Loading/index.less";
+
+
 import React = require('react')
 import Placeholder from 'Placeholder'
 import Document from 'Document'
@@ -13,7 +16,7 @@ import Tabs ,{Tab} from 'Tabs'
 import Tooltip,{Trigger} from 'Tooltip'
 import Notification from 'Notification'
 import Form from 'Form'
-
+import Loading from 'Loading'
 
 class App extends React.Component<any, any> {
 	notice2: any;
@@ -78,7 +81,7 @@ class App extends React.Component<any, any> {
 		if(!this.notice){
 			this.notice = Notification.getInstance(<Notification duration={1} x={"left"} y={"top"}  reverse  >hello notification</Notification>)
 		}
-		this.notice.show("hello world",{reverse: false,x : "right",y:"bottom",duration :5})
+		this.notice.show("hello world",{reverse: false,x : "center",y:"middle",duration :5000})
 	}
 	handlerShowMessage2(){
 		if(!this.notice2){
@@ -109,7 +112,9 @@ class App extends React.Component<any, any> {
 	handlerColClick(){
 		console.log('col')
 	}
-
+	handlerShowLoading(){
+		Loading.getInstance(<Loading message={"正在加载中。。。"} maxShowTime={6} />)
+	}
 	render() {
 		let a = <div></div>
 		let b = <Tooltip></Tooltip>
@@ -429,6 +434,10 @@ class App extends React.Component<any, any> {
 						<input type="file"/>
 						<button type="submit">submit</button>
 					</Form>
+				</div>
+				<div>
+					<h2>Loading</h2>
+					<button type="button" onClick={this.handlerShowLoading.bind(this)}>click me to show loading</button>
 				</div>
 			</div>
 		)

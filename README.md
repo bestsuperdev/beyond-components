@@ -477,3 +477,31 @@ class App extends React.Component{
 | onSuccess |  function   |   -   | 提交成功事件，仅在使用 iframe 时候触发  |
 | onError |  function   |   -   | 提交成功，解析数据失败事件，仅在使用 iframe 时候触发 |
 | onComplete |  function   |   -   | 提交完成事件，仅在使用 iframe 时候触发 |
+
+
+### Loading
+
+Loading 组件
+
+```jsx
+require("beyond-components/lib/Loading/index.css");
+import Loading from 'beyond-components/lib/Loading'
+class App extends React.Component{
+
+    render(){
+        <Loading  message={"正在加载中。。。"} maxShowTime={10}>
+    }
+}
+
+
+```
+
+
+#### API
+
+**Loading**
+
+| 属性        |  类型   |  默认值  | 说明 |
+| --------   | :----:   | :----:  |:----:  |
+| message     | boolean |   false  | 默认的 active Tab，不受控 |
+| maxShowTime  |  number   |   0   | 该组件显示最长时间 |
