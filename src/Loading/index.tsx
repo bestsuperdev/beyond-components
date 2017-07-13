@@ -14,6 +14,8 @@ export interface ILoadingProps {
     maxShowTime?:number,
 }
 export interface ILoadingState{
+    message?:string,
+    maxShowTime?:number,
     rotate?:number,
     hidden:boolean
 }
@@ -24,13 +26,18 @@ export default class Loading extends React.Component<ILoadingProps,ILoadingState
 			let wrap = document.createElement('div')
 			document.body.appendChild(wrap)
 			let handle = ReactDOM.render(loading,wrap) as Loading
-		}
-        return ({
-            hide(){
-                this.hide()  
+            return {
+                show(message?:string,showState?:ILoadingState){
+                    handle.show(message,showState)
+                },
+                hide(){
+                    // console.log("123")
+                    handle.hide()                   
+                }
             }
-        })
+        }
 	}    
+    // public handle:any
     constructor(props:ILoadingProps){
         super(props)
         this.state = {
@@ -39,34 +46,51 @@ export default class Loading extends React.Component<ILoadingProps,ILoadingState
         }
         this.hiddenFlag = false
         this.boxWidth = 0
+        this.handler = null
     }
 
     public hiddenFlag:boolean
     public boxWidth:number
-
+    public box:any
+    public handler :any
+    getBox(){ 
+        this.box = ReactDOM.findDOMNode(this)
+    }
  	getBoxWidth(){
-		let box = ReactDOM.findDOMNode(this)
-        this.boxWidth = box.clientWidth	
+        this.boxWidth = this.box.clientWidth	
         if(this.boxWidth > 375) {
             this.boxWidth = 375
         }
 		return this.boxWidth
 	} 
     resizeWith(){
-        this.getBoxWidth()
-        this.setState((props,state)=>state)       
+        if(this.getBox() != null) {
+            this.getBoxWidth()
+            this.setState((props,state)=>state)
+        }    
     }  
     componentDidMount(){
+        this.getBox()
         this.getBoxWidth()
         this.setState((props,state)=>state)
         if(!this.hiddenFlag && this.props.maxShowTime){
             this.hiddenFlag = true
-            setTimeout(this.hide.bind(this),this.props.maxShowTime*1000)
+            this.handler =setTimeout(this.hide.bind(this),this.props.maxShowTime*1000)
         }
         window.addEventListener('resize',this.resizeWith.bind(this))
 
     }
+    show(messageValue?:string,showState?:ILoadingState){
+        let maxShowTime = showState?showState.maxShowTime : this.props.maxShowTime
+        let message = messageValue|| this.props.message
+        clearTimeout(this.handler)
+        this.handler = setTimeout(this.hide.bind(this),maxShowTime*1000)
+        this.setState({hidden:false,message})
+    }
     hide(){
+        console.log("clear it")
+        clearTimeout(this.handler)
+        this.handler = null
         this.setState({hidden:true})
     }
     componentWillUnmount(){
@@ -75,6 +99,7 @@ export default class Loading extends React.Component<ILoadingProps,ILoadingState
     }
     render(){
         let {message} =this.props 
+        message = this.state.message || message
         let nprefix =`${prefix}loading`      
         if( !this.state.hidden){
             return(

@@ -488,9 +488,25 @@ require("beyond-components/lib/Loading/index.css");
 import Loading from 'beyond-components/lib/Loading'
 class App extends React.Component{
 
+	handlerShowLoading(){
+		if(!this.loading) {
+			this.loading = Loading.getInstance(<Loading message={"正在加载中。。。"} maxShowTime={6} />)
+		}
+		this.loading.show()	
+	}
+	handlerShowLoading1(){
+		this.loading.show("加载中。。。。",{maxShowTime:3})
+	}
+	handlerHideLoading(){
+		this.loading.hide()	
+	}
     render(){
-        <Loading  message={"正在加载中。。。"} maxShowTime={10}>
-    }
+        <div>
+            <button type="button" onClick={this.handlerShowLoading.bind(this)}>click me to show loading</button>
+            <button type="button" onClick={this.handlerHideLoading.bind(this)}>click me to hide loading</button>
+            <button type="button" onClick={this.handlerShowLoading1.bind(this)}>click me to show  other set loading</button>
+        </div>
+    }    
 }
 
 
