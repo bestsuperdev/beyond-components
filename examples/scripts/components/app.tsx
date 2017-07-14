@@ -5,6 +5,7 @@ import "Tabs/index.less";
 import "Tooltip/index.less";
 import "Notification/index.less";
 import "Loading/index.less";
+import "SearchInput/index.less";
 
 
 import React = require('react')
@@ -17,6 +18,7 @@ import Tooltip,{Trigger} from 'Tooltip'
 import Notification from 'Notification'
 import Form from 'Form'
 import Loading from 'Loading'
+import {Option,SearchInput} from 'SearchInput'
 
 class App extends React.Component<any, any> {
 	notice2: any;
@@ -125,6 +127,10 @@ class App extends React.Component<any, any> {
 	}
 	handlerHideLoading(){
 		this.loading.hide()	
+	}
+	handlerChangeSearchInput(value:any){
+		console.log(value)
+
 	}
 	render() {
 		let a = <div></div>
@@ -452,6 +458,21 @@ class App extends React.Component<any, any> {
 					<button type="button" onClick={this.handlerHideLoading.bind(this)}>click me to hide loading</button>
 					<button type="button" onClick={this.handlerShowLoading1.bind(this)}>click me to show  other set loading</button>
 				</div>
+				<div>
+					<h2>SearchInput</h2>
+					<SearchInput type='1' placeholder='选择单位' showMaxCount={4} onChange={this.handlerChangeSearchInput.bind(this)}>
+						<Option selected value='cm'>cm</Option>
+						<Option value='dm'>dm</Option>
+						<Option value='mm'>mm</Option>
+						<Option value='um'>um</Option>
+						<Option value='km'>km</Option>
+						<Option value='dmm'>dmm</Option>
+						<Option value='cmm'>cmm</Option>					
+						<Option value='umm'>umm</Option>
+						<Option value='kmm'>kmm</Option>
+					</SearchInput>
+					<h2>说明</h2>						
+				</div>				
 			</div>
 		)
 	}
