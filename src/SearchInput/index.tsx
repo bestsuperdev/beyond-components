@@ -77,7 +77,7 @@ class SearchInput extends React.Component<ISearchInputProps,ISearchInputState>{
         let selectOption = this.getDefaultSelect()
         let options = this.getOptions()
         this.options = options
-        this.setState({selectOption})//,options
+        this.setState({selectOption,searchOptions:this.options})//,options
         let wrap =  this.refs.wrap    
         if(document.addEventListener){
             document.addEventListener('click',this.hideOptionFun)
@@ -130,11 +130,10 @@ class SearchInput extends React.Component<ISearchInputProps,ISearchInputState>{
     }
 
     handlerTextClick(){
-        // let showOption = (!this.state.showOption) ||(this.state.searchContent?true:false)
         let showOption = true
-        // let showOption = this.state.searchContent ? true:false
         this.innerClick = true
-        console.log('search   ' +this.state.searchContent)
+        // console.log('search   ' +this.state.searchContent)
+        // console.log('search   ' +this.state.searchOptions)
         this.setState({showOption})
     }
 
@@ -159,7 +158,7 @@ class SearchInput extends React.Component<ISearchInputProps,ISearchInputState>{
         console.log(this.state.showOption)
         let {showMaxCount} = this.props
         if(this.state.showOption){
-            let options = this.state.searchOptions.length? this.state.searchOptions: this.options
+            let options = this.state.searchOptions
             console.log(options)
 			let children = options.map((child,i)=>{
                 console.log(child)
@@ -182,44 +181,33 @@ class SearchInput extends React.Component<ISearchInputProps,ISearchInputState>{
             return null
         }
     }
-
-    judgeMatchState(event:any){
-          //console.log( typeof event.target.value)//值是个字符串
-        // debugger
-        let value = event.target.value
-        let searchContent = value
-        if(value.length == 0){
-            this.setState({showOption:true,searchContent,searchOptions:[]})
-
+    getMatchOptions(matchValue:any){
+        if(matchValue.length == 0){
+            return this.options
         }else{
-            //exec
-            //let str=["cm","dm"]
-            // console.log(this.state.options)
             let options = this.options
-            let patt = new RegExp(value,'ig')
+            let patt = new RegExp(matchValue,'ig')
             let result = null
             let matchFlag = false
             let matchOptions=[]
             for(let i=0;i<options.length;i++){
                 result = patt.exec(options[i].text)
                 if(result != null){
-                   // this.setState({showOption:true,searchContent})
-                   // break;
                    matchOptions.push(options[i])
-                   if(matchFlag == false){
-                       matchFlag = true
-                   }
                 }       
             }
-            console.log(matchOptions)
-            let searchOptions = matchOptions
-            if(matchFlag == false){
-                this.setState({showOption:false,searchContent,searchOptions:[]})
-            }else{
-                this.setState({showOption:true,searchContent,searchOptions})
-            }
-
-        }      
+            return matchOptions
+        }
+    }
+    judgeMatchState(event:any){
+        let searchContent = event.target.value
+        let searchOptions = this.getMatchOptions(event.target.value)
+        console.log(searchOptions)
+        if(searchOptions.length != 0){
+            this.setState({showOption:true,searchContent,searchOptions})
+        }else{
+            this.setState({showOption:false,searchContent,searchOptions})
+        }   
     }
     render(){
         // this.getDefaultSelect()
