@@ -482,9 +482,7 @@ class App extends React.Component<any, any> {
 						<Option  value='cmm'>cmm</Option>					
 						<Option  value='umm'>umm</Option>
 						<Option  value='kmm'>kmm</Option>
-					</SearchSelector>					
-					<h2>说明</h2>	
-					<input />					
+					</SearchSelector>										
 				</div>				
 			</div>
 		)
