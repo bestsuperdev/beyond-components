@@ -1,5 +1,5 @@
-.searchInput{
-    @prefix:searchInput;
+.searchSelector{
+    @prefix:searchSelector;
     // width:200px;
     
     // border-bottom:none;
@@ -8,6 +8,7 @@
     border:1px solid grey;
     position:relative;
     font-size: 16px;
+    // padding:0 10px;
     width: 240px;
     // &:after{
     //     content:' ';
@@ -22,15 +23,19 @@
     //     border-width:4px 3px;
     //     border-top-color:black;
     // }  
-    >input{
+    input{
         height:40px;
         text-decoration: none;
         padding:0px 10px;
         font-size: 16px;
-    }    
+        width:100%;
+        box-sizing: border-box;
+        // outline:0 none !important;// blr:expression(this.onFocus=this.blur());         
+    }      
     .@{prefix}-text{
-        height:20px;
-        line-height: 20px;
+        height:40px;
+        line-height: 40px;
+        text-indent: 10px;
         // border:1px solid grey;
         box-sizing: border-box;
         padding:0 10px;
@@ -38,6 +43,28 @@
         cursor: pointer;
         background-color:#fff;
         
+    }
+    .@{prefix}-input{
+        position:relative;
+    }
+
+    .plr-10{
+        padding-left:10px;
+        padding-right:10px;
+    }
+    .mlr-10{
+        margin-left:10px;
+        margin-right:10px;    
+    }
+    .@{prefix}-icon-container{
+        position:absolute;
+        right:0px;
+        top:0px;
+    }
+    .@{prefix}-icon-container img{
+        display: block;
+        padding:10px 10px;
+        height:16px;
     }
     .@{prefix}-options{
         // width:auto;
@@ -55,14 +82,18 @@
         z-index:55;
         cursor: pointer;
         background-color:#fff;
+        text-indent: 10px;
        
     }
-    .border-bottom-none{
-        border-bottom:none;
-    }
+     .@{prefix}-no-options{
+         height: 40px;
+         line-height: 40px;
+         padding:0 10px;
+     }
+
     .@{prefix}-option{
         // width:100%;
-        padding:0 10px;
+        // padding:0 10px;
         height:40px;
         line-height: 40px;
         position: relative;
@@ -76,10 +107,6 @@
     .@{prefix}-option:hover{
          background:#eeeeee;
          
-    }
-    input{
-        width:240px;
-        box-sizing: border-box;
     }
     //滚动条的样式设置
     .@{prefix}-options::-webkit-scrollbar{
@@ -102,7 +129,7 @@
         // background-color: green;
     }
 }
-.searchInput-arrowDown{
+.searchSelector-arrowDown{
     &:after{
         content:' ';
         display:inline-block;
@@ -113,11 +140,11 @@
         height:0;
         border-style: solid;
         border-color:transparent;
-        border-width:4px 3px;
+        border-width:5px 3px;
         border-top-color:black;
     }   
 }
-.searchInput-arrowUp{
+.searchSelector-arrowUp{
     &:after{
         content:' ';
         display:inline-block;
@@ -128,8 +155,22 @@
         height:0;
         border-style: solid;
         border-color:transparent;
-        border-width:4px 3px;
+        border-width:5px 3px;
         border-bottom-color:black;
 
     }     
+}
+
+.bd-none{
+    border:none;
+}
+.bd-bt{
+    border-bottom:1px solid grey;
+}
+.bd-top-none{
+    border:1px solid grey;
+    border-top:none;    
+}
+.border-bottom-none{
+    border-bottom:none;
 }

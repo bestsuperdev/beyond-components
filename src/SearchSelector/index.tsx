@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as classnames from 'classnames'
 import Placeholder from '../Placeholder'
-const prefix ="searchInput"
+const prefix ="searchSelector"
 interface OptionProps{
     value?:string,
     selected?:boolean,
@@ -17,7 +17,7 @@ interface optionData{
     value:string,
     text:string
 }
-interface ISearchInputProps{
+interface ISearchSelectorProps{
     extraClassName?:string,
     children?:any,
     placeholder?:string,
@@ -30,22 +30,22 @@ interface ISearchInputProps{
     // placeholder?:string
 }
 
-interface ISearchInputState{
+interface ISearchSelectorState{
     showOption?:boolean,    
     selectOption?:optionData,
     searchContent?:string,
     // options?:optionData[],
     searchOptions?:optionData[]
 }
-class SearchInput extends React.Component<ISearchInputProps,ISearchInputState>{
+class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelectorState>{
     public handle:any
     public innerClick:boolean
     public options :optionData[]  
     private hideOptionFun:()=>void
-    static defaultProps:ISearchInputProps ={
+    static defaultProps:ISearchSelectorProps ={
         showMaxCount:3
     }    
-    constructor(props:ISearchInputProps){
+    constructor(props:ISearchSelectorProps){
         
         super(props)
         this.state ={
@@ -173,7 +173,11 @@ class SearchInput extends React.Component<ISearchInputProps,ISearchInputState>{
                 if(this.state.selectOption != null)
                     icon = this.props.icon && child.value == this.state.selectOption.value ? <img src='../src/images/icon_search_selected.png' alt='图标'/>:null
                 return <div className={classnames(`${prefix}-option`)} key={i} onClick={this.handlerClickOption.bind(this,object)}>{child.text}{icon}</div>
-			}) 
+			})
+
+            if(children.length == 0) {
+                return <div className={classnames(`${prefix}-no-options`)}>No results match "{this.state.searchContent}"</div>
+            } 
             console.log(children)                      
             return <div className={classnames(`${prefix}-options`)}  style = {{maxHeight:showMaxCount*40}}>{children}</div>
         }else{
@@ -203,11 +207,11 @@ class SearchInput extends React.Component<ISearchInputProps,ISearchInputState>{
         let searchContent = event.target.value
         let searchOptions = this.getMatchOptions(event.target.value)
         console.log(searchOptions)
-        if(searchOptions.length != 0){
+        // if(searchOptions.length != 0){
             this.setState({showOption:true,searchContent,searchOptions})
-        }else{
-            this.setState({showOption:false,searchContent,searchOptions})
-        }   
+        // }else{
+            // this.setState({showOption:true,searchContent,searchOptions})
+        // }   
     }
     render(){
         // this.getDefaultSelect()
@@ -238,4 +242,4 @@ class SearchInput extends React.Component<ISearchInputProps,ISearchInputState>{
     }
 
 }
-export {Option,SearchInput}
+export {Option,SearchSelector}
