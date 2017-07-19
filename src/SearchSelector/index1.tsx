@@ -7,14 +7,25 @@ interface OptionProps{
     text?:string,
     selected?:boolean,
     onClick?:()=>void,
-    key?:number
+    key?:number,
+    matchValue?:string
 }
 class Option extends React.Component<OptionProps,{}>{
+    getSeparateString(matchValue:string,str:string){
+        let startX = str.indexOf(matchValue)
+        let len = matchValue.length
+        let strBegin = str.substring(0,startX)
+        let strEnd = str.substr(startX+len) 
+        return{strBegin,strEnd}
+    }
     render(){
-        console.log(this)
-        console.log(this.props)
+        let {matchValue} = this.props
+        let text = this.props.text||this.props.children
+        let strObj = this.props.matchValue && this.getSeparateString(matchValue,this.props.text) //{!matchValue && text}
         return(
-            <div className={`${prefix}-option`} value={this.props.value} onClick={this.props.onClick} key={this.props.key && this.props.key}>{this.props.text||this.props.children}</div>
+            <div className={`${prefix}-option`} value={this.props.value} onClick={this.props.onClick} key={this.props.key && this.props.key}>
+                {(matchValue &&(<div>{strObj.strBegin}<b>{matchValue}</b>{strObj.strEnd}</div>))||text}   
+            </div>
         )
     }
 }
@@ -26,8 +37,9 @@ interface ISearchSelectorProps{
     onChange?:(data:any)=>void,
     icon?:boolean,
     extraTextClass?:string,
-    type?:string,
+    // type?:string,
     showMaxCount?:number,
+    withoutText?:boolean
 }
 interface ISearchSelectorState{
     showOption?:boolean,    
@@ -95,10 +107,7 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
     }
 
     getDefaultSelect(props:any){
-        // console.log(typeof this.props.children)
-        // console.log([this.props.children])
         let children = (Array.isArray(props.children) ? props.children : [props.children]).filter((child:any) => child!=null )
-        // console.log(children)      
         let selectChildren = children.filter((child:any) =>  child.props.selected === true)
         let selectChild = selectChildren[0] || null
         // console.log(selectChild)
@@ -137,10 +146,10 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
     }
     handlerTextClick(){
         let showOption = !this.state.showOption
-         this.innerClick = true
-         let searchOptions = this.options
-         let searchContent =""
-         this.setState({showOption,searchContent,searchOptions})
+        this.innerClick = true
+        let searchOptions = this.options
+        let searchContent =""
+        this.setState({showOption,searchContent,searchOptions})
     }
     handlerInputClick(){
         let showOption = true
@@ -149,11 +158,10 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
         let searchContent =""
         this.setState({showOption,searchContent,searchOptions})
     }
-
     handlerClickOption(obj:any,event:any){
         // debugger
         // console.log(obj)
-        console.log(event)
+        // console.log(event)
         let selectOption = obj
         let showOption = false
         if(this.props.onChange !== undefined && typeof this.props.onChange == "function"){
@@ -165,17 +173,14 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
         this.setState({selectOption,showOption,searchContent,searchOptions})
     }
     renderOptions(){
-        console.log(this.state.searchOptions)
-        console.log(this.options)
-        console.log(this.state.showOption)
         let {showMaxCount} = this.props
         if(this.state.showOption){
             let options = this.state.searchOptions
             console.log(options)
             if(options.length == 0) {
-                return <div className={classnames(`${prefix}-no-options`,this.props.type == "2" &&"bd-none"&&'bd-bt',this.props.type == "1" &&"bd-top-none")}>No results match "{this.state.searchContent}"</div>
+                return <div className={classnames(`${prefix}-no-options`)}>No results match "{this.state.searchContent}"</div>
             }
-            return <div className={classnames(`${prefix}-options`,this.props.type == "2" &&"plr-10")}  style = {{maxHeight:showMaxCount*40}}>{options}</div>
+            return <div className={classnames(`${prefix}-options`,(!this.props.withoutText)&&"plr-10")}  style = {{maxHeight:showMaxCount*40}}>{options}</div>
         }else{
             // debugger
             return null
@@ -188,10 +193,10 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
         let matchNum = 0
         children = children.map((child,i)=>{
             let {value,text} = this.getOptionObject(child)
-            console.log(value+"" +text)
+            // console.log(value+"" +text)
             let patt = new RegExp(matchValue,'ig')
             if(patt.exec(text) != null) {
-                matchOptions.push(React.cloneElement(child,{key:matchNum}))//,{value,text,key:i}
+                matchOptions.push(React.cloneElement(child,{key:matchNum,matchValue}))//,{value,text,key:i}
                 matchNum++
             }            
         })
@@ -203,36 +208,34 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
         console.log(searchOptions)
         this.setState({showOption:true,searchContent,searchOptions})  
     }
+    renderInput(){
+        let icon = <img src={require('./images/icon_search.png')} alt='图标'/>
+        let{withoutText,placeholder} = this.props
+        let {showOption} = this.state
+        if(withoutText ||(!withoutText && showOption)) {
+            return(
+                <div className={classnames(`${prefix}-input`,!withoutText&&'mlr-10 bd')}>
+                    <input placeholder={(withoutText &&placeholder)||(!withoutText &&"搜索")} type="text" onChange={this.judgeMatchState.bind(this)} value={this.state.searchContent} onClick={this.handlerInputClick.bind(this)}/>
+                    <span className={`${prefix}-icon-container`}>{icon}</span>
+                </div>              
+            )
+        }else{
+            return null
+        }
+    }
     render(){
         console.log(this.state.selectOption)
         let text = this.state.selectOption != null ? this.state.selectOption.text:null
-        // console.log(text)
-        let {extraClassName,extraTextClass,type} = this.props
-        let icon = <img src={require('./images/icon_search.png')} alt='图标'/>
-        if(type == '1'){
-            return(
-                <div ref='wrap' className={classnames(`${prefix}`,this.state.showOption && `border-bottom-none`,`bd-none`,extraClassName)}>  
-                    <Placeholder>
-                        <div className={classnames(`${prefix}-input`)}>
-                            <input type="text" style={{textDecoration:"none"}}  placeholder={this.props.placeholder}  onChange={this.judgeMatchState.bind(this)} value={this.state.searchContent} onClick={this.handlerInputClick.bind(this)} />
-                            <span className={`${prefix}-icon-container`}>{icon}</span>
-                        </div>
-                    </Placeholder>
-                    {this.renderOptions()}
-                </div>
-            )
-        }else if(type == '2'){
-            return(
-                <div ref='wrap' className={classnames(`${prefix}`,this.state.showOption && `border-bottom-none`,(this.state.showOption && `${prefix}-arrowUp`)||(!this.state.showOption && `${prefix}-arrowDown`),extraClassName)}>  
-                    <div className={classnames(`${prefix}-text`,this.props.extraTextClass)} onClick={this.handlerTextClick.bind(this)}>{text||this.props.placeholder}</div>
-                    <div className={classnames(`${prefix}-input`,'mlr-10')}>
-                        {this.state.showOption && <input type="text" onChange={this.judgeMatchState.bind(this)} value={this.state.searchContent} onClick={this.handlerInputClick.bind(this)}/>}
-                        {this.state.showOption && <span className={`${prefix}-icon-container`}>{icon}</span>}
-                    </div>
+        let {extraClassName,extraTextClass,withoutText} = this.props
+        let icon = <img src={require('./images/icon_search.png')} alt='搜索'/>
+        return(
+                <div ref='wrap' className={classnames(`${prefix}`,this.state.showOption && `border-bottom-none`,(!withoutText)&&((this.state.showOption && `${prefix}-arrowUp`)||(!this.state.showOption && `${prefix}-arrowDown`)),extraClassName)}>  
+                    {!withoutText &&
+                        (<div className={classnames(`${prefix}-text`,this.props.extraTextClass)} onClick={this.handlerTextClick.bind(this)}>{text||this.props.placeholder}</div>)}
+                    {this.renderInput()}
                     {this.renderOptions()}                    
-                </div>                
-            )
-        }
+                </div>              
+        )
     }
 }
 export {Option,SearchSelector}

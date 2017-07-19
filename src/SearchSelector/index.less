@@ -1,7 +1,7 @@
 .searchSelector{
     @prefix:searchSelector;
     // width:200px;
-    
+    border:1px solid grey;
     // border-bottom:none;
     // margin-top:10px;
     // background-color:red;
@@ -10,6 +10,7 @@
     font-size: 16px;
     // padding:0 10px;
     width: 240px;
+    color:black;
     // &:after{
     //     content:' ';
     //     display:inline-block;
@@ -30,6 +31,10 @@
         font-size: 16px;
         width:100%;
         box-sizing: border-box;
+        // border:1px solid grey;
+        border:none;
+        outline: none;
+        color:black;
         // outline:0 none !important;// blr:expression(this.onFocus=this.blur());         
     }      
     .@{prefix}-text{
@@ -66,7 +71,7 @@
         padding:10px 10px;
         height:16px;
     }
-    .@{prefix}-options{
+    .@{prefix}-options,.@{prefix}-no-options{
         // width:auto;
         box-sizing: border-box;
         // width:200px;
@@ -79,17 +84,17 @@
         left:-1px;
         top:100%;
         right:-1px;
-        z-index:55;
-        cursor: pointer;
+        z-index:55;        
         background-color:#fff;
         text-indent: 10px;
+        // color:grey;
        
     }
-     .@{prefix}-no-options{
-         height: 40px;
-         line-height: 40px;
-         padding:0 10px;
-     }
+    .@{prefix}-no-options{
+        height: 40px;
+        line-height: 40px;
+        overflow-y: hidden;
+    }
 
     .@{prefix}-option{
         // width:100%;
@@ -97,6 +102,7 @@
         height:40px;
         line-height: 40px;
         position: relative;
+        cursor: pointer;
         img{
             vertical-align: middle;
             position:absolute;
@@ -160,7 +166,9 @@
 
     }     
 }
-
+.bd{
+    border:1px solid grey;
+}
 .bd-none{
     border:none;
 }

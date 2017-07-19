@@ -459,36 +459,49 @@ class App extends React.Component<any, any> {
 					<button type="button" onClick={this.handlerShowLoading1.bind(this)}>click me to show  other set loading</button>
 				</div>
 				<div>
-					<h2>SearchSelector</h2>
-					<SearchSelector type='1' placeholder='选择单位' showMaxCount={4} onChange={this.handlerChangeSearchInput.bind(this)}>
-						<Option value='cm'>cm</Option>
-						<Option selected value='dm'>dm</Option>
-						<Option value='mm'>mm</Option>
-						<Option  value='um'>um</Option>
-						<Option  value='km'>km</Option>
-						<Option  value='dmm'>dmm</Option>
-						<Option  value='cmm'>cmm</Option>					
-						<Option  value='umm'>umm</Option>
-						<Option  value='kmm'>kmm</Option>
-					</SearchSelector>
 					<h2>带搜索框的下拉框</h2>
-					<SearchSelector type='2' placeholder='选择单位' showMaxCount={4} onChange={this.handlerChangeSearchInput.bind(this)} >
-						<Option value='cm'>cm</Option>
-						<Option value='dm'>dm</Option>
-						<Option value='mm'>mm</Option>
-						<Option  value='um'>um</Option>
-						<Option  value='km'>km</Option>
-						<Option  value='dmm'>dmm</Option>
-						<Option  value='cmm'>cmm</Option>					
-						<Option  value='umm'>umm</Option>
-						<Option  value='kmm'>kmm</Option>
-					</SearchSelector>										
-				</div>				
+					<SearchSelector placeholder='选择省市' showMaxCount={4} onChange={this.handlerChangeSearchInput.bind(this)} >
+						<Option value='bj'>北京</Option>
+						<Option selected value='tj'>天津</Option>
+						<Option value='sh'>上海</Option>
+						<Option  value='cq'>重庆</Option>
+						<Option  value='hb'>河北</Option>
+						<Option  value='sx'>山西</Option>
+						<Option  value='ln'>辽宁</Option>					
+						<Option  value='jl'>吉林</Option>
+						<Option  value='hlj'>黑龙江</Option>
+						<Option  value='js'>江苏</Option>
+						<Option  value='zj'>浙江</Option>
+						<Option  value='ah'>安徽</Option>
+						<Option  value='fj'>福建</Option>					
+						<Option  value='jx'>江西</Option>	
+						<Option  value='sx1'>陕西</Option>
+						<Option  value='hn'>河南</Option>															
+					</SearchSelector>
+				</div>
+					<h2>搜索框和Text合并</h2>
+					<SearchSelector withoutText placeholder='选择省市' showMaxCount={4} onChange={this.handlerChangeSearchInput.bind(this)}>
+						<Option value='bj'>北京</Option>
+						<Option value='tj'>天津</Option>
+						<Option selected value='sh'>上海</Option>
+						<Option  value='cq'>重庆</Option>
+						<Option  value='hb'>河北</Option>
+						<Option  value='sx'>山西</Option>
+						<Option  value='ln'>辽宁</Option>					
+						<Option  value='jl'>吉林</Option>
+						<Option  value='hlj'>黑龙江</Option>
+						<Option  value='js'>江苏</Option>
+						<Option  value='zj'>浙江</Option>
+						<Option  value='ah'>安徽</Option>
+						<Option  value='fj'>福建</Option>					
+						<Option  value='jx'>江西</Option>	
+						<Option  value='sx1'>陕西</Option>
+						<Option  value='hn'>河南</Option>	
+					</SearchSelector>								
 			</div>
 		)
 	}
 }
-
 export = App
 						// <Option key={1} selected value='cm'>cm</Option>
 						// <Option key={2} value='dm'>dm</Option>
