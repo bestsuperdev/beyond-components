@@ -261,11 +261,11 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
     render(){
         console.log(this.state.selectOption)
         let text = this.state.selectOption != null ? this.state.selectOption.text:null
-        let {extraClassName,extraTextClass,withoutText} = this.props
+        let {extraClassName,withoutText} = this.props
         return(
             <div ref='wrap' className={classnames(`${prefix}`,this.state.showOption && `border-bottom-none`,(!withoutText)&&((this.state.showOption && `${prefix}-arrowUp`)||(!this.state.showOption && `${prefix}-arrowDown`)),extraClassName)}>  
                 {!withoutText &&
-                    (<div className={classnames(`${prefix}-text`,this.props.extraTextClass)} onClick={this.handlerTextClick.bind(this)}>{text||this.props.placeholder}</div>)}
+                    (<div className={classnames(`${prefix}-text`)} onClick={this.handlerTextClick.bind(this)}>{text||this.props.placeholder}</div>)}
                 {this.renderInput()}
                 {this.renderOptions()}                    
             </div>              
