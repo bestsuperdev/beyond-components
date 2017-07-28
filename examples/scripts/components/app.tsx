@@ -18,7 +18,7 @@ import Tooltip,{Trigger} from 'Tooltip'
 import Notification from 'Notification'
 import Form from 'Form'
 import Loading from 'Loading'
-import {SearchSelector,Option} from 'SearchSelector/index1'
+import {SearchSelector,Option} from 'SearchSelector'
 // import Option from 'SearchInput/Option'
 class App extends React.Component<any, any> {
 	notice2: any;
@@ -29,6 +29,7 @@ class App extends React.Component<any, any> {
 	
 	loading:any
 
+	timer:any
 	constructor(props : any){
 		super(props)
 		this.state = {
@@ -36,8 +37,10 @@ class App extends React.Component<any, any> {
 			clickPosition : '',
 			showModal : false,
 			showModal2 : false,
-			tabActiveKey : "0"
+			tabActiveKey : "0",
+			options:[],
 		}
+		this.timer = null
 	}
 
 	componentDidMount(){
@@ -128,9 +131,48 @@ class App extends React.Component<any, any> {
 	handlerHideLoading(){
 		this.loading.hide()	
 	}
-	handlerChangeSearchInput(value:any){
+	handlerChangeSearchSelector(value:any){
 		console.log(value)
 
+	}
+	getOptions(matchValue:any){
+		console.log(matchValue)
+		if(this.timer != null){
+			clearTimeout(this.timer)
+			this.timer = null
+		}
+		this.timer = setTimeout(()=>{
+			console.log("searchOptions")
+			//调用接口获得options，再setState
+			let options =[
+				{postcode:"310000",postcodeDec:"杭州邮编-310000"},
+				{postcode:"315000",postcodeDec:"宁波邮编-315000"},
+				{postcode:"325000",postcodeDec:"温州邮编-325000"},
+				{postcode:"314000",postcodeDec:"嘉兴邮编-314000"},
+				{postcode:"313000",postcodeDec:"湖州邮编-313000"},
+				{postcode:"312000",postcodeDec:"绍兴邮编-312000"},
+				{postcode:"321000",postcodeDec:"金华邮编-321000"},
+				{postcode:"324000",postcodeDec:"衢州邮编-324000"},
+				{postcode:"316000",postcodeDec:"舟山邮编-316000"},
+				{postcode:"318000",postcodeDec:"台州邮编-318000"},
+				{postcode:"323000",postcodeDec:"丽水邮编-323000"},			
+				]
+				// debugger
+			this.setState({options})
+		},1000)
+
+
+	}
+	renderOptions(){
+		let {options} = this.state
+		if(options.length > 0) {
+			return	options.map((child:any,i:any)=>{
+						return(
+							<Option value={child.postcode} key={i}>{child.postcodeDec}</Option>
+						)
+					})
+		}
+		return null
 	}
 	render() {
 		let a = <div></div>
@@ -460,7 +502,7 @@ class App extends React.Component<any, any> {
 				</div>
 				<div>
 					<h2>带搜索框的下拉框</h2>
-					<SearchSelector placeholder='选择省市' showMaxCount={4} onChange={this.handlerChangeSearchInput.bind(this)} >
+					<SearchSelector placeholder='选择省市' showMaxCount={4} onChange={this.handlerChangeSearchSelector.bind(this)} >
 						<Option value='bj'>北京</Option>
 						<Option selected value='tj'>天津</Option>
 						<Option value='sh'>上海</Option>
@@ -479,8 +521,9 @@ class App extends React.Component<any, any> {
 						<Option  value='hn'>河南</Option>															
 					</SearchSelector>
 				</div>
+				<div>
 					<h2>搜索框和Text合并</h2>
-					<SearchSelector withoutText placeholder='选择省市' showMaxCount={4} onChange={this.handlerChangeSearchInput.bind(this)}>
+					<SearchSelector withoutText placeholder='选择省市' showMaxCount={4} onChange={this.handlerChangeSearchSelector.bind(this)}>
 						<Option value='bj'>北京</Option>
 						<Option value='tj'>天津</Option>
 						<Option selected value='sh'>上海</Option>
@@ -497,7 +540,14 @@ class App extends React.Component<any, any> {
 						<Option  value='jx'>江西</Option>	
 						<Option  value='sx1'>陕西</Option>
 						<Option  value='hn'>河南</Option>	
-					</SearchSelector>								
+					</SearchSelector>	
+				</div>	
+				<div>
+					<h2>调用函数获得options的内容</h2>
+					<SearchSelector withoutText placeholder='搜索浙江省内的市' searchFun={this.getOptions.bind(this)} showMaxCount={4} onChange={this.handlerChangeSearchSelector.bind(this)}>
+						{this.renderOptions()}
+					</SearchSelector>	
+				</div>										
 			</div>
 		)
 	}
