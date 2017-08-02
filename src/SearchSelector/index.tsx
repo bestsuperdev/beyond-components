@@ -8,7 +8,8 @@ interface OptionProps{
     selected?:boolean,
     onClick?:()=>void,
     key?:number,
-    matchValue?:string
+    matchValue?:string,
+    indent?:boolean
 }
 class Option extends React.Component<OptionProps,{}>{
     getSeparateString(matchValue:string,str:string){
@@ -19,7 +20,8 @@ class Option extends React.Component<OptionProps,{}>{
         return{strBegin,strEnd}
     }
     render(){
-        let {matchValue} = this.props
+        let {matchValue,indent} = this.props
+        console.log(indent)
         let text = this.props.text||this.props.children
         // console.log(matchValue)
         // console.log(text)
@@ -27,13 +29,13 @@ class Option extends React.Component<OptionProps,{}>{
             // debugger
             let strObj = this.props.matchValue && this.getSeparateString(matchValue,this.props.text) //{!matchValue && text}
             return(
-                <div className={`${prefix}-option`} value={this.props.value} onClick={this.props.onClick} key={this.props.key && this.props.key}>
+                <div className={classnames(`${prefix}-option`,indent &&'text-ind10')}  onClick={this.props.onClick} key={this.props.key && this.props.key}>
                     {(matchValue &&(<div>{strObj.strBegin}<b>{matchValue}</b>{strObj.strEnd}</div>))||text}   
                 </div>
             )
         }else{
             return(
-                <div className={`${prefix}-option`} value={this.props.value} onClick={this.props.onClick} key={this.props.key && this.props.key}>
+                <div className={classnames(`${prefix}-option`,indent &&'text-ind10')}  onClick={this.props.onClick} key={this.props.key && this.props.key}>
                     {text}   
                 </div>  
             )        
@@ -131,7 +133,7 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
 
     getDefaultSelect(props:any){
         let children = (Array.isArray(props.children) ? props.children : [props.children]).filter((child:any) => child!=null )
-        let selectChildren = children.filter((child:any) =>  child.props.selected === true)
+        let selectChildren = children.filter((child:any) => (child.props.selected ===undefined)?(false): (child.props.selected=== true))
         let selectChild = selectChildren[0] || null
         // console.log(selectChild)
         if(selectChild != null) {
@@ -159,10 +161,13 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
     }
     getOptions(props:any){
         let children = (Array.isArray(props.children) ? props.children : [props.children]).filter((child:any) => child!=null )
+        let {withoutText} = this.props
+        console.log(withoutText)
         let options:any[] =[]
+        let indent = (withoutText || false)
         children = children.map((child:any,i:number)=>{
             let {value,text} = this.getOptionObject(child)
-            options.push(React.cloneElement(child,{value,text,key:i,onClick:this.handlerClickOption.bind(this,{value,text,i})}))          
+            options.push(React.cloneElement(child,{value,text,key:i,onClick:this.handlerClickOption.bind(this,{value,text,i}),indent}))          
         })
         this.options = options
         return options        
@@ -203,13 +208,13 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
         }
     }
     renderOptions(){
-        let {showMaxCount} = this.props
+        let {showMaxCount,withoutText} = this.props
         if(this.state.showOption){
             let options = this.state.searchOptions
             if(options.length == 0) {
                 return <div className={classnames(`${prefix}-no-options`)}>No results match "{this.state.searchContent}"</div>
             }
-            return <div className={classnames(`${prefix}-options`,(!this.props.withoutText)&&"plr-10")}  style = {{maxHeight:showMaxCount*40}}>{options}</div>
+            return <div className={classnames(`${prefix}-options`)}  style = {{maxHeight:showMaxCount*40}}>{options}</div>
         }else{
             // debugger
             return null
@@ -259,7 +264,7 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
         }
     }
     render(){
-        console.log(this.state.selectOption)
+        // console.log(this.state.selectOption)
         let text = this.state.selectOption != null ? this.state.selectOption.text:null
         let {extraClassName,withoutText} = this.props
         return(

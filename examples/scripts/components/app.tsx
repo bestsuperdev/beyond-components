@@ -155,7 +155,7 @@ class App extends React.Component<any, any> {
 				{postcode:"324000",postcodeDec:"衢州邮编-324000"},
 				{postcode:"316000",postcodeDec:"舟山邮编-316000"},
 				{postcode:"318000",postcodeDec:"台州邮编-318000"},
-				{postcode:"323000",postcodeDec:"丽水邮编-323000"},			
+				{postcode:"323000",postcodeDec:"丽水邮编-323000"},		
 				]
 				// debugger
 			this.setState({options})
@@ -175,8 +175,17 @@ class App extends React.Component<any, any> {
 		return null
 	}
 	render() {
-		let a = <div></div>
-		let b = <Tooltip></Tooltip>
+		let provienceList =[
+				{value:"bj",text:"北京"},
+				{value:"tj",text:"天津"},
+				{value:"sh",text:"上海"},
+				{value:"sx",text:"山西"},
+				{value:"cq",text:"重庆"},							
+				]
+		let provienceListOptions:any[]= []
+		provienceList.map((child,i:number)=>{
+				provienceListOptions.push((<Option value={child.value} key={i}>{child.text}</Option>))
+		})
 		return (
 			<div className='app'>
 				<h1>beyond components for react</h1>
@@ -504,42 +513,19 @@ class App extends React.Component<any, any> {
 					<h2>带搜索框的下拉框</h2>
 					<SearchSelector placeholder='选择省市' showMaxCount={4} onChange={this.handlerChangeSearchSelector.bind(this)} >
 						<Option value='bj'>北京</Option>
-						<Option selected value='tj'>天津</Option>
-						<Option value='sh'>上海</Option>
-						<Option  value='cq'>重庆</Option>
-						<Option  value='hb'>河北</Option>
-						<Option  value='sx'>山西</Option>
-						<Option  value='ln'>辽宁</Option>					
-						<Option  value='jl'>吉林</Option>
-						<Option  value='hlj'>黑龙江</Option>
-						<Option  value='js'>江苏</Option>
-						<Option  value='zj'>浙江</Option>
-						<Option  value='ah'>安徽</Option>
-						<Option  value='fj'>福建</Option>					
-						<Option  value='jx'>江西</Option>	
-						<Option  value='sx1'>陕西</Option>
-						<Option  value='hn'>河南</Option>															
-					</SearchSelector>
-				</div>
-				<div>
-					<h2>搜索框和Text合并</h2>
-					<SearchSelector withoutText placeholder='选择省市' showMaxCount={4} onChange={this.handlerChangeSearchSelector.bind(this)}>
-						<Option value='bj'>北京</Option>
 						<Option value='tj'>天津</Option>
 						<Option selected value='sh'>上海</Option>
 						<Option  value='cq'>重庆</Option>
 						<Option  value='hb'>河北</Option>
 						<Option  value='sx'>山西</Option>
 						<Option  value='ln'>辽宁</Option>					
-						<Option  value='jl'>吉林</Option>
-						<Option  value='hlj'>黑龙江</Option>
-						<Option  value='js'>江苏</Option>
-						<Option  value='zj'>浙江</Option>
-						<Option  value='ah'>安徽</Option>
-						<Option  value='fj'>福建</Option>					
-						<Option  value='jx'>江西</Option>	
-						<Option  value='sx1'>陕西</Option>
-						<Option  value='hn'>河南</Option>	
+						<Option  value='jl'>吉林</Option>														
+					</SearchSelector>
+				</div>
+				<div>
+					<h2>搜索框和Text合并</h2>
+					<SearchSelector withoutText placeholder='选择省市' showMaxCount={4} onChange={this.handlerChangeSearchSelector.bind(this)}>
+					{provienceListOptions}
 					</SearchSelector>	
 				</div>	
 				<div>
@@ -553,12 +539,3 @@ class App extends React.Component<any, any> {
 	}
 }
 export = App
-						// <Option key={1} selected value='cm'>cm</Option>
-						// <Option key={2} value='dm'>dm</Option>
-						// <Option key={3} value='mm'>mm</Option>
-						// <Option key={4} value='um'>um</Option>
-						// <Option key={5} value='km'>km</Option>
-						// <Option key={6} value='dmm'>dmm</Option>
-						// <Option key={7} value='cmm'>cmm</Option>					
-						// <Option key={8} value='umm'>umm</Option>
-						// <Option key={9} value='kmm'>kmm</Option>
