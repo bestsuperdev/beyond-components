@@ -12,6 +12,8 @@
 - [x] Tooltip
 - [x] Notification
 - [x] Form
+- [x] Loading
+- [x] SearchSelector
 
 ## 安装 install
 ```bash
