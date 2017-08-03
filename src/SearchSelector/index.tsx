@@ -1,8 +1,10 @@
 import * as React from 'react'
 import * as classnames from 'classnames'
 import Placeholder from '../Placeholder'
-const prefix ="searchSelector"
-interface OptionProps{
+import { prefix, IBaseProps } from '../consts'
+// const nprefix ="searchSelector"
+const nprefix = `${prefix}searchSelector`
+export interface OptionProps{
     value?:string,
     text?:string,
     selected?:boolean,
@@ -11,7 +13,7 @@ interface OptionProps{
     matchValue?:string,
     indent?:boolean
 }
-class Option extends React.Component<OptionProps,{}>{
+export class Option extends React.Component<OptionProps,{}>{
     getSeparateString(matchValue:string,str:string){
         let startX = str.indexOf(matchValue)
         let len = matchValue.length
@@ -21,7 +23,6 @@ class Option extends React.Component<OptionProps,{}>{
     }
     render(){
         let {matchValue,indent} = this.props
-        console.log(indent)
         let text = this.props.text||this.props.children
         // console.log(matchValue)
         // console.log(text)
@@ -29,13 +30,13 @@ class Option extends React.Component<OptionProps,{}>{
             // debugger
             let strObj = this.props.matchValue && this.getSeparateString(matchValue,this.props.text) //{!matchValue && text}
             return(
-                <div className={classnames(`${prefix}-option`,indent &&'text-ind10')}  onClick={this.props.onClick} key={this.props.key && this.props.key}>
+                <div className={classnames(`${nprefix}-option`,indent &&'text-ind10')}  onClick={this.props.onClick} key={this.props.key && this.props.key}>
                     {(matchValue &&(<div>{strObj.strBegin}<b>{matchValue}</b>{strObj.strEnd}</div>))||text}   
                 </div>
             )
         }else{
             return(
-                <div className={classnames(`${prefix}-option`,indent &&'text-ind10')}  onClick={this.props.onClick} key={this.props.key && this.props.key}>
+                <div className={classnames(`${nprefix}-option`,indent &&'text-ind10')}  onClick={this.props.onClick} key={this.props.key && this.props.key}>
                     {text}   
                 </div>  
             )        
@@ -43,7 +44,7 @@ class Option extends React.Component<OptionProps,{}>{
 
     }
 }
-interface ISearchSelectorProps{
+export interface ISearchSelectorProps{
     extraClassName?:string,
     // children?:any,
     placeholder?:string,
@@ -56,13 +57,13 @@ interface ISearchSelectorProps{
     searchFun?:(searchValue:string)=>void,
     clickInputEmpty?:boolean
 }
-interface ISearchSelectorState{
+export interface ISearchSelectorState{
     showOption?:boolean,    
     selectOption?:any,
     searchContent?:string,
     searchOptions?:any[]
 }
-class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelectorState>{
+export class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelectorState>{
     public handle:any
     public innerClick:boolean
     public options :any[]  
@@ -162,7 +163,6 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
     getOptions(props:any){
         let children = (Array.isArray(props.children) ? props.children : [props.children]).filter((child:any) => child!=null )
         let {withoutText} = this.props
-        console.log(withoutText)
         let options:any[] =[]
         let indent = (withoutText || false)
         children = children.map((child:any,i:number)=>{
@@ -212,9 +212,9 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
         if(this.state.showOption){
             let options = this.state.searchOptions
             if(options.length == 0) {
-                return <div className={classnames(`${prefix}-no-options`)}>No results match "{this.state.searchContent}"</div>
+                return <div className={classnames(`${nprefix}-no-options`)}>No results match "{this.state.searchContent}"</div>
             }
-            return <div className={classnames(`${prefix}-options`)}  style = {{maxHeight:showMaxCount*40}}>{options}</div>
+            return <div className={classnames(`${nprefix}-options`)}  style = {{maxHeight:showMaxCount*40}}>{options}</div>
         }else{
             // debugger
             return null
@@ -254,9 +254,9 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
         let {showOption} = this.state
         if(withoutText ||(!withoutText && showOption)) {
             return(
-                <div className={classnames(`${prefix}-input`,!withoutText&&'mlr-10 bd')}>
+                <div className={classnames(`${nprefix}-input`,!withoutText&&'mlr-10 bd')}>
                     <input placeholder={(withoutText &&placeholder)||(!withoutText &&"搜索")} type="text" onChange={this.judgeMatchState.bind(this)} value={this.state.searchContent} onClick={this.handlerInputClick.bind(this)}/>
-                    <span className={`${prefix}-icon-container`}>{icon}</span>
+                    <span className={`${nprefix}-icon-container`}>{icon}</span>
                 </div>              
             )
         }else{
@@ -268,13 +268,12 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
         let text = this.state.selectOption != null ? this.state.selectOption.text:null
         let {extraClassName,withoutText} = this.props
         return(
-            <div ref='wrap' className={classnames(`${prefix}`,this.state.showOption && `border-bottom-none`,(!withoutText)&&((this.state.showOption && `${prefix}-arrowUp`)||(!this.state.showOption && `${prefix}-arrowDown`)),extraClassName)}>  
+            <div ref='wrap' className={classnames(`${nprefix}`,this.state.showOption && `border-bottom-none`,(!withoutText)&&((this.state.showOption && `${nprefix}-arrowUp`)||(!this.state.showOption && `${nprefix}-arrowDown`)),extraClassName)}>  
                 {!withoutText &&
-                    (<div className={classnames(`${prefix}-text`)} onClick={this.handlerTextClick.bind(this)}>{text||this.props.placeholder}</div>)}
+                    (<div className={classnames(`${nprefix}-text`)} onClick={this.handlerTextClick.bind(this)}>{text||this.props.placeholder}</div>)}
                 {this.renderInput()}
                 {this.renderOptions()}                    
             </div>              
         )
     }
 }
-export {Option,SearchSelector}
