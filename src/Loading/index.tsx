@@ -7,8 +7,6 @@ import ReactDOM = require('react-dom')
 import classnames = require('classnames')
 import { prefix, IBaseProps } from '../consts'
 
-// const nprefix = 'beyond-loading'
-
 export interface ILoadingProps {
     message?:string,
     maxShowTime?:number,
@@ -48,30 +46,20 @@ export default class Loading extends React.Component<ILoadingProps,ILoadingState
         this.boxWidth = 0
         this.handler = null
     }
-
     public hiddenFlag:boolean
     public boxWidth:number
-    public box:any
     public handler :any
-    getBox(){ 
-        this.box = ReactDOM.findDOMNode(this)
-    }
  	getBoxWidth(){
-        this.boxWidth = this.box.clientWidth	
+        this.boxWidth = ReactDOM.findDOMNode(this).clientWidth	
         if(this.boxWidth > 375) {
             this.boxWidth = 375
         }
 	} 
     resizeWith(){
-        // if(this.getBox() != null) {
-            // debugger
-            this.getBox()
-            this.getBoxWidth()
-            this.setState((props,state)=>state)
-        // }    
+        this.getBoxWidth()
+        this.setState((props,state)=>state)
     }  
     componentDidMount(){
-        this.getBox()
         this.getBoxWidth()
         this.setState((props,state)=>state)
         if(!this.hiddenFlag && this.props.maxShowTime){

@@ -18,10 +18,8 @@ export default class Loading extends React.Component<ILoadingProps, ILoadingStat
     constructor(props: ILoadingProps);
     hiddenFlag: boolean;
     boxWidth: number;
-    box: any;
     handler: any;
-    getBox(): void;
-    getBoxWidth(): number;
+    getBoxWidth(): void;
     resizeWith(): void;
     componentDidMount(): void;
     show(messageValue?: string, showState?: ILoadingState): void;
