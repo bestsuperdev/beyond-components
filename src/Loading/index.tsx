@@ -61,13 +61,14 @@ export default class Loading extends React.Component<ILoadingProps,ILoadingState
         if(this.boxWidth > 375) {
             this.boxWidth = 375
         }
-		return this.boxWidth
 	} 
     resizeWith(){
-        if(this.getBox() != null) {
+        // if(this.getBox() != null) {
+            // debugger
+            this.getBox()
             this.getBoxWidth()
             this.setState((props,state)=>state)
-        }    
+        // }    
     }  
     componentDidMount(){
         this.getBox()
@@ -84,8 +85,8 @@ export default class Loading extends React.Component<ILoadingProps,ILoadingState
         let maxShowTime = showState?showState.maxShowTime : this.props.maxShowTime
         let message = messageValue|| this.props.message
         clearTimeout(this.handler)
+        this.setState({hidden:false,message})        
         this.handler = setTimeout(this.hide.bind(this),maxShowTime*1000)
-        this.setState({hidden:false,message})
     }
     hide(){
         console.log("clear it")
@@ -95,28 +96,22 @@ export default class Loading extends React.Component<ILoadingProps,ILoadingState
     }
     componentWillUnmount(){
         this.hiddenFlag = false
-         window.removeEventListener('resize',this.resizeWith.bind(this))
+        window.removeEventListener('resize',this.resizeWith.bind(this))
     }
     render(){
         let {message} =this.props 
         message = this.state.message || message
         let nprefix =`${prefix}loading`      
-        if( !this.state.hidden){
-            return(
-                <div className={`${nprefix}`} style={{fontSize:14}}>
-                    <div className={`${nprefix}-content`} style={{width:this.boxWidth*0.4,minHeight:this.boxWidth*0.4}}>
-                        <div className={`${nprefix}-image`} style={{width:this.boxWidth*0.2,height:this.boxWidth*0.2}}>
-                            <img src={require('./images/loading.jpg')} />
-                        </div>
-                        <div className={`${nprefix}-message`}>{message}</div>
-                    </div>           
-                </div>
-                )
-        }else{
-            return null
-        }
-
+        return(
+            <div className={`${nprefix}`} style={{fontSize:14}}>
+                {!this.state.hidden && <div className={`${nprefix}-content`} style={{width:this.boxWidth*0.4,minHeight:this.boxWidth*0.4}}>
+                    <div className={`${nprefix}-image`} style={{width:this.boxWidth*0.2,height:this.boxWidth*0.2}}>
+                        <img src={require('./images/loading.jpg')} />
+                    </div>
+                    <div className={`${nprefix}-message`}>{message}</div>
+                </div> }          
+            </div>
+        )
     }
-
 }
 
