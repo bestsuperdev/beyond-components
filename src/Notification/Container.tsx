@@ -24,8 +24,7 @@ export interface IContainerProps extends IBaseProps {
     x? : X;
     y? : Y;
     children? : any; 
-
-	style? : object;
+	style? : React.CSSProperties;
 }
 
 

@@ -6,7 +6,7 @@ var config = require('./webpack.dev.config');
 var opn = require('opn');
 // var ip = localIp.getLocalIP4();
 var ip = '0.0.0.0';
-var port = 9001;
+var port = 9004;
 
 var webpackDevServerEntries = ["react-hot-loader/patch","webpack-dev-server/client?http://"+ip+":"+port, "webpack/hot/only-dev-server"]
 if (typeof config.entry === 'string') {

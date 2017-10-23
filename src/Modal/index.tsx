@@ -134,6 +134,13 @@ export default class Modal extends React.Component<IModalProps, IModalState> {
 		resetBodyPadding()
 	}
 
+	handlerClose() {
+		if (this.props.visible && typeof this.props.onClose === 'function') {
+			this.props.onClose()	
+		}
+	}
+
+
 
 	render() {
 		let {prefix,style,visible,extraClassName,maskClickClose,width,maxWidth,bodyHeight,maxBodyHeight} = this.props
@@ -162,11 +169,6 @@ export default class Modal extends React.Component<IModalProps, IModalState> {
 		)
 	}
 
-	handlerClose() {
-		if (this.props.visible && typeof this.props.onClose === 'function') {
-			this.props.onClose()	
-		}
-	}
 
 	renderHeader(){
 		let title : JSX.Element , closeBtn : JSX.Element

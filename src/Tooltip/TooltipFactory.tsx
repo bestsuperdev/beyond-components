@@ -7,10 +7,10 @@ function test(event){
  */
 import React = require('react')
 import ReactDOM = require('react-dom')
-import Tooltip from './Tooltip'
+import Tooltip,{ITooltipProps} from './Tooltip'
 
 
-function offset(node : HTMLElement){
+function offset(node : HTMLElement) : React.CSSProperties {
 	let box = node.getBoundingClientRect()
 	let win = window
 	let docElem = document.documentElement	
@@ -24,7 +24,7 @@ function offset(node : HTMLElement){
 }
 
 
-function getToolTipStyle(tooltip : any, target : HTMLElement){
+function getToolTipStyle(tooltip : any, target : HTMLElement) : React.CSSProperties{
 	let placement = tooltip.props.placement || 'top'
 	let toolTipNode = ReactDOM.findDOMNode(tooltip) as HTMLElement
 	let targetOffset = offset(target)
@@ -54,13 +54,19 @@ function getToolTipStyle(tooltip : any, target : HTMLElement){
 	return null
 }
 
+export interface ITooltipOperator{
+	show : (target : HTMLElement)=> void;
+	hide : ()=> void;
+}
 
-export function getNewInstance(props : any, children : any) {
+export function getNewInstance(tooltip : JSX.Element) : ITooltipOperator {
+
+	let {props} = tooltip
+	let {children} = props
 	let wrap = document.createElement('div')
-    let instance : Tooltip
 	document.body.appendChild(wrap)
 	
-	instance = ReactDOM.render(<Tooltip {...props}>{children}</Tooltip>,wrap)  as Tooltip
+	let instance = ReactDOM.render(<Tooltip {...props}>{children}</Tooltip>,wrap) as Tooltip
     
 	return {
 		show(target : HTMLElement){

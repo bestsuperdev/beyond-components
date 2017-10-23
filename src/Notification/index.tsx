@@ -82,21 +82,11 @@ export default class Notification extends React.Component<INotificationProps,INo
         super(props)
         this.state = {
 			message : '',
-			state : props.visible ? States.entering : States.none
+			state : States.none
         }
         this.hide = this.hide.bind(this)
         this.show = this.show.bind(this)
     }
-
-
-	componentWillReceiveProps(nextProps : INotificationProps) {
-		let {visible} = nextProps
-		if(visible){
-			this.show()
-		}else{
-			this.hide()
-		}
-	}
 
 	componentDidUpdate(prevProps : INotificationProps, prevState : INotificationState) {
 		let {duration,visible} = this.props

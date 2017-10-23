@@ -5,7 +5,7 @@ import { prefix, IBaseProps } from '../consts'
 export interface IContentProps extends IBaseProps  {
     reverse? : boolean;
     children? : any;
-    style? : object;
+    style? : React.CSSProperties;
 }
 
 const Content = (props : IContentProps)=> {

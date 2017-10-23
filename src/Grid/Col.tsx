@@ -14,9 +14,7 @@ export interface IColProps extends IBaseProps {
     offsetWidth? : NS;
     col? : number;
     offsetCol? : number;
-    style? :  any;
-    // className? :  string;
-    // extraClassName? :  string;
+    style? :  React.CSSProperties;
     grids? : number;
 	children? : any;
 }

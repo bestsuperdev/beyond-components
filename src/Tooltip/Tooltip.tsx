@@ -4,15 +4,16 @@ import classnames = require('classnames')
 import { prefix, IBaseProps } from '../consts'
 
 export interface ITooltipProps extends IBaseProps{
+    defaultVisible? : boolean;
     visible? : boolean;
-    // duration? : number;
     placement? : 'top' | 'bottom' | 'left' | 'right';
-    style? : Object;
+    style? : React.CSSProperties;
+    children? : any;
 }
 
 export interface ITooltipState{
     visible? : boolean;
-    style? : Object;
+    style? : React.CSSProperties;
 }
 
 
@@ -21,6 +22,7 @@ export default class Tooltip  extends React.Component<ITooltipProps,ITooltipStat
     static defaultProps : ITooltipProps = {
         prefix : prefix,
         visible : false,
+        defaultVisible : false,
         placement : 'top'
     }
 
@@ -29,13 +31,13 @@ export default class Tooltip  extends React.Component<ITooltipProps,ITooltipStat
     constructor(props : ITooltipProps){
         super(props)
         this.state = {
-            visible : props.visible,
+            visible : props.defaultVisible,
             style : {}
         }
     }
 
-	_setStyle(style : Object){
-		this.setState((state, props) => ({style, visible : true}))
+	_setStyle(style : React.CSSProperties){
+		this.setState({style, visible : true})
 	}
 
     show(){
@@ -47,14 +49,15 @@ export default class Tooltip  extends React.Component<ITooltipProps,ITooltipStat
     }
 
 	toggle(visible : boolean){
-		this.setState((state, props) => ({visible}))
+		this.setState({visible})
 	}
 
 	render() {
-        let {prefix,extraClassName,placement,style : _style, children} = this.props
+        let {prefix,extraClassName,placement,style : _style, children,visible : _visible} = this.props
 		let style = assign({},_style,this.state.style)
-		let className =  `${prefix}tooltip`
-		if (!this.state.visible) {
+        let className =  `${prefix}tooltip`
+        let visible = _visible != null ? _visible : this.state.visible
+		if (!visible) {
 			assign(style,{
 				opacity : 0,
 				position : 'absolute',
