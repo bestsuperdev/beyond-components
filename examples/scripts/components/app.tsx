@@ -526,13 +526,13 @@ export default class App extends React.Component<any, any> {
 					<SearchSelector withoutText placeholder='选择省市' showMaxCount={4} onChange={this.handlerChangeSearchSelector.bind(this)}>
 					{provienceListOptions}
 					</SearchSelector>	
-				</div>	
+				</div>				
 				<div>
 					<h2>调用函数获得options的内容</h2>
 					<SearchSelector withoutText placeholder='搜索浙江省内的市' searchFun={this.getOptions.bind(this)} showMaxCount={4} onChange={this.handlerChangeSearchSelector.bind(this)}>
 						{this.renderOptions()}
 					</SearchSelector>	
-				</div>										
+				</div>					
 			</div>
 		)
 	}

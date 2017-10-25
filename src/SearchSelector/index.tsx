@@ -30,13 +30,13 @@ export class Option extends React.Component<OptionProps,{}>{
             // debugger
             let strObj = this.props.matchValue && this.getSeparateString(matchValue,this.props.text) //{!matchValue && text}
             return(
-                <div className={classnames(`${nprefix}-option`,indent &&'text-ind10')}  onClick={this.props.onClick} key={this.props.key && this.props.key}>
+                <div className={classnames(`${nprefix}-option`,indent &&'text-ind20')}  onClick={this.props.onClick} key={this.props.key && this.props.key}>
                     {(matchValue &&(<div>{strObj.strBegin}<b>{matchValue}</b>{strObj.strEnd}</div>))||text}   
                 </div>
             )
         }else{
             return(
-                <div className={classnames(`${nprefix}-option`,indent &&'text-ind10')}  onClick={this.props.onClick} key={this.props.key && this.props.key}>
+                <div className={classnames(`${nprefix}-option`,indent &&'text-ind20')}  onClick={this.props.onClick} key={this.props.key && this.props.key}>
                     {text}   
                 </div>  
             )        
@@ -254,8 +254,8 @@ export class SearchSelector extends React.Component<ISearchSelectorProps,ISearch
         let {showOption} = this.state
         if(withoutText ||(!withoutText && showOption)) {
             return(
-                <div className={classnames(`${nprefix}-input`,!withoutText&&'mlr-10 bd')}>
-                    <input placeholder={(withoutText &&placeholder)||(!withoutText &&"搜索")} type="text" onChange={this.judgeMatchState.bind(this)} value={this.state.searchContent} onClick={this.handlerInputClick.bind(this)}/>
+                <div className={classnames(`${nprefix}-input`,!withoutText && 'mlr-10 bd',withoutText && 'plr-10')}>
+                    <input placeholder={(withoutText && placeholder) || (!withoutText &&"搜索")} type="text" onChange={this.judgeMatchState.bind(this)} value={this.state.searchContent} onClick={this.handlerInputClick.bind(this)}/>
                     <span className={`${nprefix}-icon-container`}>{icon}</span>
                 </div>              
             )
@@ -267,12 +267,15 @@ export class SearchSelector extends React.Component<ISearchSelectorProps,ISearch
         // console.log(this.state.selectOption)
         let text = this.state.selectOption != null ? this.state.selectOption.text:null
         let {extraClassName,withoutText} = this.props
+        //this.state.showOption && `border-bottom-none`,
         return(
-            <div ref='wrap' className={classnames(`${nprefix}`,this.state.showOption && `border-bottom-none`,(!withoutText)&&((this.state.showOption && `${nprefix}-arrowUp`)||(!this.state.showOption && `${nprefix}-arrowDown`)),extraClassName)}>  
+            <div ref='wrap' className={classnames(`${nprefix}`,(!withoutText)&&((this.state.showOption && `${nprefix}-arrowUp`)||(!this.state.showOption && `${nprefix}-arrowDown`)),extraClassName)}>  
                 {!withoutText &&
                     (<div className={classnames(`${nprefix}-text`)} onClick={this.handlerTextClick.bind(this)}>{text||this.props.placeholder}</div>)}
-                {this.renderInput()}
-                {this.renderOptions()}                    
+                <div className={classnames(`${nprefix}-container`,withoutText &&'container-relative')}>
+                    {this.renderInput()}
+                    {this.renderOptions()} 
+                </div>                   
             </div>              
         )
     }
