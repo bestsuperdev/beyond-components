@@ -4,8 +4,6 @@ import classnames = require('classnames')
 import { prefix, IBaseProps } from '../consts'
 export interface IContentProps extends IBaseProps  {
     reverse? : boolean;
-    children? : any;
-    style? : React.CSSProperties;
 }
 
 const Content = (props : IContentProps)=> {

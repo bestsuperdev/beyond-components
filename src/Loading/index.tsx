@@ -29,7 +29,6 @@ export default class Loading extends React.Component<ILoadingProps,ILoadingState
                     handle.show(message,showState)
                 },
                 hide(){
-                    // console.log("123")
                     handle.hide()                   
                 }
             }

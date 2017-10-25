@@ -5,7 +5,6 @@ import { prefix, IBaseProps } from '../consts'
 
 export interface ITooltipProps extends IBaseProps{
     defaultVisible? : boolean;
-    visible? : boolean;
     placement? : 'top' | 'bottom' | 'left' | 'right';
     style? : React.CSSProperties;
     children? : any;
@@ -21,7 +20,6 @@ export default class Tooltip  extends React.Component<ITooltipProps,ITooltipStat
 
     static defaultProps : ITooltipProps = {
         prefix : prefix,
-        visible : false,
         defaultVisible : false,
         placement : 'top'
     }
@@ -53,17 +51,17 @@ export default class Tooltip  extends React.Component<ITooltipProps,ITooltipStat
 	}
 
 	render() {
-        let {prefix,extraClassName,placement,style : _style, children,visible : _visible} = this.props
+        let {prefix,extraClassName,placement,style : _style, children} = this.props
 		let style = assign({},_style,this.state.style)
         let className =  `${prefix}tooltip`
-        let visible = _visible != null ? _visible : this.state.visible
-		if (!visible) {
+		if (!this.state.visible) {
 			assign(style,{
 				opacity : 0,
 				position : 'absolute',
 				left : '-9999px',
 				top : '-9999px',
-				visibility : 'hidden'
+                visibility : 'hidden',
+                display: 'none'
 			})
 		}   
         return (

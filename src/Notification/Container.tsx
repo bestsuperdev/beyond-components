@@ -21,8 +21,6 @@ export type Y = 'top' | 'middle' | 'bottom';
 export interface IContainerProps extends IBaseProps {
     x? : X;
     y? : Y;
-    children? : any; 
-	style? : React.CSSProperties;
 }
 
 

@@ -13,8 +13,7 @@ import React = require('react')
 import { prefix, IBaseProps } from '../consts'
 
 
-export interface ITabProps  {
-    key : string;
+export interface ITabProps extends IBaseProps {
     title : string;
     disabled? : boolean;
 };
@@ -25,7 +24,6 @@ export interface ITabsProps extends IBaseProps {
     defaultActiveKey? : string;
     activeKey? : string;
     onChange? : (key : string)=> void | boolean;
-    style? : object;
 }
 
 export interface ITabsState {
@@ -34,16 +32,12 @@ export interface ITabsState {
 
 type TabElement = React.ReactElement<ITabProps>
 
-export class Tab extends React.Component<ITabProps,ITabState>{
-    render(){
-        return <div></div>
-    }
-}
+export const Tab = (props : ITabProps)=> <div></div>
 
 export default class Tabs extends React.Component<ITabsProps,ITabsState> {
 
     static defaultProps : ITabsProps = {
-        prefix : prefix // `${prefix}tabs`
+        prefix : prefix 
     }
 
     state : ITabsState;
@@ -84,13 +78,13 @@ export default class Tabs extends React.Component<ITabsProps,ITabsState> {
         }else{
             children = _children as TabElement[]
         }
-        const navs = children.filter((child)=> child != null ).map((child :  TabElement)=>{
-            const key = child.key
+        const navs = children.filter((child)=> child != null ).map((child)=>{
             const {title,disabled} = child.props
-            let navClassName = classnames(`${className}-nav`,{ active : key == activeKey })
-
+            let navClassName = classnames(`${className}-nav`,{ active : child.key == activeKey })
             return (
-                <li key={key} className={navClassName} onClick={disabled ? null : this.handlerClick.bind(this,key)}>
+                <li key={child.key} 
+                    className={navClassName} 
+                    onClick={disabled ? null : this.handlerClick.bind(this,child.key)}>
                     {title}
                 </li>
             )
@@ -111,10 +105,9 @@ export default class Tabs extends React.Component<ITabsProps,ITabsState> {
         }else{
             children = _children as TabElement[]
         }
-        const panes = children.filter((child)=> child != null).map((child : TabElement)=>{ 
-            const key = child.key
-            const active = activeKey == key
-            return <div key={key} className={classnames(`${className}-pane`,{active})}>{(child.props as any).children}</div>
+        const panes = children.filter((child)=> child != null).map((child)=>{ 
+            const active = activeKey == child.key
+            return <div key={child.key} className={classnames(`${className}-pane`,{active})}>{child.props.children}</div>
         })
         return <div className={`${className}-panes`}>{panes}</div>
 	}

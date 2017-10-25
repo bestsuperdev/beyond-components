@@ -74,7 +74,7 @@ function getHeight(height : NS) : NS{
 export type NS = number | string;
 
 export interface IModalProps  extends IBaseProps{
-    title? : string;
+    title? : any;
     close? : boolean;
     closeIcon? : any;
     footer? : any;
@@ -87,7 +87,6 @@ export interface IModalProps  extends IBaseProps{
     maskClickClose? : boolean; 
     onOpen? : ()=>void;
     onClose? : ()=>void;
-    style? : React.CSSProperties;
 }
 
 export interface IModalState {};
@@ -139,18 +138,16 @@ export default class Modal extends React.Component<IModalProps, IModalState> {
 		}
 	}
 
-
-
 	render() {
 		let {prefix,style,visible,extraClassName,maskClickClose,width,maxWidth,bodyHeight,maxBodyHeight} = this.props
 		let className = `${prefix}modal`
 		style = assign({},style)
 		if (!visible) {
-			(style as any).display = 'none'
+			style.display = 'none'
 		}
 		let mask : JSX.Element
 		if (this.props.mask !== false) {
-			mask = (<div onClick={maskClickClose ? this.handlerClose.bind(this) : null} className={`${className}-mask`}></div>)
+			mask = <div onClick={maskClickClose ? this.handlerClose.bind(this) : null} className={`${className}-mask`}></div>
 		}
 
 		const dialogStyle  = {width,maxWidth}
@@ -188,13 +185,9 @@ export default class Modal extends React.Component<IModalProps, IModalState> {
 
 	renderFooter(){
 		if (this.props.footer != null) {
-			const {prefix} = this.props
+			const {prefix,footer} = this.props
 			let className = `${prefix}modal`
-			return (
-				<div className={`${className}-footer`}>
-					{this.props.footer}
-				</div>
-			)
+			return <div className={`${className}-footer`}>{footer}</div>
 		}
 	}
 }
