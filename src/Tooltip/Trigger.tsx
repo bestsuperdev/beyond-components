@@ -7,25 +7,12 @@
 
 import React = require('react')
 import ReactDom = require('react-dom')
-import {getNewInstance} from './tooltipFactory'
+import {getNewInstance,ITooltipOperator} from './tooltipFactory'
+import Tooltip,{ITooltipProps} from './Tooltip'
 import mergeFuncs = require('beyond-lib/lib/utilities/mergeFuncs')
 
-// function merge(fn1 : Function, fn2 : Function) : Function {
-// 	return function(){
-// 		let args = Array.prototype.slice.call(arguments,0)
-// 		let result : any
-// 		if (typeof fn1 === 'function') {
-// 			result = fn1.apply(this,args)
-// 		}
-// 		if (typeof fn2 === 'function') {
-// 			fn2.apply(this,args)
-// 		}
-// 		return result
-// 	}
-// }
-
 export interface ITriggerProps{
-    tooltip : any;
+	tooltip : JSX.Element;
 }
 
 export interface ITriggerState{
@@ -34,19 +21,17 @@ export interface ITriggerState{
 
 export default class Trigger extends React.Component<ITriggerProps,ITriggerState> {
 
-    tooltip : {show : (node : Element)=>void; hide : ()=>void;};
+    tooltipOperator : ITooltipOperator;
 
-    target : Element;
+    target : HTMLElement;
 
     componentDidMount() {
-        let tooltip = this.props.tooltip
-		this.tooltip = getNewInstance(tooltip.props, tooltip.props.children)
-
-		this.target = ReactDom.findDOMNode(this)
+		this.tooltipOperator = getNewInstance(this.props.tooltip)
+		this.target = ReactDom.findDOMNode<HTMLElement>(this)
 	}
 
     render() {
-		let children = this.props.children as any
+		let children = this.props.children as JSX.Element
         let props = {
             onMouseEnter : mergeFuncs(children.props.onMouseEnter,this.show.bind(this)),
             onMouseLeave : mergeFuncs(children.props.onMouseLeave,this.hide.bind(this)) 
@@ -55,14 +40,14 @@ export default class Trigger extends React.Component<ITriggerProps,ITriggerState
 	}
 
 	show(){
-		if (this.tooltip && this.target) {
-			this.tooltip.show(this.target)
+		if (this.tooltipOperator && this.target) {
+			this.tooltipOperator.show(this.target)
 		}
 	}
 
 	hide(){
-		if (this.tooltip && this.target) {
-			this.tooltip.hide()
+		if (this.tooltipOperator && this.target) {
+			this.tooltipOperator.hide()
 		}
 	}
 }

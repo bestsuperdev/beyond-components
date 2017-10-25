@@ -10,7 +10,8 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 // var postcssUrl = require("postcss-url");
 module.exports = {
     entry: {
-        main : path.join(__dirname,"./examples/scripts/main.tsx")   
+        main : path.join(__dirname,"./examples/scripts/main.tsx"),
+        mobile1 : path.join(__dirname,"./examples/scripts/mobile1.tsx")   
     },
     output: {
         path: path.join(__dirname,'hot'),
@@ -44,12 +45,17 @@ module.exports = {
                 NODE_ENV : JSON.stringify("development")
             }
         }),
-        new webpack.optimize.CommonsChunkPlugin("commons", "[name].bundle.js"),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             template : path.join(__dirname,'examples/index.html'),
-            inject: true
-            // filename: '../index.html',
+            // inject: false,
+            chunks : ['main']
+        }),
+        new HtmlWebpackPlugin({
+            template : path.join(__dirname,'examples/index.html'),
+            // inject: false,
+            chunks : ['mobile1'],
+            filename : 'mobile1.html'
         })
     ],
     debug : true,

@@ -11,7 +11,7 @@ import Tabs , {Tab} from 'beyond-components'
 import classnames = require('classnames')
 import React = require('react')
 import { prefix, IBaseProps } from '../consts'
-// import * as React  from 'react'
+
 
 export interface ITabProps  {
     key : string;
@@ -21,14 +21,11 @@ export interface ITabProps  {
 
 export interface ITabState {};
 
-export interface ITabsProps {
+export interface ITabsProps extends IBaseProps {
     defaultActiveKey? : string;
     activeKey? : string;
-    onChange? : (key : string)=> void;
-    // className? : string;
-    extraClassName? : string;
+    onChange? : (key : string)=> void | boolean;
     style? : object;
-    prefix? : string;
 }
 
 export interface ITabsState {
@@ -54,16 +51,14 @@ export default class Tabs extends React.Component<ITabsProps,ITabsState> {
     constructor(props : ITabsProps){
         super(props)
         this.state = {
-            activeKey : props.activeKey || props.defaultActiveKey || ""
+            activeKey : props.defaultActiveKey || ""
         }
     }
+
     
-    componentWillReceiveProps(nextProps : ITabsProps){
-        if(nextProps.activeKey != null){
-            this.setState({activeKey : nextProps.activeKey})
-        }
+    getActiveKey(){
+        return this.props.activeKey || this.state.activeKey
     }
-    
 
     render() {
         const {prefix,extraClassName,style} = this.props
@@ -79,7 +74,8 @@ export default class Tabs extends React.Component<ITabsProps,ITabsState> {
 	renderNavs(){
         let children : TabElement[]
         const {children : _children,prefix} = this.props
-        const {activeKey} = this.state
+        const activeKey = this.getActiveKey()
+
         let className = `${prefix}tabs`
         if(!_children){
             children = []
@@ -106,7 +102,7 @@ export default class Tabs extends React.Component<ITabsProps,ITabsState> {
 	renderTabs(){
         let children : TabElement[]
         const {children : _children, prefix} = this.props
-        const {activeKey} = this.state
+        const activeKey = this.getActiveKey()
         let className = `${prefix}tabs`
         if(!_children){
             children = []
@@ -118,18 +114,17 @@ export default class Tabs extends React.Component<ITabsProps,ITabsState> {
         const panes = children.filter((child)=> child != null).map((child : TabElement)=>{ 
             const key = child.key
             const active = activeKey == key
-            // const {paneExtraClassName} = child.props
             return <div key={key} className={classnames(`${className}-pane`,{active})}>{(child.props as any).children}</div>
         })
         return <div className={`${className}-panes`}>{panes}</div>
 	}
 
-	handlerClick(activeKey : string , event : React.MouseEvent<Element>){
-        // let result
+	handlerClick(activeKey : string){
+        let result
         if(typeof this.props.onChange === 'function'){
-            this.props.onChange(activeKey)
+            result = this.props.onChange(activeKey)
         }
-        if(this.props.activeKey == null){
+        if(result !== false){
             this.setState({activeKey})
         }
 	}

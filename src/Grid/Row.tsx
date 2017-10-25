@@ -14,57 +14,50 @@ import React = require('react')
 import classnames = require('classnames')
 import assign = require('beyond-lib/lib/assign')
 import Col from './Col'
-import { prefix, IBaseProps } from '../consts'
+import { prefix as _prefix, IBaseProps } from '../consts'
 
-export interface IRowProps extends IBaseProps<HTMLDivElement> {
+export interface IRowProps extends IBaseProps {
 	width?: number | string;
 	gutter?: number;
 	verticalGutter?: number;
-	style?: any;
-	// className?: string;
-	// extraClassName?: string;
 	grids?: number;
 };
 
 export interface IRowState { };
 
-export default class Row extends React.Component<IRowProps, IRowState> {
-	static defaultProps: IRowProps = {
-		grids: 12,
-		prefix : prefix,  //`${prefix}row`,
-		gutter: 0,
-		verticalGutter: 0
+const Row = (props : IRowProps)=>{
+
+	let {width, gutter = 0, verticalGutter = 0, grids = 12, prefix, extraClassName, style : _style} = props
+	prefix = prefix || _prefix
+
+	let children = (Array.isArray(props.children) ? props.children : [props.children]).filter((child) => child != null)
+
+	let colStyle : React.CSSProperties = {}
+	let rowStyle : React.CSSProperties = {}
+	if (gutter > 0) {
+		colStyle.paddingLeft = gutter / 2
+		colStyle.paddingRight = gutter / 2
 	}
-
-
-	render() {
-		let style : {width? : string | number} = {}
-		let {width,extraClassName,style : _style, prefix} = this.props
-
-		let className = `${prefix}row`
-		if (width != null) {
-			style.width = width
-		}
-		return (
-			<div style={assign(style, _style)} className={classnames(className, extraClassName)}>
-				{this.renderCols()}
-			</div>
-		)
+	if (verticalGutter > 0) {
+		colStyle.paddingTop = verticalGutter / 2
+		colStyle.paddingBottom = verticalGutter / 2
 	}
+	let className = `${prefix}row`
+	
 
-	renderCols() {
-		let {gutter, verticalGutter,grids,prefix} = this.props
-		let children = (Array.isArray(this.props.children) ? this.props.children : [this.props.children]).filter((child) => child != null)
-		let style : {paddingLeft? : number; paddingRight? : number; paddingTop? : number; paddingBottom? : number;} = {}
+	children = children.map((child : JSX.Element) => {
+		let style = assign({}, colStyle, child.props.style)
+		return React.cloneElement(child, { style, grids, prefix})
+	})
 
-		if (gutter > 0) {
-			style.paddingLeft = gutter / 2
-			style.paddingRight = gutter / 2
-		}
-		if (verticalGutter > 0) {
-			style.paddingTop = verticalGutter / 2
-			style.paddingBottom = verticalGutter / 2
-		}
-		return children.map((child : JSX.Element) => React.cloneElement(child, { style: assign({}, style, child.props.style), grids,prefix}))
+	if (width != null) {
+		rowStyle.width = width
 	}
+	return (
+		<div style={assign(rowStyle, _style)} className={classnames(className, extraClassName)}>
+			{children}
+		</div>
+	)
 }
+
+export default Row

@@ -7,7 +7,6 @@
 import React = require('react')
 import ReactDOM = require('react-dom')
 
-// ReactDOM.render
 export interface IDocumentProps {
     delay? : number;
     children? : any;
@@ -38,7 +37,7 @@ export default class Document extends React.Component<IDocumentProps,IDocumentSt
 	
 	componentDidMount() {
 		let wrap = ReactDOM.findDOMNode(this)
-		if (wrap) {
+		if (wrap && wrap.nodeName) {
 			if (wrap.addEventListener) {
 				wrap.addEventListener('click',this.handlerInnerClick,false)
 				document.addEventListener('click',this.handlerOutClick,false)
@@ -51,7 +50,7 @@ export default class Document extends React.Component<IDocumentProps,IDocumentSt
 
 	componentWillUnmount() {
 		let wrap = ReactDOM.findDOMNode(this)
-		if (wrap) {
+		if (wrap && wrap.nodeName) {
 			if (wrap.addEventListener) {
 				wrap.removeEventListener('click',this.handlerInnerClick,false)
 				document.removeEventListener('click',this.handlerOutClick,false)

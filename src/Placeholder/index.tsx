@@ -57,17 +57,17 @@ export default class Placeholder extends React.Component<IPlaceholderProps,IPlac
 		if (!isPlaceholderSupport() && children && children.props && children.props.placeholder && (children.type === 'input' || children.type === 'textarea') ) {
 			let props = children.props
 			const {isPlaceholder,value} = this.state
-			let nextProps = {
+			let nextProps :any = {
 				value : isPlaceholder ? props.placeholder : value,
 				onChange : mergeFuncs(props.onChange,this.handleChange.bind(this)),
 				onFocus : mergeFuncs(props.onFocus,this.handleFocus.bind(this)),
 				onBlur : mergeFuncs(props.onBlur,this.handleBlur.bind(this)) 				
 			}
 			if (isPlaceholder) {
-				(nextProps as any).style = assign({},props.style,{color : this.props.color})
+				nextProps.style = assign({},props.style,{color : this.props.color})
 			}
-			if (children.type === 'input' &&  children.props.type === 'password' && isPlaceholder) {
-				(nextProps as any).type = 'text'	
+			if (children.type === 'input' && children.props.type === 'password' && isPlaceholder) {
+				nextProps.type = 'text'	
 			}
 			return React.cloneElement(children,nextProps)
 		}else{

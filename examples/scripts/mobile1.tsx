@@ -1,4 +1,5 @@
-import '../styles/style.less'
+import '../styles/mobile1.less'
+
 
 if (process.env.NODE_ENV !== 'production') {
 	console.log('this is dev mode')
@@ -20,18 +21,17 @@ for (var i = scripts.length - 1; i >= 0; i--) {
 
 import React = require('react')
 import ReactDOM = require('react-dom')
-// import App = require('./components/App')
-import App from './components/App'
+import App = require('./components/Mobile1App')
 import { AppContainer } from "react-hot-loader";
 
-const $root = document.querySelector("#root")
+const $root = document.querySelector('#root')
 
 ReactDOM.render(<App/>, $root)
 
 if(module.hot) {
-	module.hot.accept("./components/App", () => {
-		const NextApp = require("./components/App").default
-		// console.log(NextApp)
+	module.hot.accept("./components/Mobile1App", () => {
+		const NextApp = require("./components/Mobile1App")
+		console.log(NextApp)
 		ReactDOM.render(<AppContainer><App/></AppContainer>,$root)
-	});
+	})
 }

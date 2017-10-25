@@ -1,4 +1,4 @@
-import * as classnames from 'classnames';
+// import * as classnames from 'classnames';
 import "Modal/index.less";
 import "Grid/index.less";
 import "Tabs/index.less";
@@ -19,11 +19,9 @@ import Notification from 'Notification'
 import Form from 'Form'
 import Loading from 'Loading'
 import {SearchSelector,Option} from 'SearchSelector'
-// import Option from 'SearchInput/Option'
-class App extends React.Component<any, any> {
-	notice2: any;
-
-	state : any;
+export default class App extends React.Component<any, any> {
+	notice2: any
+	state : any
 
 	notice : {show : (message? : string,tempShowState? :any)=>void; hide : ()=>void;}
 	
@@ -82,19 +80,20 @@ class App extends React.Component<any, any> {
 
 	handlerToggleTab(key : string, event : React.MouseEvent<Element>){
 		this.setState({tabActiveKey : key})
+		return false
 	}
 
 	handlerShowMessage(){
 		if(!this.notice){
-			this.notice = Notification.getInstance(<Notification duration={1} x={"left"} y={"top"}  reverse  >hello notification</Notification>)
+			this.notice = Notification.getInstance(<Notification>hello notification</Notification>)
 		}
-		this.notice.show("hello world",{reverse: false,x : "center",y:"middle",duration :5})
+		this.notice.show("hello world")
 	}
 	handlerShowMessage2(){
 		if(!this.notice2){
-			this.notice2 = Notification.getInstance(<Notification prefix="example" duration={3}>hello notification</Notification>)
+			this.notice2 = Notification.getInstance(<Notification prefix="example" duration={3}>hello notification(5s)</Notification>)
 		}
-		this.notice2.show("hello world",{reverse: false,x : "right",y:"bottom",duration :5})
+		this.notice2.show("hello world",{x : "right",y:"top",duration :5})
 	}
 
 	handlerSubmit(event : React.FormEvent<any>){
@@ -424,7 +423,7 @@ class App extends React.Component<any, any> {
 					<h4>受控 Tabs</h4>
 					<Tabs activeKey={this.state.tabActiveKey} onChange={this.handlerToggleTab.bind(this)}>
 						<Tab title="页面1" key="0">页面1的内容</Tab>
-						<Tab   title="页面2" key="1">页面2的内容</Tab>
+						<Tab title="页面2" key="1">页面2的内容</Tab>
 						<Tab title="页面3" key="2">页面3的内容</Tab>
 						<Tab title="页面4" key="3">页面4的内容</Tab>
 					</Tabs>
@@ -458,10 +457,10 @@ class App extends React.Component<any, any> {
 				</div>
 				<h2>tooltip</h2>
 				<div>
-					<Tooltip  style={{marginRight : 20}} visible >hello world</Tooltip>
+					<Tooltip style={{marginRight : 20}} visible >hello world</Tooltip>
 					<Tooltip style={{marginRight : 20}} placement="left" visible >hello world</Tooltip>
-					<Tooltip  style={{marginRight : 20}} placement="right" visible >hello world</Tooltip>
-					<Tooltip  style={{marginRight : 20}} placement="bottom" visible >hello world</Tooltip>
+					<Tooltip style={{marginRight : 20}} placement="right" visible >hello world</Tooltip>
+					<Tooltip style={{marginRight : 20}} placement="bottom" visible >hello world</Tooltip>
 	
 				</div>
 				<div style={{marginTop:30,marginBottom:30}}>
@@ -538,4 +537,3 @@ class App extends React.Component<any, any> {
 		)
 	}
 }
-export = App

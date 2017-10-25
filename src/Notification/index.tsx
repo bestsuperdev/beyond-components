@@ -5,6 +5,7 @@ import Container,{X,Y} from './Container'
 import {getNewInstance} from '../Tooltip/tooltipFactory';
 import { prefix, IBaseProps } from '../consts'
 import classnames = require('classnames')
+const assign = require('beyond-lib/lib/assign')
 
 const nprefix = `${prefix}notification`
 
@@ -31,7 +32,7 @@ const getAnimationClassName = (prefix : string, state : States)=>{
 
 
 
-export interface INotificationProps  extends IBaseProps<HTMLDivElement>{
+export interface INotificationProps  extends IBaseProps{
     visible? : boolean;
     duration? : number;
     reverse? : boolean;
@@ -43,15 +44,13 @@ export interface INotificationProps  extends IBaseProps<HTMLDivElement>{
 export interface INotificationShowState{
     duration? : number;
     reverse? : boolean;
-    x? : X
+    x? : X;
     y? : Y;
-	// style? : object;	
 }
 
 export interface INotificationState{
 	message? : string;
 	state? : States;
-	// isMounted : boolean;
 	showState? :INotificationShowState
 	
 }
@@ -75,8 +74,8 @@ export default class Notification extends React.Component<INotificationProps,INo
 			document.body.appendChild(wrap)
 			let handle = ReactDOM.render(notification,wrap) as Notification
 			return {
-				show(message? : string,tempShowState? :INotificationShowState){
-					handle.show(message,tempShowState)
+				show(message? : string, showState? : INotificationShowState){
+					handle.show(message,showState)
 				},
 
 				hide(){	
@@ -92,53 +91,34 @@ export default class Notification extends React.Component<INotificationProps,INo
         super(props)
         this.state = {
 			message : '',
-			state : props.visible ? States.entering : States.none,
-			showState:null
+			state : States.none,
+			showState : null
         }
         this.hide = this.hide.bind(this)
         this.show = this.show.bind(this)
     }
 
+	componentDidUpdate() {
+		let {visible} = this.props
+		let {state,showState} = this.state
+		let duration = showState && showState.duration != null ? showState.duration : this.props.duration
 
-	componentWillReceiveProps(nextProps : INotificationProps) {
-		let {visible} = nextProps
-		if(visible){
-			this.show()
-		}else{
-			this.hide()
-		}
-	}
-
-	componentDidUpdate(prevProps : INotificationProps, prevState : INotificationState) {
-		let {duration,visible} = this.props
-		let {state} = this.state
-
-		let showState:any
-		let tempShowState = this.state.showState
-		if(tempShowState !=null){
-			showState = tempShowState
-			if(showState.duration != undefined){
-				duration = showState.duration
-			}			
-		}else{
-			showState = null
-		}
 
 		clearTimeout(this.handle)
 		if(state === States.entering){
 			this.handle = setTimeout(()=>{
-				this.setState({state : States.entered,showState})
+				this.setState({state : States.entered})
 			},0)
-		}else if (duration > 0 && state === States.entered) {
+		}else if (state === States.entered && duration > 0) {
 			this.handle = setTimeout(()=>{
-				this.setState({state : States.leaveing,showState})
+				this.setState({state : States.leaveing})
 			},(duration+0.3) * 1000)
 		}else if(state === States.leaveing){
-			this.setState({state : States.leaved,showState})
+			this.setState({state : States.leaved})
 		}else if(state === States.leaved){
 			this.handle = setTimeout(()=>{
-				this.setState({state : States.none,showState})
-			} , 300);
+				this.setState({state : States.none, showState : null})
+			} , 300)
 		}
 	}
 
@@ -151,24 +131,18 @@ export default class Notification extends React.Component<INotificationProps,INo
 		}
 	}
 
-    show(message='',tempShowState? :INotificationShowState){
+    show(message='',showState? :INotificationShowState){
 		let {state} = this.state
-		let {duration} = this.props
-		// let {duration,reverse,x,y} = tempShowState
-		let showState:any
-		if(tempShowState !=null){
-			showState = tempShowState
-			if(showState.duration != undefined){
-				duration = showState.duration
-			}			
-		}else{
-			showState = null
+		if(showState != null){
+			showState = assign({},showState)
 		}
+		
+		let duration = showState && showState.duration != null ? showState.duration : this.props.duration 
 
 		clearTimeout(this.handle)
 
 		if(state === States.none){
-			this.setState({message,state : States.entering,showState})
+			this.setState({message, state : States.entering,showState})
 		}else if(state === States.entering || (state === States.entered && duration > 0)){
 			this.setState({message})
 		}else if(state === States.leaveing){
@@ -190,12 +164,12 @@ export default class Notification extends React.Component<INotificationProps,INo
 
 	render() {
 		let {reverse,children,extraClassName,x,y,style,prefix} = this.props
-		if(this.state.showState != null){
-			x = this.state.showState.x
-			y = this.state.showState.y
-			reverse = this.state.showState.reverse
+		let {showState,message,state} = this.state
+		if(showState != null){
+			x = showState.x || x
+			y = showState.y || y
+			reverse = showState.reverse != null ? showState.reverse : reverse
 		}
-		let {message,state} = this.state
 		let child : JSX.Element = null
 		if(state !== States.none){
 			let className = classnames(getAnimationClassName(prefix,state),extraClassName) 

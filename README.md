@@ -279,7 +279,7 @@ class App extends React.Component{
 | --------   | :----:   | :----:  |:----:  |
 | defaultActiveKey     | string |   -    | 默认的 active Tab，不受控 |
 | activeKey    |  string   |   0   | active Tab，受控 |
-| onChange  |   function   |  -  | 切换 tab 时的回掉函数 |
+| onChange  |   function   |  -  | 切换 tab 时的回调函数，如果是受控模式，该接口需返回 false |
 | prefix    | string   | 改变class前缀，深度定制时候使用   | beyond_p- |
 | extraClassName  |    string    |  -  | 非必需，增加className，定制样式 |
 

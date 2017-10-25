@@ -2,10 +2,10 @@ import React = require('react')
 import ReactDOM = require('react-dom')
 import classnames = require('classnames')
 import { prefix, IBaseProps } from '../consts'
-export interface IContentProps extends IBaseProps<HTMLDivElement>  {
+export interface IContentProps extends IBaseProps  {
     reverse? : boolean;
     children? : any;
-    style? : object;
+    style? : React.CSSProperties;
 }
 
 const Content = (props : IContentProps)=> {
