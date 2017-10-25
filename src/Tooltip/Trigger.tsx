@@ -1,6 +1,6 @@
 /*
 
-<TooltipTrigger tooltip={<Tooltip duration={3}>hello world<Tooltip/>} >
+<TooltipTrigger tooltip={<Tooltip>hello world<Tooltip/>} >
 	<button>hover</button>
 </TooltipTrigger>
  */
@@ -40,6 +40,7 @@ export default class Trigger extends React.Component<ITriggerProps,ITriggerState
 	}
 
 	show(){
+		console.log('show')
 		if (this.tooltipOperator && this.target) {
 			this.tooltipOperator.show(this.target)
 		}

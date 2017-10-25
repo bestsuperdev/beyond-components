@@ -1,9 +1,18 @@
+/**
+ * 
+	let notice = Notification.getInstance(<Notification />)
+	notice.show("hello world",{duration : 3})
+
+	<Notification ref={(n)=> this.n = n } >hello notification</Notification>
+	this.n.show()
+ */
+
 import React = require('react')
 import ReactDOM = require('react-dom')
 import Content from './Content'
 import Container,{X,Y} from './Container'
 import {getNewInstance} from '../Tooltip/tooltipFactory';
-import { prefix, IBaseProps } from '../consts'
+import {prefix, IBaseProps } from '../consts'
 import classnames = require('classnames')
 const assign = require('beyond-lib/lib/assign')
 
@@ -32,14 +41,6 @@ const getAnimationClassName = (prefix : string, state : States)=>{
 
 
 
-export interface INotificationProps  extends IBaseProps{
-    visible? : boolean;
-    duration? : number;
-    reverse? : boolean;
-    x? : X
-    y? : Y;
-	style? : object;
-}
 
 export interface INotificationShowState{
     duration? : number;
@@ -51,8 +52,11 @@ export interface INotificationShowState{
 export interface INotificationState{
 	message? : string;
 	state? : States;
-	showState? :INotificationShowState
-	
+	showState? : INotificationShowState;
+}
+
+
+export interface INotificationProps  extends INotificationShowState, IBaseProps{
 }
 
 
@@ -60,7 +64,6 @@ export default class Notification extends React.Component<INotificationProps,INo
 
     static defaultProps : INotificationProps = {
         duration : 2,
-        visible : false,
         reverse : false,
 		prefix  : prefix	
     }
@@ -99,7 +102,6 @@ export default class Notification extends React.Component<INotificationProps,INo
     }
 
 	componentDidUpdate() {
-		let {visible} = this.props
 		let {state,showState} = this.state
 		let duration = showState && showState.duration != null ? showState.duration : this.props.duration
 
@@ -131,7 +133,7 @@ export default class Notification extends React.Component<INotificationProps,INo
 		}
 	}
 
-    show(message='',showState? :INotificationShowState){
+    show(message='', showState? :INotificationShowState){
 		let {state} = this.state
 		if(showState != null){
 			showState = assign({},showState)

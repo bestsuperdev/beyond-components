@@ -27,21 +27,25 @@ function offset(node : HTMLElement) : React.CSSProperties {
 function getToolTipStyle(tooltip : any, target : HTMLElement) : React.CSSProperties{
 	let placement = tooltip.props.placement || 'top'
 	let toolTipNode = ReactDOM.findDOMNode(tooltip) as HTMLElement
+	toolTipNode.style.display = 'block'
+	let {offsetHeight,offsetWidth} = toolTipNode
+	toolTipNode.style.display = 'none'
 	let targetOffset = offset(target)
 	let top:string , left:string
 	if (placement === 'top') {
-		top  = (targetOffset.top - toolTipNode.offsetHeight - 15) + 'px',
-		left = (targetOffset.left - (toolTipNode.offsetWidth - targetOffset.width ) /2 ) + 'px'
+		top  = (targetOffset.top - offsetHeight - 15) + 'px',
+		left = (targetOffset.left - (offsetWidth - targetOffset.width ) /2 ) + 'px'
 	}else if(placement === 'bottom'){
 		top = (targetOffset.top + targetOffset.height + 15) + 'px'
-		left = (targetOffset.left - (toolTipNode.offsetWidth - targetOffset.width ) /2 ) + 'px'
+		left = (targetOffset.left - (offsetWidth - targetOffset.width ) /2 ) + 'px'
 	}else if(placement === 'left'){
-		top = (targetOffset.top - (toolTipNode.offsetHeight - targetOffset.height ) /2 ) + 'px'
-		left = (targetOffset.left - toolTipNode.offsetWidth - 15) + 'px'
+		top = (targetOffset.top - (offsetHeight - targetOffset.height ) /2 ) + 'px'
+		left = (targetOffset.left - offsetWidth - 15) + 'px'
 	}else if(placement === 'right'){
-		top = (targetOffset.top - (toolTipNode.offsetHeight - targetOffset.height ) /2 ) + 'px'
+		top = (targetOffset.top - (offsetHeight - targetOffset.height ) /2 ) + 'px'
 		left = (targetOffset.left + targetOffset.width + 15) + 'px'
 	}
+	console.log(left,top)
 	if (top != null) {
 		return {
 			position : 'absolute',
@@ -70,6 +74,7 @@ export function getNewInstance(tooltip : JSX.Element) : ITooltipOperator {
     
 	return {
 		show(target : HTMLElement){
+			console.log(1)
 			let style = getToolTipStyle(instance,target)
 			instance._setStyle(style)
 		},
