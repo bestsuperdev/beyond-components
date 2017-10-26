@@ -36,6 +36,8 @@
         }
         .@{nprefix}-input{
             position:relative;
+            margin-left:10px;
+            margin-right:10px;  
         }
         .@{nprefix}-container{
             position:absolute;
@@ -45,17 +47,6 @@
             left:0px;
             right:0px;
             background-color:#fff;
-        }
-        .plr-10{
-            padding-left:10px;
-            padding-right:10px;
-        }
-        .mlr-10{
-            margin-left:10px;
-            margin-right:10px;    
-        }
-        .text-ind20{
-            text-indent: 20px!important;
         }
         .container-relative{
             position:relative;
@@ -97,8 +88,6 @@
         }
 
         .@{nprefix}-option{
-            // width:100%;
-            // padding:0 10px;
             text-indent: 20px;
             height:40px;
             line-height: 40px;
@@ -111,29 +100,12 @@
                 top:50%;
             }        
         }
+        .active{
+            background:#eeeeee;
+        }
         .@{nprefix}-option:hover{
             background:#eeeeee;
             
-        }
-        //滚动条的样式设置
-        .@{nprefix}-options::-webkit-scrollbar{
-            //整个滚动条样式
-            width:0px;
-            // width:40px;
-            // background-color: white;
-        }
-        .@{nprefix}-options::-webkit-scrollbar-track{
-            //整个滚动路径样式
-            // background-color: blue;
-        }
-        .@{nprefix}-options::-webkit-scrollbar-button{
-            //滚动按钮样式，向上或向下
-            // display:block;
-            // height:5px;
-        }    
-        .@{nprefix}-options::-webkit-scrollbar-thumb{
-            //滚动块样式
-            // background-color: green;
         }
     }
     .@{nprefix}-arrowDown{
@@ -142,7 +114,7 @@
             display:inline-block;
             position:absolute;
             top:20px;
-            right:5px;
+            right:10px;
             width:0;
             height:0;
             border-style: solid;
@@ -157,7 +129,7 @@
             display:inline-block;
             position:absolute;
             top:15px;
-            right:5px;
+            right:10px;
             width:0;
             height:0;
             border-style: solid;
@@ -166,11 +138,5 @@
             border-bottom-color:black;
 
         }     
-    }
-    .bd{
-        border:1px solid grey !important;
-    }
-    .bd-top{
-        border-top:1px solid grey !important;
     }
 }

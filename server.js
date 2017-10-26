@@ -21,6 +21,7 @@ if (typeof config.entry === 'string') {
 var server = new WebpackDevServer(webpack(config), {
   contentBase: path.resolve(__dirname, './'),
   hot: true,
+  disableHostCheck: true,
   //设置webpack-dev-server启动的时候，bundles的输出的路径，打包的时候这个publicPath没有作用
   publicPath: config.output.publicPath,
   historyApiFallback: false,
