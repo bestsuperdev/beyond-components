@@ -1,5 +1,5 @@
 .beyond_p-searchSelector {
-  border: 1px solid grey;
+  box-sizing: border-box;
   position: relative;
   font-size: 16px;
   width: 240px;
@@ -20,6 +20,8 @@
   height: 40px;
   line-height: 40px;
   text-indent: 10px;
+  border: 1px solid grey;
+  border-bottom: none;
   box-sizing: border-box;
   padding: 0 10px;
   position: relative;
@@ -29,6 +31,15 @@
 .beyond_p-searchSelector .beyond_p-searchSelector-input {
   position: relative;
 }
+.beyond_p-searchSelector .beyond_p-searchSelector-container {
+  position: absolute;
+  box-sizing: border-box;
+  border: 1px solid grey;
+  border-top: none;
+  left: 0px;
+  right: 0px;
+  background-color: #fff;
+}
 .beyond_p-searchSelector .plr-10 {
   padding-left: 10px;
   padding-right: 10px;
@@ -37,8 +48,12 @@
   margin-left: 10px;
   margin-right: 10px;
 }
-.beyond_p-searchSelector .text-ind10 {
-  text-indent: 10px!important;
+.beyond_p-searchSelector .text-ind20 {
+  text-indent: 20px!important;
+}
+.beyond_p-searchSelector .container-relative {
+  position: relative;
+  border-top: 1px solid grey;
 }
 .beyond_p-searchSelector .beyond_p-searchSelector-icon-container {
   position: absolute;
@@ -86,9 +101,6 @@
 .beyond_p-searchSelector .beyond_p-searchSelector-option:hover {
   background: #eeeeee;
 }
-.beyond_p-searchSelector .beyond_p-searchSelector-options::-webkit-scrollbar {
-  width: 0px;
-}
 .beyond_p-searchSelector-arrowDown:after {
   content: ' ';
   display: inline-block;
@@ -116,18 +128,8 @@
   border-bottom-color: black;
 }
 .bd {
-  border: 1px solid grey;
+  border: 1px solid grey !important;
 }
-.bd-none {
-  border: none;
-}
-.bd-bt {
-  border-bottom: 1px solid grey;
-}
-.bd-top-none {
-  border: 1px solid grey;
-  border-top: none;
-}
-.border-bottom-none {
-  border-bottom: none;
+.bd-top {
+  border-top: 1px solid grey !important;
 }

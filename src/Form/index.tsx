@@ -51,7 +51,7 @@ export default class Form extends React.Component<IFormProps,any> {
 	iframe : HTMLIFrameElement
 	iframeName : string
 
-	static defaultProps : any = {
+	static defaultProps : IFormProps = {
 		encType : 'multipart/form-data',
 		dataType : 'json',
 		method : 'POST'
@@ -71,9 +71,7 @@ export default class Form extends React.Component<IFormProps,any> {
 			this.iframe = document.createElement('iframe')
 			this.iframe.name = this.iframeName
 			this.iframe.id = this.iframeName
-			this.iframe.style.width = '0px' 
-			this.iframe.style.height = '0px' 
-			this.iframe.style.border = 'none' 
+			assign(this.iframe.style,{width : '0px',height : '0px',border : 'none'})
 			document.body.appendChild(this.iframe)
 			this.iframe.onload = this.handlerIframeLoad
 		}
@@ -120,13 +118,7 @@ export default class Form extends React.Component<IFormProps,any> {
 
 
 	render() {
-		let props = assign({},this.props) as any
-		let {children} = this.props
-		delete props.dataType
-		delete props.onComplete
-		delete props.onError
-		delete props.onSuccess
-		return <form target={this.iframeName} {...props}>{children}</form>
-		
+		let {children,dataType,onComplete,onError,onSuccess,...rests} = this.props
+		return <form target={this.iframeName} {...rests}>{children}</form>		
 	}
 }

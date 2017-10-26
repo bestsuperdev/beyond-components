@@ -1,4 +1,12 @@
 /// <reference types="react" />
+/**
+ *
+    let notice = Notification.getInstance(<Notification />)
+    notice.show("hello world",{duration : 3})
+
+    <Notification ref={(n)=> this.n = n } >hello notification</Notification>
+    this.n.show()
+ */
 import React = require('react');
 import { X, Y } from './Container';
 import { IBaseProps } from '../consts';
@@ -9,31 +17,31 @@ export declare enum States {
     leaveing = 3,
     leaved = 4,
 }
-export interface INotificationProps extends IBaseProps {
-    visible?: boolean;
+export interface INotificationShowState {
     duration?: number;
     reverse?: boolean;
     x?: X;
     y?: Y;
-    style?: object;
 }
 export interface INotificationState {
     message?: string;
     state?: States;
+    showState?: INotificationShowState;
+}
+export interface INotificationProps extends INotificationShowState, IBaseProps {
 }
 export default class Notification extends React.Component<INotificationProps, INotificationState> {
     static defaultProps: INotificationProps;
     static state: INotificationState;
     static getInstance(notification: JSX.Element): {
-        show(message?: string): void;
+        show(message?: string, showState?: INotificationShowState): void;
         hide(): void;
     };
     handle: number;
     constructor(props: INotificationProps);
-    componentWillReceiveProps(nextProps: INotificationProps): void;
-    componentDidUpdate(prevProps: INotificationProps, prevState: INotificationState): void;
+    componentDidUpdate(): void;
     componentDidMount(): void;
-    show(message?: string): void;
+    show(message?: string, showState?: INotificationShowState): void;
     hide(): void;
     render(): JSX.Element;
 }

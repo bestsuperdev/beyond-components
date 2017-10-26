@@ -45,7 +45,6 @@ function getToolTipStyle(tooltip : any, target : HTMLElement) : React.CSSPropert
 		top = (targetOffset.top - (offsetHeight - targetOffset.height ) /2 ) + 'px'
 		left = (targetOffset.left + targetOffset.width + 15) + 'px'
 	}
-	console.log(left,top)
 	if (top != null) {
 		return {
 			position : 'absolute',

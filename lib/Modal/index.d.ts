@@ -3,7 +3,7 @@ import React = require('react');
 import { IBaseProps } from '../consts';
 export declare type NS = number | string;
 export interface IModalProps extends IBaseProps {
-    title?: string;
+    title?: any;
     close?: boolean;
     closeIcon?: any;
     footer?: any;
@@ -16,8 +16,6 @@ export interface IModalProps extends IBaseProps {
     maskClickClose?: boolean;
     onOpen?: () => void;
     onClose?: () => void;
-    extraClassName?: string;
-    style?: Object;
 }
 export interface IModalState {
 }
@@ -27,8 +25,8 @@ export default class Modal extends React.Component<IModalProps, IModalState> {
     componentDidMount(): void;
     componentDidUpdate(prevProps: IModalProps, prevState: IModalState): void;
     componentWillUnmount(): void;
-    render(): JSX.Element;
     handlerClose(): void;
+    render(): JSX.Element;
     renderHeader(): JSX.Element;
     renderFooter(): JSX.Element;
 }

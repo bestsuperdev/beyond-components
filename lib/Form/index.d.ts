@@ -27,17 +27,11 @@
  *
  */
 import * as React from 'react';
-export interface IFormProps {
-    onSubmit?: (event: React.FormEvent<any>) => void;
+export interface IFormProps extends React.HTMLProps<HTMLFormElement> {
     onSuccess?: (res: any) => void;
     onError?: (res: any) => void;
     onComplete?: (res: any) => void;
     dataType?: 'json' | 'html';
-    className?: string;
-    style?: Object;
-    encType?: string;
-    action?: string;
-    method?: string;
 }
 export default class Form extends React.Component<IFormProps, any> {
     iframe: HTMLIFrameElement;
