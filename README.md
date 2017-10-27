@@ -635,7 +635,7 @@ class App extends React.Component{
 | extraClassName     | string |   -  | 非必需，增加className，定制样式 |
 | placeholder  |  string   |   -   | placeholder的内容 |
 | showMaxCount  |  string   |   -   | 显示的option个数 |
-| withoutText     | boolean |   false  | 不显示selector选择内容 |
+| displaySearchInput     | boolean |   false  | 不显示selector选择内容 |
 | clickInputEmpty  |  boolean   |   false   | 点击搜索框是否清空 |
 | onChange     | function |   -  | 必需，获得选择后的内容 |
 | searchFun  |  function   |   -   | 非必需，若根据搜索内容调用接口获得options时，使用该属性 |

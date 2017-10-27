@@ -35,7 +35,7 @@ class Option extends React.Component<OptionProps,{}>{
             // debugger
             let strObj = this.props.matchValue && this.getSeparateString(matchValue,this.props.text) //{!matchValue && text}
             return(
-                <div className={classnames(`${nprefix}-option`,activeIndex ==index && 'active')} style={{textIndent:indent &&'20px'}}  onClick={this.props.onClick} key={this.props.index && this.props.index}>
+                <div className={classnames(`${nprefix}-option`,activeIndex == index && 'active')} style={{textIndent:indent &&'20px'}}  onClick={this.props.onClick} key={this.props.index && this.props.index}>
                     {(matchValue &&(<div>{strObj.strBegin}<b>{matchValue}</b>{strObj.strEnd}</div>))||text}   
                 </div>
             )
@@ -129,9 +129,6 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
         if(this.props.onSearch) {
             let options = this.getOptions(nextprops)          
             this.setState({searchOptions:this.options})//selectOption, searchContent,        
-            // if(document.addEventListener){
-            //     document.addEventListener('click',this.hideOptionFun)
-            // } 
         }
        
     }
@@ -181,7 +178,6 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
         children = children.map((child:any,i:number)=>{
             let {value,text} = this.getOptionObject(child)
             options.push(React.cloneElement(child,{value,text,index:i,key:i,indent,
-                // activeIndex:this.state.temp_activeIndex,
                                                     onClick:this.handlerClickOption.bind(this,{value,text,i}),
                                                     onMouseOver:this.handlerMouseoverSelectorOption.bind(this,{value,text,i})
                                                 }))    
@@ -194,24 +190,36 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
         this.innerClick = true
         let showOption = !this.state.showOption
         this.setState({showOption})
-               // document.getElementById("input-id").focus()
-          // this.refs.myinput.focus()  
+        //有text框和input框，input清空
+        if(this.props.clickInputEmpty){
+            let searchOptions = this.options
+            if(this.props.onSearch){
+                this.options =[]
+                searchOptions = []
+            }            
+            console.log(searchOptions)
+            this.setState({showOption,searchContent:"",searchOptions,temp_activeIndex:0}) 
+        }
     }
     handlerInputClick(){
-          ////更改searchOptions
-          this.innerClick = true
-          let showOption = true
-          // let searchOptions = this.options
-          // let searchOptions = this.state.searchOptions
-          let searchOptions = this.state.searchOptions
-          console.log(searchOptions)
-          if(this.props.clickInputEmpty){
-              let searchOptions = this.options
-              this.setState({showOption,searchContent:"",searchOptions})
-          }else{
-              this.setState({showOption,searchOptions})
-          }
- 
+        // debugger
+        ////更改searchOptions
+        this.innerClick = true
+        let showOption = true        
+        this.setState({showOption})
+        //只有input框，input清空
+        if(this.props.displaySearchInput){
+            if(this.props.clickInputEmpty){
+                //   debugger
+                let searchOptions = this.options                
+                if(this.props.onSearch){
+                    this.options =[]
+                    searchOptions = []
+                }
+                this.setState({showOption,searchContent:"",searchOptions,temp_activeIndex:0})
+                
+            }
+        }
     }
     handlerClickOption(obj:any,event:any){
         // debugger
@@ -223,12 +231,24 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
             this.props.onChange(selectOption)
         }
         console.log(this.state.searchOptions)
+        //找到temp_activeIndex
+        let temp_activeIndex = 0        
+        console.log('this.state.searchOptions',this.state.searchOptions)
+        this.state.searchOptions.map((item:any,i:number)=>{
+            console.log(i)
+            console.log('obj',obj)
+            console.log('value',item.value,obj.value)
+            if(item.props.value == obj.value){
+                temp_activeIndex = i
+            }
+        })
+        console.log('temp_active',temp_activeIndex)
+        console.log('index',obj.index)
         if(this.props.displaySearchInput) {
-            this.setState({showOption,selectOption,searchContent:obj.text,searchOptions:this.options})//,searchContent,searchOptions,temp_activeIndex:0
+            this.setState({showOption,selectOption,searchContent:obj.text,temp_activeIndex})//,searchContent,searchOptions,temp_activeIndex:0,searchOptions:this.options
         }else{
-            this.setState({showOption,selectOption})//,searchContent:'',searchOptions:this.options,temp_activeIndex:0
+            this.setState({showOption,selectOption,temp_activeIndex})//,searchContent:'',searchOptions:this.options,temp_activeIndex:0
         }
-        // document.getElementById("input-id").blur() 
         if(this.refs.myinput)
             this.refs.myinput.blur()       
     }
@@ -264,14 +284,10 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
         event.preventDefault()
     }
     scrollTo(index:number){
-        // //debugger
-        console.log(document.getElementById('options-wrap'))
-         if(document.getElementById('options-wrap') != null){
-            console.log('临时选中',index)
-            document.getElementById('options-wrap').scrollTop = index*40
-         }else{
-             console.log('没滚动')
-         }   
+        console.log(this.refs.optionsWrap) 
+        if(this.refs.optionsWrap){
+            this.refs.optionsWrap.scrollTop = (this.state.temp_activeIndex*40)
+        }  
     }
     componentDidUpdate(){
         this.scrollTo(this.state.temp_activeIndex)
@@ -282,17 +298,18 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
     }
     renderOptions(){
         // debugger
+        console.log('searchOptions',this.state.searchOptions)
         let {showMaxCount,displaySearchInput} = this.props
         if(this.state.showOption){
             let options = this.state.searchOptions
             options =options.map((child:any,i:number)=>{
-                return React.cloneElement(child,{activeIndex:this.state.temp_activeIndex,index:i})
+                return React.cloneElement(child,{activeIndex:this.state.searchOptions[this.state.temp_activeIndex].props.index})
             })
             console.log(options)            
             if(options.length == 0) {
                 return <div className={classnames(`${nprefix}-no-options`)}>No results match "{this.state.searchContent}"</div>
             }
-            return <div className={classnames(`${nprefix}-options`)}  id='options-wrap' style = {{maxHeight:showMaxCount*40}} >{options}</div>
+            return <div className={classnames(`${nprefix}-options`)}  ref='optionsWrap' style = {{maxHeight:showMaxCount*40}} >{options}</div>
         }else{
             // debugger
             return null
@@ -315,6 +332,7 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
                 matchNum++
             }            
         })
+        console.log('matchOptions',matchOptions)
          return matchOptions
     }
     judgeMatchState(event:any){
