@@ -36,7 +36,7 @@ export interface IFormProps extends React.HTMLProps<HTMLFormElement> {
 export default class Form extends React.Component<IFormProps, any> {
     iframe: HTMLIFrameElement;
     iframeName: string;
-    static defaultProps: any;
+    static defaultProps: IFormProps;
     constructor(props: IFormProps);
     componentDidMount(): void;
     componentWillUnmount(): void;
