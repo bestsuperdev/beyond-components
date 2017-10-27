@@ -1,9 +1,6 @@
 import * as React from 'react';
 import assign = require('beyond-lib/lib/assign')
-interface IHeaderProps {
-	className? : string;
-	style? : React.CSSProperties
-	children? : any,
+export interface IMobileLayoutHeaderProps extends React.HTMLProps<HTMLDivElement> {
 	height? : number | string;
 };
 
@@ -12,19 +9,15 @@ const baseStyle = {
 	position : 'relative'
 }
 
-interface IHeaderState {};
+export interface IHeaderState {};
 
-export default class Header extends React.Component<IHeaderProps, IHeaderState> {
-
-	static defaultProps : IHeaderProps = {
-		height : 50
-	}
-
-	public render(): JSX.Element {
-		 let {height,className,style,children} = this.props
-        style = assign({height},baseStyle,style)
-		return (
-			<div style={style} className={className} >{children}</div>
-		)
-	}
+const Header = (props : IMobileLayoutHeaderProps) : JSX.Element =>{
+	props.height = props.height || 50
+	let {height,style,className,children, ...rests} = props
+	style = assign({height},baseStyle,style)
+	return (
+		<div {...rests} style={style}>{children}</div>
+	)
 }
+
+export default Header

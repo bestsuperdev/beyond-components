@@ -1,21 +1,16 @@
 /// <reference types="react" />
 import React = require('react');
+import { ITooltipOperator } from './tooltipFactory';
 export interface ITriggerProps {
-    tooltip: any;
+    tooltip: JSX.Element;
 }
 export interface ITriggerState {
 }
 export default class Trigger extends React.Component<ITriggerProps, ITriggerState> {
-    tooltip: {
-        show: (node: Element) => void;
-        hide: () => void;
-    };
-    target: Element;
+    tooltipOperator: ITooltipOperator;
+    target: HTMLElement;
     componentDidMount(): void;
-    render(): React.SFCElement<{
-        onMouseEnter: {};
-        onMouseLeave: {};
-    }>;
+    render(): React.ReactElement<any>;
     show(): void;
     hide(): void;
 }

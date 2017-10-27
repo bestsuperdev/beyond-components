@@ -14,7 +14,6 @@ export interface ILoadingProps {
 export interface ILoadingState{
     message?:string,
     maxShowTime?:number,
-    rotate?:number,
     hidden:boolean
 }
 
@@ -38,12 +37,12 @@ export default class Loading extends React.Component<ILoadingProps,ILoadingState
     constructor(props:ILoadingProps){
         super(props)
         this.state = {
-            rotate:0,
             hidden:false
         }
         this.hiddenFlag = false
         this.boxWidth = 0
         this.handler = null
+        this.resizeWith = this.resizeWith.bind(this)
     }
     public hiddenFlag:boolean
     public boxWidth:number
@@ -65,7 +64,7 @@ export default class Loading extends React.Component<ILoadingProps,ILoadingState
             this.hiddenFlag = true
             this.handler =setTimeout(this.hide.bind(this),this.props.maxShowTime*1000)
         }
-        window.addEventListener('resize',this.resizeWith.bind(this))
+        window.addEventListener('resize',this.resizeWith)
 
     }
     show(messageValue?:string,showState?:ILoadingState){
@@ -76,14 +75,13 @@ export default class Loading extends React.Component<ILoadingProps,ILoadingState
         this.handler = setTimeout(this.hide.bind(this),maxShowTime*1000)
     }
     hide(){
-        console.log("clear it")
         clearTimeout(this.handler)
         this.handler = null
         this.setState({hidden:true})
     }
     componentWillUnmount(){
         this.hiddenFlag = false
-        window.removeEventListener('resize',this.resizeWith.bind(this))
+        window.removeEventListener('resize',this.resizeWith)
     }
     render(){
         let {message} =this.props 

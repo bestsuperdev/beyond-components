@@ -1,12 +1,6 @@
 import * as React from 'react';
 import assign = require('beyond-lib/lib/assign')
-export interface IMainProps {
-	className? : string;
-	style? : React.CSSProperties
-	children? : any;	
-};
 
-export interface IMainState {};
 
 const baseStyle = {
     position : 'absolute',
@@ -18,13 +12,12 @@ const baseStyle = {
 	overflowY : 'auto'
 }
 
-export default class Main extends React.Component<IMainProps, IMainState> {
-
-	public render(): JSX.Element {
-        let {className,style,children} = this.props
-        style = assign({},baseStyle,style)
-		return (
-			<div style={style} className={className}>{children}</div>
-		)
-	}
+const Main = (props : React.HTMLProps<HTMLDivElement>) : JSX.Element =>{
+	let {className,style,children,...rests} = this.props
+	style = assign({},baseStyle,style)
+	return (
+		<div style={style}  {...rests}>{children}</div>
+	)
 }
+
+export default Main

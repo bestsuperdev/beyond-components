@@ -1,13 +1,13 @@
 {
   "name": "beyond-components",
-  "version": "0.5.0beta",
+  "version": "0.6.0beta",
   "description": "react prototype components",
   "scripts": {
     "start": "node ./server.js",
     "mock": "cd ./mock & json-server --watch db.json --routes routes.json --port 9001",
     "test": "karma start  --config karma.conf.js",
     "clear": "rimraf lib",
-    "build": "npm run clear && tsc -d -p src && node ./gulpfile.js",
+    "build": "npm run clear && tsc --importHelpers -d -p src && node ./gulpfile.js",
     "clear:example": "rimraf dist",
     "build:example": "npm run clear:example && cross-env NODE_ENV=production webpack --config webpack.config.js"
   },
@@ -18,7 +18,8 @@
     "beyond-lib": "^1.0.1",
     "classnames": "^2.2.5",
     "react": ">=0.14.0",
-    "react-dom": ">=0.14.0"
+    "react-dom": ">=0.14.0",
+    "tslib": "^1.8.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.1.1",

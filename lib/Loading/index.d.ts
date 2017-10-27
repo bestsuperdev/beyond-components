@@ -7,7 +7,6 @@ export interface ILoadingProps {
 export interface ILoadingState {
     message?: string;
     maxShowTime?: number;
-    rotate?: number;
     hidden: boolean;
 }
 export default class Loading extends React.Component<ILoadingProps, ILoadingState> {

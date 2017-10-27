@@ -1,4 +1,5 @@
-export {default as Container} from './Container'
-export {default as Header} from './Header'
-export {default as Main} from './Main'
-export {default as Footer} from './Footer'
+import  Container from './Container'
+import  Header from './Header'
+import  Main from './Main'
+import  Footer from './Footer'
+export {Container,Header,Main,Footer}

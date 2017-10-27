@@ -9,14 +9,5 @@ gulp.src('./src/**/index.less')
   }))
   .pipe(gulp.dest('./lib'));
 
-gulp.src('./src/**/mixin.less')
-  // .pipe(less({
-  //   plugins: [autoprefix]
-  // }))
-  .pipe(gulp.dest('./lib'));
-
-gulp.src('./src/mixins.less')
-  // .pipe(less({
-  //   plugins: [autoprefix]
-  // }))
+  gulp.src(['./src/**/*.jpg','./src/**/*.png'])
   .pipe(gulp.dest('./lib'));

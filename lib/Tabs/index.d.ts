@@ -1,8 +1,7 @@
 /// <reference types="react" />
 import React = require('react');
 import { IBaseProps } from '../consts';
-export interface ITabProps {
-    key: string;
+export interface ITabProps extends IBaseProps {
     title: string;
     disabled?: boolean;
 }
@@ -11,23 +10,19 @@ export interface ITabState {
 export interface ITabsProps extends IBaseProps {
     defaultActiveKey?: string;
     activeKey?: string;
-    onChange?: (key: string) => void;
-    extraClassName?: string;
-    style?: object;
+    onChange?: (key: string) => void | boolean;
 }
 export interface ITabsState {
     activeKey: string;
 }
-export declare class Tab extends React.Component<ITabProps, ITabState> {
-    render(): JSX.Element;
-}
+export declare const Tab: (props: ITabProps) => JSX.Element;
 export default class Tabs extends React.Component<ITabsProps, ITabsState> {
     static defaultProps: ITabsProps;
     state: ITabsState;
     constructor(props: ITabsProps);
-    componentWillReceiveProps(nextProps: ITabsProps): void;
+    getActiveKey(): string;
     render(): JSX.Element;
     renderNavs(): JSX.Element;
     renderTabs(): JSX.Element;
-    handlerClick(activeKey: string, event: React.MouseEvent<Element>): void;
+    handlerClick(activeKey: string): void;
 }

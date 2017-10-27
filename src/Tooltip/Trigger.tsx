@@ -40,7 +40,6 @@ export default class Trigger extends React.Component<ITriggerProps,ITriggerState
 	}
 
 	show(){
-		console.log('show')
 		if (this.tooltipOperator && this.target) {
 			this.tooltipOperator.show(this.target)
 		}

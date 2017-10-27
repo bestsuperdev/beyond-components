@@ -1,14 +1,14 @@
 /// <reference types="react" />
-import { IBaseProps } from '../consts';
+import * as React from 'react';
 export declare type NS = number | string;
-export interface IColProps extends IBaseProps {
+export interface IColProps extends React.HTMLProps<HTMLDivElement> {
     width?: NS;
     offsetWidth?: NS;
     col?: number;
     offsetCol?: number;
-    style?: any;
     grids?: number;
-    children?: any;
+    extraClassName?: string;
+    prefix?: string;
 }
 declare const Col: (props: IColProps) => JSX.Element;
 export default Col;
