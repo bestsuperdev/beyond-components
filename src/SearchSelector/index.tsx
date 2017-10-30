@@ -3,6 +3,7 @@ import * as classnames from 'classnames'
 import Placeholder from '../Placeholder'
 import { prefix, IBaseProps } from '../consts'
 // const nprefix ="searchSelector"
+import assign = require("beyond-lib/lib/assign");
 const nprefix = `${prefix}searchSelector`
 interface OptionProps{
     value?:string,
@@ -16,41 +17,30 @@ interface OptionProps{
     activeIndex?:number
 }
 class Option extends React.Component<OptionProps,{}>{
-    getSeparateString(matchValue:string,str:string){
+    renderText(matchValue:string,str:string){
+        if(!matchValue){ 
+            return null
+        }
         let startX = str.indexOf(matchValue)
-        let len = matchValue.length
         let strBegin = str.substring(0,startX)
-        let strEnd = str.substr(startX+len) 
-        return{strBegin,strEnd}
+        let strEnd = str.substr(startX+matchValue.length) 
+        return(
+            <div>{strBegin}<b>{matchValue}</b>{strEnd}</div>
+        )
     }
     render(){
-        console.log(this.props)
-        let {matchValue,indent,index,activeIndex} = this.props
-        let text = this.props.text||this.props.children
-        // console.log(matchValue)
-        // console.log(text)
-        console.log(activeIndex,this.props.index)
-        // debugger
-        if(matchValue){
-            // debugger
-            let strObj = this.props.matchValue && this.getSeparateString(matchValue,this.props.text) //{!matchValue && text}
-            return(
-                <div className={classnames(`${nprefix}-option`,activeIndex == index && 'active')} style={{textIndent:indent &&'20px'}}  onClick={this.props.onClick} key={this.props.index && this.props.index}>
-                    {(matchValue &&(<div>{strObj.strBegin}<b>{matchValue}</b>{strObj.strEnd}</div>))||text}   
-                </div>
-            )
-        }else{
-            return(
-                <div className={classnames(`${nprefix}-option`,activeIndex ==index && 'active')} style={{textIndent:indent &&'20px'}}  onClick={this.props.onClick}  key={this.props.index && this.props.index}>
-                    {text}   
-                </div>  
-            )        
-        }
-
+        let {matchValue,indent,index,activeIndex,text} = this.props
+        let _style = indent?{}:assign({},{textIndent:'20px'})
+        return(
+            <div className={classnames(`${nprefix}-option`,activeIndex == index && 'active')} style={_style}  onClick={this.props.onClick}>
+                {( this.renderText(matchValue,text))||this.props.children}   
+            </div>
+        )
     }
 }
 interface ISearchSelectorProps{
     extraClassName?:string,
+    style?:React.CSSProperties,
     // children?:any,
     placeholder?:string,
     // defaultSelect?:boolean,
@@ -118,7 +108,7 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
             let searchContent =selectOption.text            
             this.setState({selectOption,searchOptions:this.options})//,searchContent,options       
         }else {
-          this.setState({searchOptions:this.options})//,options
+            this.setState({searchOptions:this.options})//,options
         }
         let wrap =  this.refs.wrap    
         if(document.addEventListener){
@@ -356,12 +346,25 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
         let icon = <img src={require('./images/icon_search.png')} alt='图标'/>
         let {displaySearchInput,placeholder} = this.props
         let {showOption} = this.state
+        let displaySearchInputContainerStyle ={}
+        let inputStyle = {}
+        if(!displaySearchInput){
+            assign(displaySearchInputContainerStyle,{
+                border:'1px solid grey',
+                margin:'0 10px'
+            })
+            assign(inputStyle,{
+                paddingLeft:'10px'
+            })
+        }
+        console.log(displaySearchInputContainerStyle)
+        
         if(displaySearchInput ||(!displaySearchInput && showOption)) {
             return(
-                <div className={classnames(`${nprefix}-input`)} style={{border:!displaySearchInput &&'1px solid grey',margin:!displaySearchInput && '0 10px'}}>
+                <div className={classnames(`${nprefix}-input`)} style={displaySearchInputContainerStyle}>
                     <input ref='myinput'  type="text"  autoFocus 
-                            style={{paddingLeft:!displaySearchInput && '10px'}}
                             placeholder={(displaySearchInput && placeholder) || (!displaySearchInput &&"搜索")} 
+                            style= {inputStyle}
                             onChange={this.judgeMatchState.bind(this)}
                             onClick={this.handlerInputClick.bind(this)} 
                             value={this.state.searchContent} 
@@ -377,10 +380,10 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
     render(){
         console.log(this.state.temp_activeIndex)
         let text = this.state.selectOption != null ? this.state.selectOption.text:null
-        let {extraClassName,displaySearchInput} = this.props
-        //this.state.showOption && `border-bottom-none`,
+        let {extraClassName,displaySearchInput,style} = this.props
         return(
-            <div ref='wrap'  className={classnames(`${nprefix}`,(!displaySearchInput)&&((this.state.showOption && `${nprefix}-arrowUp`)||(!this.state.showOption && `${nprefix}-arrowDown`)),extraClassName)} >  
+            <div ref='wrap'  className={classnames(`${nprefix}`,(!displaySearchInput)&&((this.state.showOption && `${nprefix}-arrowUp`)||(!this.state.showOption && `${nprefix}-arrowDown`)),extraClassName)} 
+             style = {style} >  
                 {!displaySearchInput &&
                     (<div className={classnames(`${nprefix}-text`)} onClick={this.handlerTextClick.bind(this)}>{text||this.props.placeholder}</div>)}
                 <div className={classnames(`${nprefix}-container`,displaySearchInput &&'container-relative')} >
@@ -395,5 +398,3 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
 
 export default SearchSelector
 export {Option}
-// {this.scrollTo(1)} 
-// onKeyDown={this.handlerInputKeyDown.bind(this)} 
