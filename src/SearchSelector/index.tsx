@@ -53,19 +53,25 @@ export interface ISearchSelectorProps{
     displaySearchInput?:boolean
     // searchFun?:(searchValue:string)=>void,
     onSearch?:(searchValue:string)=>void,
-    clickInputEmpty?:boolean
+    clickInputEmpty?:boolean,
+    value?:string
+}
+type SelectUnit={
+    value?:string,
+    text?:string
 }
 export interface ISearchSelectorState{
     showOption?:boolean,    
-    selectOption?:any,
+    selectOption?:SelectUnit,
     searchContent?:string,
     temp_activeIndex?:number
 }
 export default class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelectorState>{
     public handle:number
     public innerClick:boolean
-    public options :any[] 
+    // public options :any[] 
     public options1 :any[]  
+    public firstClickText :boolean
     private hideOptionFun:()=>void
     static defaultProps:ISearchSelectorProps ={
         showMaxCount:3,
@@ -80,10 +86,10 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
             searchContent:'',
             temp_activeIndex:0,
         }
-        this.options = []
         this.options1 = []
         this.innerClick = false
         this.hideOptionFun = this.hideOption.bind(this)
+        this.firstClickText = false
     }
     refs:any
     hideOption(){
@@ -98,23 +104,18 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
     }
 
     componentDidMount(){
-        // debugger
-        let selectOption = this.getDefaultSelect(this.props)
-        // console.log(selectOption)
-        let options = this.getOptions(this.props)   
-        console.log(this.options)
-        if(selectOption != null){
-            let searchContent =selectOption.text            
-            this.setState({selectOption})      
+        let selectObj = this.getDefaultSelect(this.props)
+        if(selectObj != null){
+            let {selectOption,temp_activeIndex} =selectObj
+            this.setState({selectOption,temp_activeIndex})      
         }
-        let wrap =  this.refs.wrap    
         if(document.addEventListener){
             document.addEventListener('click',this.hideOptionFun)
         }
     }
     componentWillReceiveProps(nextprops:ISearchSelectorProps){
         if(this.props.onSearch) {
-            let options = this.getOptions(nextprops)          
+            // debugger
             this.setState({temp_activeIndex:0})                
         }   
     }
@@ -131,16 +132,18 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
         let children = (Array.isArray(props.children) ? props.children : [props.children]).filter((child:any) => child!=null )
         let selectChildren = children.filter((child:any) => (child.props.selected ===undefined)?(false): (child.props.selected=== true))
         let selectChild = selectChildren[0] || null
-        // console.log(selectChild)
         if(selectChild != null) {
-            let result = selectChild
-            let selectObj ={value:'',text:''}
-            selectObj.text = selectChild.props.children
-            selectObj.value =selectChild.props.value
-            if(this.props.onChange !== undefined){
-                this.props.onChange(selectObj)
-            }
-            return selectObj  
+            let temp_activeIndex =0
+            children.map((item:any,i:number)=>{
+                if(item.props.value == selectChild.props.value){
+                    temp_activeIndex = i
+                }
+            })
+            let selectOption ={value:'',text:''}
+            selectOption.text = selectChild.props.children
+            selectOption.value =selectChild.props.value
+
+            return {selectOption,temp_activeIndex } 
         }else {
             return null
         }          
@@ -155,54 +158,24 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
         let value = option.props.value != null ? option.props.value : text
         return {value,text,isPlaceholder : false}
     }
-    getOptions(props:any,searchContent?:string){
-        let children = (Array.isArray(props.children) ? props.children : [props.children]).filter((child:any) => child!=null )
-        let {displaySearchInput} = this.props
-        let options:any[] =[]
-        let indent = (displaySearchInput || false)
-        children = children.map((child:any,i:number)=>{
-            let {value,text} = this.getOptionObject(child)
-            options.push(React.cloneElement(child,{value,text,index:i,key:i,indent,
-                                                    onClick:this.handlerClickOption.bind(this,{value,text,i}),
-                                                }))    
-        })
-        // this.options = options
-        return options        
-    }
     handlerTextClick(){
         //更改showOption
         this.innerClick = true
         let showOption = !this.state.showOption
-        this.setState({showOption})
         //有text框和input框，input清空
-        if(this.props.clickInputEmpty){
-            if(this.props.onSearch){
-                this.options =[]
-            }            
-            this.setState({showOption,searchContent:"",temp_activeIndex:0})
+        if(this.props.clickInputEmpty){       
+            this.setState({showOption,searchContent:""})
         }
+        this.setState({showOption})        
     }
     handlerInputClick(){
-        // debugger
-        ////更改searchContent
         this.innerClick = true
         let showOption = true        
-        this.setState({showOption})
-        //只有input框，input清空
-        if(this.props.displaySearchInput){
-            if(this.props.clickInputEmpty){
-                //   debugger
-                if(this.props.onSearch){
-                    this.options =[]
-                }
-                this.setState({showOption,searchContent:"",temp_activeIndex:0})
-                
-            }
-        }
+        this.setState({showOption})        
     }
     handlerClickOption(obj:any,event:any){
         // debugger
-        console.log(obj)
+        console.log('obj',obj)        
         let selectOption = obj
         // debugger
         let showOption = false
@@ -212,14 +185,12 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
         //找到temp_activeIndex
         let temp_activeIndex = 0        
         this.options1.map((item:any,i:number)=>{
-            console.log(i)
-            console.log('obj',obj)
-            console.log('value',item.value,obj.value)
+            // console.log(i)
+            // console.log('value',item.value,obj.value)
             if(item.props.value == obj.value){
                 temp_activeIndex = i
             }
         })
-        console.log(temp_activeIndex)
         console.log('temp_active',temp_activeIndex)
         if(this.props.displaySearchInput) {
             this.setState({showOption,selectOption,searchContent:obj.text,temp_activeIndex})
@@ -232,7 +203,6 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
     handlerKeydownSelectorOption(event:any){
         // debugger
         console.log('按键按下')
-        console.log('keydown')
         console.log(event.keyCode)
         let keyCode = event.keyCode
         let {temp_activeIndex} =  this.state
@@ -247,11 +217,9 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
             if(temp_activeIndex < this.options1.length-1){
                 temp_activeIndex ++
             }
-            console.log(temp_activeIndex,'temp_activeIndex')
             this.setState({showOption:true,temp_activeIndex})
         }else if(keyCode == '13'){
             console.log('回车选择确定选项')
-            // this.setState({showOption:false,selectOption:this.options[this.state.temp_activeIndex]})
             let child = this.options1[this.state.temp_activeIndex]
             let obj = this.getOptionObject(child)
             this.handlerClickOption(obj,null)
@@ -272,48 +240,45 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
     renderOptions(){
         // debugger
         let {showMaxCount,displaySearchInput} = this.props
+        let {searchContent,temp_activeIndex} = this.state
+        console.log('renderOptions',temp_activeIndex)
+        let matchValue = searchContent
         if(this.state.showOption){
             let options = (Array.isArray(this.props.children) ? this.props.children : [this.props.children]).filter((child:any) => child!=null )
             let temp_options:any[] = []
+            console.log('options',options)
+            console.log('temp_options',temp_options)
                 options.map((child:any,i:number)=>{
                     let {value,text} = this.getOptionObject(child)
-                    console.log(this.state.searchContent)
-                    let patt = new RegExp(this.state.searchContent,'ig')
                     if(this.props.onSearch && typeof this.props.onSearch == 'function'){
+                        matchValue = ''
+                    }
+                    console.log(matchValue)
+                    let patt = new RegExp(matchValue,'ig')
+                    if(patt.exec(text) != null) {
+                        // debugger
                         temp_options.push( React.cloneElement(child,{
-                            matchValue:'',
-                            activeIndex:this.state.temp_activeIndex,
+                            matchValue,
+                            activeIndex:temp_activeIndex,
                             value,text,
                             index:temp_options.length,
                             key:i,indent:(displaySearchInput || false),
                             onClick:this.handlerClickOption.bind(this,{value,text,i}),
                         }))
-                    }else{
-                        if(patt.exec(text) != null) {
-                            temp_options.push( React.cloneElement(child,{
-                                matchValue:this.state.searchContent,
-                                activeIndex:this.state.temp_activeIndex,
-                                value,text,
-                                index:temp_options.length,
-                                key:i,indent:(displaySearchInput || false),
-                                onClick:this.handlerClickOption.bind(this,{value,text,i}),
-                            }))
-                        }
                     }
 
                 })
-            this.options1 = temp_options
+                console.log('temp_options',temp_options)
+                this.options1 = temp_options
             console.log(temp_options)            
             if(temp_options.length == 0) {
                 return <div className={classnames(`${nprefix}-no-options`)}>No results match "{this.state.searchContent}"</div>
             }
             return <div className={classnames(`${nprefix}-options`)}  ref='optionsWrap' style = {{maxHeight:showMaxCount*40}} >{temp_options}</div>
-        }else{
-            // debugger
-            return null
         }
+        return null
     }
-    judgeMatchState(event:any){
+    handlerChangeSearchContent(event:any){
 
         if(this.props.onSearch && typeof this.props.onSearch == 'function') {
             // debugger
@@ -348,7 +313,7 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
                     <input ref='myinput'  type="text"  autoFocus 
                             placeholder={(displaySearchInput && placeholder) || (!displaySearchInput &&"搜索")} 
                             style= {inputStyle}
-                            onChange={this.judgeMatchState.bind(this)}
+                            onChange={this.handlerChangeSearchContent.bind(this)}
                             onClick={this.handlerInputClick.bind(this)} 
                             value={this.state.searchContent} 
                             onKeyDown={this.handlerKeydownSelectorOption.bind(this)}
@@ -356,9 +321,8 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
                     <span className={`${nprefix}-icon-container`}>{icon}</span>
                 </div>              
             )
-        }else{
-            return null
         }
+        return null
     }
     render(){
         console.log(this.state.temp_activeIndex)
