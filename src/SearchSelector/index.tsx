@@ -56,7 +56,8 @@ export interface ISearchSelectorProps{
     onSearch?:(searchValue:string)=>void,
     clickInputEmpty?:boolean,
     defaultvalue?:string
-    value?:string
+    value?:string,
+    children?:any[]
 }
 type SelectUnit={
     value?:string,
@@ -67,7 +68,8 @@ export interface ISearchSelectorState{
     selectOption?:SelectUnit,
     searchContent?:string,
     temp_activeIndex?:number,
-    isSelecting?:boolean
+    isSelecting?:boolean,
+    isShowInput?:boolean
 }
 export default class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelectorState>{
     public handle:number
@@ -75,6 +77,9 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
     // public options :any[] 
     public options :any[]  
     private hideOptionFun:()=>void
+    public flag:boolean
+    public beforeinputValue:string
+    public cnt:number
     static defaultProps:ISearchSelectorProps ={
         showMaxCount:3,
         clickInputEmpty:false,
@@ -87,11 +92,14 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
             selectOption:{value:this.props.defaultvalue||'',text:''},
             searchContent:'',
             temp_activeIndex:0,
-            isSelecting:false
+            isSelecting:false,
+            isShowInput:false
         }
         this.options = []
         this.innerClick = false
         this.hideOptionFun = this.hideOption.bind(this)
+        this.flag = false
+        this.cnt = 0
     }
     refs:any
     hideOption(){
@@ -102,13 +110,19 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
             }
             this.handle = null
 			this.innerClick = false           
-		}, 50);
+        }, 50)
+        // this.setState({})
     }
-    getSelectOption(props:any){
+    getValue(){
+        return this.props.value || this.state.selectOption.value
+    }
+    getSelectOption(props:ISearchSelectorProps,isAllChildren:boolean){
         //props=>selectOption
         //this.options.length !=0 ? this.options:
-        //找到选中项在全局中的位置
-        let children = (Array.isArray(props.children) ? props.children : [props.children]).filter((child:any) => child!=null )
+        //找到选中项在options中的位置(全局和筛选)
+        console.log('props',props)
+        console.log(this.options)
+        let children = isAllChildren?(Array.isArray(props.children) ? props.children : [props.children]).filter((child:any) => child!=null ):this.options
         console.log('children.length',children.length)
         let temp_activeIndex = 0
         let {selectOption}= this.state
@@ -133,32 +147,95 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
     }
     componentDidMount(){
         console.log('did')
-        let {selectOption,temp_activeIndex} = this.getSelectOption(this.props)
+        this.options = this.getChildrenAll()
+        let {selectOption,temp_activeIndex} = this.getSelectOption(this.props,true)
         if(selectOption.value != ''){
-            this.setState({selectOption,temp_activeIndex,isSelecting:false})      
+            if(this.props.displaySearchInput){
+                this.setState({selectOption,searchContent:selectOption.text,temp_activeIndex,isSelecting:false})      
+            }else{
+                this.setState({selectOption,searchContent:'',temp_activeIndex,isSelecting:false})      
+            }
         }
         if(document.addEventListener){
             document.addEventListener('click',this.hideOptionFun)
         }
     }
+    componentWillUpdate(){
+        this.cnt++
+        console.log(this.cnt)
+        // if(this.props.displaySearchInput){
+        //     this.setState({searchContent:this.state.selectOption.text})
+        // }
+    }
     componentWillReceiveProps(nextprops:ISearchSelectorProps){
+    // componentWillUpdate(nextprops:ISearchSelectorProps,nextState:any){
+        
         // if(this.props.onSearch) {
         //     // debugger
-        //     this.setState({temp_activeIndex:0})                
+        //     let {selectOption,temp_activeIndex} = this.getSelectOption(nextprops,true)
+        //     if(selectOption.value != ''){
+        //         this.setState({selectOption,temp_activeIndex:0,isSelecting:false})      
+        //     }
+        //     // this.setState({temp_activeIndex:0})                
         // } 
         console.log('receiveprops')
+
         // debugger
-        if(this.props.onChange){
-            //受控情况下
-            let {selectOption,temp_activeIndex} = this.getSelectOption(nextprops)
-            
-               console.log('selectOption',selectOption)
-               if(selectOption.value != ''){
-                   this.setState({selectOption,temp_activeIndex,isSelecting:false})      
-               }
+        //受控情况下
+        if(this.props.onChange && !this.props.onSearch){
+            if(this.props.displaySearchInput){
+                // let {selectOption,temp_activeIndex} = this.getSelectOption(nextprops,true)
+                
+                // if(this.props.clickInputEmpty){
+                    
+                //     this.setState({selectOption,temp_activeIndex,isSelecting:false})
+                // }else{
+                //     this.setState({selectOption,temp_activeIndex,isSelecting:false})
+                    
+                // }
+                //清空
+                // if(!this.flag){//
+                    if(this.props.clickInputEmpty){
+                        let {selectOption,temp_activeIndex} = this.getSelectOption(nextprops,true)
+                        console.log('nextprops.value清空',nextprops.value)
+                        console.log('selectOptionReceieve',selectOption)
+                        console.log('temp_activeIndexReceieve',temp_activeIndex)
+                        if(selectOption.value != ''){
+                            this.setState({selectOption,temp_activeIndex,isSelecting:false})    //searchContent:selectOption.text,  
+                        }
+                    }else{
+                        //不清空？？？选择项不在删选项中=》那就没有选中项
+                        let {selectOption,temp_activeIndex} = this.getSelectOption(nextprops,false)
+                        console.log('nextprops.value不清空',nextprops.value)
+                        console.log('selectOptionReceieve',selectOption)
+                        console.log('temp_activeIndexReceieve',temp_activeIndex)
+                        if(selectOption.value != ''){
+                            this.setState({selectOption,temp_activeIndex,isSelecting:false})//searchContent:selectOption.text,
+                        }             
+                    }
+                // }
+
+            }else{
+                //清空
+                if(this.props.clickInputEmpty){
+                    let {selectOption,temp_activeIndex} = this.getSelectOption(nextprops,true)
+                    if(selectOption.value != ''){
+                        this.setState({selectOption,temp_activeIndex,isSelecting:false})      
+                    }
+                }else{
+                    //不清空？？？选择项不在删选项中=》那就没有选中项
+                    let {selectOption,temp_activeIndex} = this.getSelectOption(nextprops,false)
+                    console.log('selectOptionReceieve',selectOption)
+                    console.log('temp_activeIndexReceieve',temp_activeIndex)
+                    if(selectOption.value != ''){
+                        this.setState({selectOption,temp_activeIndex,isSelecting:false})//searchContent:selectOption.text,
+                    }             
+                }
+            }
+
+
+
         }
-
-
     }
     componentWillUnmount(){
 		clearTimeout(this.handle)
@@ -169,25 +246,28 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
         }       
     }
 
-
     handlerTextClick(){
         //更改showOption
         this.innerClick = true
         let showOption = !this.state.showOption
         //有text框时，input清空
         if(!this.props.displaySearchInput &&this.props.clickInputEmpty){
-            this.setState({showOption,searchContent:"",isSelecting:false})
+            this.setState({showOption,searchContent:""})
         }
-        this.setState({showOption,isSelecting:false})        
+        this.setState({showOption})  
+        if(this.props.displaySearchInput && this.props.clickInputEmpty){
+            this.setState({isShowInput:false})
+        }
     }
     handlerInputClick(){
         this.innerClick = true
         let showOption = true  
-        this.setState({showOption,isSelecting:false})
+        this.setState({showOption})
         //无text框时，input清空    
         if(this.props.displaySearchInput && this.props.clickInputEmpty){
-            this.setState({showOption,searchContent:"",isSelecting:false})//,temp_activeIndex:0
+            this.setState({showOption,searchContent:"",isShowInput:true})//,temp_activeIndex:0
         }  
+        // this.flag = true             
                 
     }
     getChildrenAll(){
@@ -196,6 +276,9 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
     }
     handlerClickOption(obj:any,event:any){
         // debugger
+        if(this.props.displaySearchInput){
+            this.setState({isShowInput:false})
+        }
         console.log('obj',obj)        
         let selectOption = obj
         let showOption = false
@@ -205,28 +288,30 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
             result = this.props.onChange(selectOption)
         }
         if(result !== false){
-            // debugger
+            // 不受控刷新
             console.log('不受控渲染')
+            // let options = this.options
+            let temp_activeIndex = this.state.temp_activeIndex              
             if(this.props.clickInputEmpty){
                 console.log('清空input')
-                this.options =this.getChildrenAll()
-            }else{
-                console.log('不清空input')
-            }
-                let temp_activeIndex = 0  
-                console.log(this.options)      
+                this.options = this.getChildrenAll()
+                console.log(this.options)  
                 this.options.map((item:any,i:number)=>{//temp_options
                     if(item.props.value == obj.value){
                         temp_activeIndex = i
                     }
                 })
+            }else{
+                console.log('不清空input')
+            }
+
+            // debugger
+            if(this.props.displaySearchInput){
+                this.setState({selectOption,searchContent:obj.text,temp_activeIndex,isSelecting:false})
+            }else{
                 // debugger
-                if(this.props.displaySearchInput){
-                    this.setState({selectOption,searchContent:obj.text,temp_activeIndex,isSelecting:false})
-                }else{
-                    // debugger
-                    this.setState({selectOption,temp_activeIndex,isSelecting:false})
-                }
+                this.setState({selectOption,temp_activeIndex,isSelecting:false})
+            }
         }else{
             console.log('受控渲染')
         }
@@ -256,7 +341,6 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
             console.log('回车选择确定选项')
             let child = this.options[this.state.temp_activeIndex]//temp_options
             console.log('keydoen return',child)
-            
             let obj = this.getOptionObject(child)
             this.handlerClickOption(obj,null)
         }else{
@@ -273,18 +357,6 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
     componentDidUpdate(){
         this.scrollTo(this.state.temp_activeIndex)
     }
-    getOptionsAccordingtoSearchContent(searchContent:string){
-        let children  = this.getChildrenAll()
-        let options:any[] = []
-        children.map((item:any,i:number)=>{
-            let patt = new RegExp(searchContent,'ig')
-            let {value,text} = this.getOptionObject(item) 
-            if(patt.exec(text) != null) {
-                options.push(item)
-            }
-        })
-        return options
-    }
     renderOptions(){
         console.log(this.state.temp_activeIndex)
         let {showMaxCount,displaySearchInput} = this.props
@@ -292,6 +364,7 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
         //调用函数获得options时，matchValue
         let matchValue = this.props.onSearch ? '' : searchContent
         if(this.state.showOption){
+            //this.options.length !==0?this.options:
             let children = (Array.isArray(this.props.children) ? this.props.children : [this.props.children]).filter((child:any) => child!=null )
             let options:any[] = []
             children.map((child:any,i:number)=>{
@@ -316,18 +389,20 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
         }
         return null
     }
+    clearSearchContent(){
+        this.setState({showOption:true,searchContent:''})  //,temp_activeIndex:0        
+    }
     handlerChangeSearchContent(event:any){
 
         if(this.props.onSearch && typeof this.props.onSearch == 'function') {
             // debugger
             this.props.onSearch(event.target.value)
-            this.setState({showOption:true,searchContent:event.target.value,temp_activeIndex:0})  
+            this.setState({showOption:true,searchContent:event.target.value,temp_activeIndex:0,isShowInput:true})  
         }else{
             let searchContent = event.target.value
-            this.setState({showOption:true,searchContent,temp_activeIndex:0})  //,temp_activeIndex:0
+            this.setState({showOption:true,searchContent,temp_activeIndex:0,isShowInput:true})  //,temp_activeIndex:0
         }       
     }
-
     renderInput(){
         let icon = <img src={require('./images/icon_search.png')} alt='图标'/>
         let {displaySearchInput,placeholder} = this.props
@@ -336,16 +411,22 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
         if(!displaySearchInput){
             assign(displaySearchInputContainerStyle,{border:'1px solid grey',margin:'0 10px'})
             assign(inputStyle,{paddingLeft:'10px'})
-        }        
+        } 
+        if(this.beforeinputValue == this.state.searchContent){
+            this.flag = true
+        }
+        this.beforeinputValue = this.state.searchContent 
+        // let selectValue = this.getValue()     
+        let searchContent = !this.props.displaySearchInput?this.state.searchContent:this.state.isShowInput?this.state.searchContent:this.state.selectOption.text
         if(displaySearchInput ||(!displaySearchInput && this.state.showOption)) {
             return(
                 <div className={classnames(`${nprefix}-input`)} style={displaySearchInputContainerStyle}>
-                    <input ref='myinput'  type="text"  autoFocus 
+                    <input ref='myinput'  type="text" 
                             placeholder={(displaySearchInput && placeholder) || (!displaySearchInput &&"搜索")} 
                             style= {inputStyle}
                             onChange={this.handlerChangeSearchContent.bind(this)}
                             onClick={this.handlerInputClick.bind(this)} 
-                            value={this.state.searchContent} 
+                            value={searchContent} 
                             onKeyDown={this.handlerKeydownSelectorOption.bind(this)}
                             />
                     <span className={`${nprefix}-icon-container`}>{icon}</span>
