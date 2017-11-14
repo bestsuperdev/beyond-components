@@ -44,9 +44,11 @@ class App extends React.Component{
     }
 
     render(){
-        <Document onClick={this.hide.bind(this)}>
-            <div className="modal" onClick={this.show.bind(this)}></div>
-        </Document>
+        return(
+            <Document onClick={this.hide.bind(this)}>
+                <div className="modal" onClick={this.show.bind(this)}></div>
+            </Document>
+        )
     }
 }
 ```
@@ -85,9 +87,11 @@ class App extends React.Component{
     }
 
     render(){
-        <Placeholder>
-            <input type="text" placeholder="请输入用户名" value={this.state.value} onChange={this.handlerInputChange.bind(this)} />
-        </Placeholder>
+        return(
+            <Placeholder>
+                <input type="text" placeholder="请输入用户名" value={this.state.value} onChange={this.handlerInputChange.bind(this)} />
+            </Placeholder>
+        )
     }
 }
 
@@ -127,10 +131,12 @@ class App extends React.Component{
     }
 
     render(){
-        <div>
-            <button onClick={this.show.bind(this)}>点击弹窗</button>
-            <Modal visible={this.state.visible} onClose={this.hide.bind(this)} title="我是标题">我是内容</Modal>
-        </div>
+        return(
+            <div>
+                <button onClick={this.show.bind(this)}>点击弹窗</button>
+                <Modal visible={this.state.visible} onClose={this.hide.bind(this)} title="我是标题">我是内容</Modal>
+            </div>
+        )
     }
 }
 
@@ -315,12 +321,15 @@ import Tabs,{Tab} from 'beyond-components/lib/Tabs'
 class App extends React.Component{
 
     render(){
-        <Tabs defaultActiveKey="0">
-            <Tab title="页面1" key="0">页面1的内容</Tab>
-            <Tab title="页面2" key="1" disabled>页面2的内容</Tab>
-            <Tab title="页面3" key="2">页面3的内容</Tab>
-            <Tab title="页面4" key="3">页面4的内容</Tab>
-        </Tabs>
+        return(
+            <Tabs defaultActiveKey="0">
+                <Tab title="页面1" key="0">页面1的内容</Tab>
+                <Tab title="页面2" key="1" disabled>页面2的内容</Tab>
+                <Tab title="页面3" key="2">页面3的内容</Tab>
+                <Tab title="页面4" key="3">页面4的内容</Tab>
+            </Tabs>
+        )
+
     }
 }
 
@@ -393,11 +402,12 @@ require("beyond-components/lib/Tooltip/index.css");
 import React, { Component } from 'react'
 import Tooltip,{Trigger} from 'beyond-components/lib/Tooltip'
 class App extends React.Component{
-
     render(){
-        <Trigger tooltip={<Tooltip placement="top">hello world</Tooltip>}>
-            <span>hover me</span>
-        </Trigger>
+        return(
+            <Trigger tooltip={<Tooltip placement="top">hello world</Tooltip>}>
+                <span>hover me</span>
+            </Trigger>
+        )
     }
 }
 ```
@@ -473,10 +483,12 @@ class App extends React.Component{
     }
 
     render(){
-        <div>
-            <button onClick={this.handlerClick.bind(this)}>click me to show hello world</button>
-            <button onClick={this.handlerClick2.bind(this)}>click me to show another hello world</button>
-        </div>
+        return(
+            <div>
+                <button onClick={this.handlerClick.bind(this)}>click me to show hello world</button>
+                <button onClick={this.handlerClick2.bind(this)}>click me to show another hello world</button>
+            </div>
+        )
     }
 }
 ```
@@ -625,11 +637,14 @@ class App extends React.Component{
 		this.loading.hide()	
 	}
     render(){
-        <div>
-            <button type="button" onClick={this.handlerShowLoading.bind(this)}>click me to show loading</button>
-            <button type="button" onClick={this.handlerHideLoading.bind(this)}>click me to hide loading</button>
-            <button type="button" onClick={this.handlerShowLoading1.bind(this)}>click me to show  other set loading</button>
-        </div>
+        return(
+            <div>
+                <button type="button" onClick={this.handlerShowLoading.bind(this)}>click me to show loading</button>
+                <button type="button" onClick={this.handlerHideLoading.bind(this)}>click me to hide loading</button>
+                <button type="button" onClick={this.handlerShowLoading1.bind(this)}>click me to show  other set loading</button>
+            </div>
+        )
+
     }    
 }
 
