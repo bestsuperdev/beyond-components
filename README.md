@@ -390,6 +390,7 @@ class App extends React.Component{
 #### 基本使用
 ```jsx
 require("beyond-components/lib/Tooltip/index.css");
+import React, { Component } from 'react'
 import Tooltip,{Trigger} from 'beyond-components/lib/Tooltip'
 class App extends React.Component{
 
@@ -606,7 +607,8 @@ class App extends React.Component{
 Loading 组件
 
 ```jsx
-require("beyond-components/lib/Loading/index.css");
+require("beyond-components/lib/Loading/index.css")
+import React, { Component } from 'react'
 import Loading from 'beyond-components/lib/Loading'
 class App extends React.Component{
 
@@ -649,7 +651,8 @@ class App extends React.Component{
 SearchSelector 组件
 #### 带搜索框的下拉框，受控
 ```jsx
-require("beyond-components/lib/SearchSelector/index.css");
+require("beyond-components/lib/SearchSelector/index.css")
+import React, { Component } from 'react'
 import Loading from 'beyond-components/lib/SearchSelector'
 class App extends React.Component{
     constructor(props : any){
@@ -723,7 +726,8 @@ class App extends React.Component{
 ```
 #### 带搜索框的下拉框，不受控
 ```jsx
-require("beyond-components/lib/SearchSelector/index.css");
+require("beyond-components/lib/SearchSelector/index.css")
+import React, { Component } from 'react'
 import Loading from 'beyond-components/lib/SearchSelector'
 class App extends React.Component{
     constructor(props : any){
@@ -791,7 +795,8 @@ class App extends React.Component{
 ```
 #### 搜索框和Text合并，受控
 ```jsx
-require("beyond-components/lib/SearchSelector/index.css");
+require("beyond-components/lib/SearchSelector/index.css")
+import React, { Component } from 'react'
 import Loading from 'beyond-components/lib/SearchSelector'
 class App extends React.Component{
     constructor(props : any){
@@ -865,7 +870,8 @@ class App extends React.Component{
 ```
 #### 调用函数获得options的内容，受控
 ```jsx
-require("beyond-components/lib/SearchSelector/index.css");
+require("beyond-components/lib/SearchSelector/index.css")
+import React, { Component } from 'react'
 import Loading from 'beyond-components/lib/SearchSelector'
 class App extends React.Component{
     constructor(props : any){
