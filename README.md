@@ -618,6 +618,7 @@ class App extends React.Component{
 
 Loading 组件
 
+#### 基本使用
 ```jsx
 require("beyond-components/lib/Loading/index.css")
 import React, { Component } from 'react'
