@@ -8,7 +8,7 @@
 .beyond_p-searchSelector input {
   height: 40px;
   text-decoration: none;
-  padding: 0px 10px;
+  padding: 0px 10px 0 20px;
   font-size: 16px;
   width: 100%;
   box-sizing: border-box;
@@ -39,17 +39,6 @@
   left: 0px;
   right: 0px;
   background-color: #fff;
-}
-.beyond_p-searchSelector .plr-10 {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-.beyond_p-searchSelector .mlr-10 {
-  margin-left: 10px;
-  margin-right: 10px;
-}
-.beyond_p-searchSelector .text-ind20 {
-  text-indent: 20px!important;
 }
 .beyond_p-searchSelector .container-relative {
   position: relative;
@@ -98,6 +87,9 @@
   right: 0px;
   top: 50%;
 }
+.beyond_p-searchSelector .active {
+  background: #eeeeee;
+}
 .beyond_p-searchSelector .beyond_p-searchSelector-option:hover {
   background: #eeeeee;
 }
@@ -106,7 +98,7 @@
   display: inline-block;
   position: absolute;
   top: 20px;
-  right: 5px;
+  right: 10px;
   width: 0;
   height: 0;
   border-style: solid;
@@ -119,17 +111,11 @@
   display: inline-block;
   position: absolute;
   top: 15px;
-  right: 5px;
+  right: 10px;
   width: 0;
   height: 0;
   border-style: solid;
   border-color: transparent;
   border-width: 5px 3px;
   border-bottom-color: black;
-}
-.bd {
-  border: 1px solid grey !important;
-}
-.bd-top {
-  border-top: 1px solid grey !important;
 }

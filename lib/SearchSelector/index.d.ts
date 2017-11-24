@@ -5,25 +5,28 @@ export interface OptionProps {
     text?: string;
     selected?: boolean;
     onClick?: () => void;
-    key?: number;
+    onMouseOver?: () => void;
+    index?: number;
     matchValue?: string;
     indent?: boolean;
+    activeIndex?: number;
 }
 export declare class Option extends React.Component<OptionProps, {}> {
-    getSeparateString(matchValue: string, str: string): {
-        strBegin: string;
-        strEnd: string;
-    };
+    renderText(matchValue: string, str: string): JSX.Element;
     render(): JSX.Element;
 }
 export interface ISearchSelectorProps {
     extraClassName?: string;
+    style?: React.CSSProperties;
     placeholder?: string;
-    onChange?: (data: any) => void;
+    onChange?: (data: {
+        text: string;
+        value: string;
+    }) => void;
     extraTextClass?: string;
     showMaxCount?: number;
-    withoutText?: boolean;
-    searchFun?: (searchValue: string) => void;
+    displaySearchInput?: boolean;
+    onSearch?: (searchValue: string) => void;
     clickInputEmpty?: boolean;
 }
 export interface ISearchSelectorState {
@@ -31,17 +34,17 @@ export interface ISearchSelectorState {
     selectOption?: any;
     searchContent?: string;
     searchOptions?: any[];
+    temp_activeIndex?: number;
 }
-export declare class SearchSelector extends React.Component<ISearchSelectorProps, ISearchSelectorState> {
+export default class SearchSelector extends React.Component<ISearchSelectorProps, ISearchSelectorState> {
     handle: any;
     innerClick: boolean;
     options: any[];
+    searchOptions: any[];
     private hideOptionFun;
     static defaultProps: ISearchSelectorProps;
     constructor(props: ISearchSelectorProps);
-    refs: {
-        wrap: any;
-    };
+    refs: any;
     hideOption(): void;
     componentDidMount(): void;
     componentWillReceiveProps(nextprops: any): void;
@@ -57,11 +60,16 @@ export declare class SearchSelector extends React.Component<ISearchSelectorProps
         value: any;
         text: any;
         isPlaceholder: boolean;
+        index: any;
     };
     getOptions(props: any): any[];
     handlerTextClick(): void;
     handlerInputClick(): void;
     handlerClickOption(obj: any, event: any): void;
+    handlerKeydownSelectorOption(event: any): void;
+    scrollTo(index: number): void;
+    componentDidUpdate(): void;
+    handlerMouseoverSelectorOption(obj: any, event: any): void;
     renderOptions(): JSX.Element;
     getMatchOptions(matchValue: any): any[];
     judgeMatchState(event: any): void;

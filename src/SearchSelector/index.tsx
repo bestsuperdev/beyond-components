@@ -5,7 +5,7 @@ import { prefix, IBaseProps } from '../consts'
 // const nprefix ="searchSelector"
 import assign = require("beyond-lib/lib/assign");
 const nprefix = `${prefix}searchSelector`
-interface OptionProps{
+export interface OptionProps{
     value?:string,
     text?:string,
     selected?:boolean,
@@ -16,7 +16,7 @@ interface OptionProps{
     indent?:boolean
     activeIndex?:number
 }
-class Option extends React.Component<OptionProps,{}>{
+export class Option extends React.Component<OptionProps,{}>{
     renderText(matchValue:string,str:string){
         if(!matchValue){ 
             return null
@@ -38,13 +38,12 @@ class Option extends React.Component<OptionProps,{}>{
         )
     }
 }
-interface ISearchSelectorProps{
+export interface ISearchSelectorProps{
     extraClassName?:string,
     style?:React.CSSProperties,
-    // children?:any,
     placeholder?:string,
     // defaultSelect?:boolean,
-    onChange?:(data:any)=>void,
+    onChange?:(data:{text : string, value : string})=> void,
     // icon?:boolean,
     extraTextClass?:string,
     showMaxCount?:number,
@@ -54,14 +53,14 @@ interface ISearchSelectorProps{
     onSearch?:(searchValue:string)=>void,
     clickInputEmpty?:boolean
 }
-interface ISearchSelectorState{
+export interface ISearchSelectorState{
     showOption?:boolean,    
     selectOption?:any,
     searchContent?:string,
     searchOptions?:any[],
     temp_activeIndex?:number
 }
-class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelectorState>{
+export default class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelectorState>{
     public handle:any
     public innerClick:boolean
     public options :any[]  
@@ -141,7 +140,7 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
             let selectObj ={value:'',text:''}
             selectObj.text = selectChild.props.children
             selectObj.value =selectChild.props.value
-            if(this.props.onChange !== undefined){
+            if(typeof this.props.onChange === 'function'){
                 this.props.onChange(selectObj)
             }
             return selectObj  
@@ -396,5 +395,4 @@ class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelecto
     }
 }
 
-export default SearchSelector
-export {Option}
+
