@@ -37,6 +37,9 @@ export default class App extends React.Component<any, any> {
 			showModal2 : false,
 			tabActiveKey : "0",
 			options:[],
+			searchSelectValue:'',
+			searchSelectValue1:'',
+			searchOptions:[]
 		}
 		this.timer = null
 	}
@@ -130,9 +133,20 @@ export default class App extends React.Component<any, any> {
 	handlerHideLoading(){
 		this.loading.hide()	
 	}
-	handlerChangeSearchSelector(value:any){
-		console.log(value)
+	handlerChangeSearchSelector(obj:any){
+		console.log(obj)
+		console.log('受控渲染')
+		// this.setState({searchSelectValue:'hn1'})
+		this.setState({searchSelectValue:obj.value})
+		return false
 
+	}
+	handlerChangeSearchSelector1(obj:any){
+		console.log(obj)
+		console.log('受控渲染')
+		// this.setState({searchSelectValue:'hn1'})
+		this.setState({searchSelectValue1:obj.value})
+		return false
 	}
 	getOptions(matchValue:any){
 		console.log(matchValue)
@@ -156,12 +170,11 @@ export default class App extends React.Component<any, any> {
 				{postcode:"318000",postcodeDec:"台州邮编-318000"},
 				{postcode:"323000",postcodeDec:"丽水邮编-323000"},		
 				]
-				// debugger
 			let options_final:any[]=[]
 			options.map((item:any,i:number)=>{
-				let item_final ={postcode:'',postcodeDec:""}
-				item_final.postcode = item.postcode
-				item_final.postcodeDec = item.postcodeDec +new Date().toLocaleTimeString()
+				let item_final ={value:'',text:""}
+				item_final.value = item.postcode
+				item_final.text = item.postcodeDec +new Date().toLocaleTimeString()
 				options_final.push(item_final)
 
 			})
@@ -174,26 +187,47 @@ export default class App extends React.Component<any, any> {
 
 
 	}
-	renderOptions(){
-		let {options} = this.state
-		if(options.length > 0) {
-			return	options.map((child:any,i:any)=>{
-						return(
-							<Option value={child.postcode} key={i}>{child.postcodeDec}</Option>
-						)
-					})
-		}
-		return null
-	}
 	render() {
 		let provienceList =[
-				{value:"bj",text:"北京"},
-				{value:"tj",text:"天津"},
-				{value:"sh",text:"上海"},
-				{value:"sx",text:"山西"},
-				{value:"cq",text:"重庆"},
-				{value:"hb",text:"河北"},
-				{value:"hn",text:"河南"}								
+			{value:'hlj',text:"黑龙江"},
+			{value:'jl',text:"吉林"},
+			{value:'ln',text:"辽宁"},
+			{value:'hb1',text:"河北"},
+			{value:'hn1',text:"河南"},
+			{value:'sd',text:"山东"},
+			{value:'js',text:"江苏"},
+			{value:'sx1',text:"山西"},
+			{value:'sx2',text:"陕西"},
+			{value:'gs',text:"甘肃"},
+			{value:'sc',text:"四川"},
+			{value:'qh',text:"青海"},
+			{value:'hb2',text:"湖北"},
+			{value:'hn2',text:"湖南"},
+			{value:'jx',text:"江西"},
+			{value:'ah',text:"安徽"},
+			{value:'zj',text:"浙江"},
+			{value:'fj',text:"福建"},
+			{value:'gd',text:"广东"},
+			{value:'gz',text:"贵州"},
+			{value:'yn',text:"云南"},
+			{value:'hn3',text:"海南"},
+			{value:'tw',text:"台湾"},
+			{value:'nmg',text:"内蒙古"},
+			{value:'xj',text:"新疆维吾尔族自治区"},
+			{value:'nx',text:"宁夏回族自治区"},
+			{value:'xz',text:"西藏"},
+			{value:'gx',text:"广西"},
+			{value:'bj',text:"北京"},
+			{value:'tj',text:"天津"},
+			{value:'sh',text:"上海"},
+			{value:'cq',text:"重庆"},
+			{value:'xg',text:"香港"},
+			{value:'am',text:"澳门"},
+			{value:'n1',text:"南1"},
+			{value:'n2',text:"南2"},
+			{value:'n3',text:"南3"},
+			{value:'n4',text:"南4"},
+			{value:'n5',text:"南5"},								
 				]
 		let provienceListOptions:any[]= []
 		provienceList.map((child,i:number)=>{
@@ -523,184 +557,105 @@ export default class App extends React.Component<any, any> {
 	<button type="button" onClick={this.handlerHideLoading.bind(this)}>click me to hide loading</button>
 	<button type="button" onClick={this.handlerShowLoading1.bind(this)}>click me to show  other set loading</button>
 </div>
+<h2>SearchSelector</h2>
 <div>
-<h2>搜索框和Text合并</h2>
-<SearchSelector displaySearchInput placeholder='选择省市' showMaxCount={4} onChange={this.handlerChangeSearchSelector.bind(this)}>
-{provienceListOptions}
-</SearchSelector>	
-</div>				
+	<h4>带搜索框的下拉框，受控</h4>
+	<SearchSelector placeholder='选择省市' showMaxCount={4} value={this.state.searchSelectValue}
+	onChange={this.handlerChangeSearchSelector.bind(this)} loadOptions={provienceList}>
+	</SearchSelector>
+</div> 
+	<div>
+	<h4>带搜索框的下拉框，清空，受控</h4>
+	<SearchSelector  clickInputEmpty  placeholder='选择省市' showMaxCount={4} value={this.state.searchSelectValue}
+	onChange={this.handlerChangeSearchSelector.bind(this)} loadOptions={provienceList}>
+	</SearchSelector>
+</div> 
+	<div>
+	<h4>搜索框和Text合并，受控</h4>
+	<SearchSelector displaySearchInput placeholder='选择省市' showMaxCount={4}  value={this.state.searchSelectValue}
+	onChange={this.handlerChangeSearchSelector.bind(this)} loadOptions={provienceList}>
+	</SearchSelector>	
+</div>  
 <div>
-<h2>调用函数获得options的内容</h2>
-<SearchSelector displaySearchInput placeholder='搜索浙江省内的市' onSearch={this.getOptions.bind(this)} showMaxCount={4} onChange={this.handlerChangeSearchSelector.bind(this)}>
-	{this.renderOptions()}
-</SearchSelector>	
+	<h4>搜索框和Text合并，清空，受控</h4>
+	<SearchSelector displaySearchInput clickInputEmpty placeholder='选择省市' showMaxCount={4}  value={this.state.searchSelectValue}
+	onChange={this.handlerChangeSearchSelector.bind(this)} loadOptions={provienceList}>
+	</SearchSelector>	
+</div>						
+<div>
+	<h4>带搜索框的下拉框，不受控</h4>
+	<SearchSelector placeholder='选择省市' showMaxCount={4} defaultvalue='zj' loadOptions={provienceList}> 
+	</SearchSelector>
+</div>						
+	<div>
+	<h4>带搜索框的下拉框，清空，不受控</h4>
+	<SearchSelector clickInputEmpty placeholder='选择省市' showMaxCount={4}   defaultvalue='zj'  loadOptions={provienceList}> 
+	</SearchSelector>
+</div>
+					
+<div>
+	<h4>搜索框和Text合并，不受控</h4>
+	<SearchSelector displaySearchInput placeholder='选择省市' showMaxCount={4}  defaultvalue='zj' loadOptions={provienceList}>
+	</SearchSelector>	
 </div>	
-
 <div>
-<h2>带搜索框的下拉框,点击搜索输入框清空</h2>
-<SearchSelector placeholder='选择省市' showMaxCount={4} onChange={this.handlerChangeSearchSelector.bind(this)} clickInputEmpty>
-<Option value='hlj'>黑龙江</Option>
-<Option value='jl'>吉林</Option>
-<Option value='ln'>辽宁</Option>
-<Option value='hb'>河北</Option>
-<Option value='hn'>河南</Option>
-<Option value='sd'>山东</Option>
-<Option value='js'>江苏</Option>
-<Option value='sx1'>山西</Option>
-<Option value='sx2'>陕西</Option>
-<Option value='gs'>甘肃</Option>
-<Option value='sc'>四川</Option>
-<Option value='qh'>青海</Option>
-<Option value='hb'>湖北</Option>
-<Option value='hn'>湖南</Option>
-<Option value='jx'>江西</Option>
-<Option value='ah'>安徽</Option>
-<Option selected value='zj'>浙江</Option>
-<Option value='fj'>福建</Option>
-<Option value='gd'>广东</Option>
-<Option value='gz'>贵州</Option>
-<Option value='yn'>云南</Option>
-<Option value='hn'>海南</Option>
-<Option value='tw'>台湾</Option>						
-<Option value='nmg'>内蒙古</Option>
-<Option value='xj'>新疆维吾尔族自治区</Option>
-<Option value='nx'>宁夏回族自治区</Option>
-<Option value='xz'>西藏</Option>
-<Option value='gx'>广西</Option>						
-<Option value='bj'>北京</Option>
-<Option value='th'>天津</Option>
-<Option value='sh'>上海</Option>
-<Option value='cq'>重庆</Option>
-<Option value='xg'>香港</Option>
-<Option value='am'>澳门</Option>														
-</SearchSelector>
+	<h4>搜索框和Text合并,清空,不受控</h4>
+	<SearchSelector displaySearchInput clickInputEmpty placeholder='选择省市' showMaxCount={4} defaultvalue='zj' loadOptions={provienceList}
+	>
+	</SearchSelector>	
+</div>				  
+<div>
+	<h4>调用函数获得options的内容，受控</h4>
+	<SearchSelector displaySearchInput placeholder='搜索浙江省内的市' showMaxCount={4} value={this.state.searchSelectValue1}
+	onSearch={this.getOptions.bind(this)}  onChange={this.handlerChangeSearchSelector1.bind(this)} loadOptions={this.state.options}>
+	</SearchSelector>	
+</div> 
+<div>
+	<h4>调用函数获得options的内容，清空，受控</h4>
+	<SearchSelector displaySearchInput clickInputEmpty placeholder='搜索浙江省内的市' showMaxCount={4} value={this.state.searchSelectValue1}
+	onSearch={this.getOptions.bind(this)}  onChange={this.handlerChangeSearchSelector1.bind(this)}  loadOptions={this.state.options}>
+	</SearchSelector>	
 </div>				
 <div>
-<h2>搜索框和Text合并</h2>
-<SearchSelector displaySearchInput placeholder='选择省市' showMaxCount={4} onChange={this.handlerChangeSearchSelector.bind(this)}>
-	{provienceListOptions}
-</SearchSelector>	
+	<h4>调用函数获得options的内容，受控</h4>
+	<SearchSelector placeholder='搜索浙江省内的市' showMaxCount={4} value={this.state.searchSelectValue1}
+	onSearch={this.getOptions.bind(this)}  onChange={this.handlerChangeSearchSelector1.bind(this)} loadOptions={this.state.options}>
+	</SearchSelector>	
+</div>
+<div>
+	<h4>调用函数获得options的内容，清空，受控</h4>
+	<SearchSelector clickInputEmpty placeholder='搜索浙江省内的市' showMaxCount={4} value={this.state.searchSelectValue1}
+	onSearch={this.getOptions.bind(this)}  onChange={this.handlerChangeSearchSelector1.bind(this)}  loadOptions={this.state.options}>
+	</SearchSelector>	 
+</div>	 
+<div>
+	<h4>调用函数获得options的内容，不受控</h4>
+	<SearchSelector displaySearchInput placeholder='搜索浙江省内的市' showMaxCount={4} 
+	onSearch={this.getOptions.bind(this)}  loadOptions={this.state.options}>
+	</SearchSelector>	
+</div>
+<div>
+	<h4>调用函数获得options的内容，清空，不受控</h4>
+	<SearchSelector displaySearchInput clickInputEmpty placeholder='搜索浙江省内的市' showMaxCount={4} 
+	onSearch={this.getOptions.bind(this)} loadOptions={this.state.options}>
+	</SearchSelector>	
 </div>				
 <div>
-<h2>调用函数获得options的内容</h2>
-<SearchSelector displaySearchInput placeholder='搜索浙江省内的市' onSearch={this.getOptions.bind(this)} showMaxCount={4} onChange={this.handlerChangeSearchSelector.bind(this)}>
-	{this.renderOptions()}
-</SearchSelector>	
+	<h4>调用函数获得options的内容，不受控</h4>
+	<SearchSelector placeholder='搜索浙江省内的市' showMaxCount={4} 
+	onSearch={this.getOptions.bind(this)} loadOptions={this.state.options}>
+	</SearchSelector>	
+</div> 
+<div>
+	<h4>调用函数获得options的内容，清空，不受控</h4>
+	<SearchSelector clickInputEmpty placeholder='搜索浙江省内的市' showMaxCount={4}
+	onSearch={this.getOptions.bind(this)} loadOptions={this.state.options}>
+	</SearchSelector>	 
 </div> 
 
-				<div>
-					<h2>带搜索框的下拉框</h2>
-					<SearchSelector value='zj' placeholder='选择省市' showMaxCount={4} onChange={this.handlerChangeSearchSelector.bind(this)} >
-						<Option value='hlj'>黑龙江</Option>
-						<Option value='jl'>吉林</Option>
-						<Option value='ln'>辽宁</Option>
-						<Option value='hb'>河北</Option>
-						<Option value='hn'>河南</Option>
-						<Option value='sd'>山东</Option>
-						<Option value='js'>江苏</Option>
-						<Option value='sx1'>山西</Option>
-						<Option value='sx2'>陕西</Option>
-						<Option value='gs'>甘肃</Option>
-						<Option value='sc'>四川</Option>
-						<Option value='qh'>青海</Option>
-						<Option value='hb'>湖北</Option>
-						<Option value='hn'>湖南</Option>
-						<Option value='jx'>江西</Option>
-						<Option value='ah'>安徽</Option>
-						<Option value='zj'>浙江</Option>
-						<Option value='fj'>福建</Option>
-						<Option value='gd'>广东</Option>
-						<Option value='gz'>贵州</Option>
-						<Option value='yn'>云南</Option>
-						<Option value='hn'>海南</Option>
-						<Option value='tw'>台湾</Option>						
-						<Option value='nmg'>内蒙古</Option>
-						<Option value='xj'>新疆维吾尔族自治区</Option>
-						<Option value='nx'>宁夏回族自治区</Option>
-						<Option value='xz'>西藏</Option>
-						<Option value='gx'>广西</Option>						
-						<Option value='bj'>北京</Option>
-						<Option value='th'>天津</Option>
-						<Option value='sh'>上海</Option>
-						<Option value='cq'>重庆</Option>
-						<Option value='xg'>香港</Option>
-						<Option value='am'>澳门</Option>	
-						<Option value='n1'>南1</Option>
-						<Option value='n2'>南2</Option>
-						<Option value='n3'>南3</Option>
-						<Option value='n4'>南4</Option>
-						<Option value='n5'>南5</Option>
-					</SearchSelector>
-				</div>
-			<div>
-				<h2>带搜索框的下拉框,点击搜索输入框清空</h2>
-			<SearchSelector placeholder='选择省市' showMaxCount={4} onChange={this.handlerChangeSearchSelector.bind(this)} clickInputEmpty>
-				<Option value='hlj'>黑龙江</Option>
-				<Option value='jl'>吉林</Option>
-				<Option value='ln'>辽宁</Option>
-				<Option value='hb'>河北</Option>
-				<Option value='hn'>河南</Option>
-				<Option value='sd'>山东</Option>
-				<Option value='js'>江苏</Option>
-				<Option value='sx1'>山西</Option>
-				<Option value='sx2'>陕西</Option>
-				<Option value='gs'>甘肃</Option>
-				<Option value='sc'>四川</Option>
-				<Option value='qh'>青海</Option>
-				<Option value='hb'>湖北</Option>
-				<Option value='hn'>湖南</Option>
-				<Option value='jx'>江西</Option>
-				<Option value='ah'>安徽</Option>
-				<Option value='zj'>浙江</Option>
-				<Option value='fj'>福建</Option>
-				<Option value='gd'>广东</Option>
-				<Option value='gz'>贵州</Option>
-				<Option value='yn'>云南</Option>
-				<Option value='hn'>海南</Option>
-				<Option value='tw'>台湾</Option>						
-				<Option value='nmg'>内蒙古</Option>
-				<Option value='xj'>新疆维吾尔族自治区</Option>
-				<Option value='nx'>宁夏回族自治区</Option>
-				<Option value='xz'>西藏</Option>
-				<Option value='gx'>广西</Option>						
-				<Option value='bj'>北京</Option>
-				<Option value='th'>天津</Option>
-				<Option value='sh'>上海</Option>
-				<Option value='cq'>重庆</Option>
-				<Option value='xg'>香港</Option>
-				<Option value='am'>澳门</Option>														
-			</SearchSelector>
-			</div>				
-			<div>
-				<h2>搜索框和Text合并</h2>
-				<SearchSelector displaySearchInput placeholder='选择省市' showMaxCount={4} onChange={this.handlerChangeSearchSelector.bind(this)}>
-					{provienceListOptions}
-				</SearchSelector>	
-			</div>	
-			<div>
-				<h2>搜索框和Text合并,清空</h2>
-				<SearchSelector clickInputEmpty displaySearchInput placeholder='选择省市' showMaxCount={4} onChange={this.handlerChangeSearchSelector.bind(this)}>
-					{provienceListOptions}
-				</SearchSelector>	
-			</div>				
-				<div>
-					<h2>调用函数获得options的内容</h2>
-					<SearchSelector displaySearchInput placeholder='搜索浙江省内的市' onSearch={this.getOptions.bind(this)} showMaxCount={4} onChange={this.handlerChangeSearchSelector.bind(this)}>
-						{this.renderOptions()}
-					</SearchSelector>	
-				</div>
-				<div>
-					<h2>调用函数获得options的内容,清空</h2>
-					<SearchSelector clickInputEmpty displaySearchInput placeholder='搜索浙江省内的市' onSearch={this.getOptions.bind(this)} showMaxCount={4} onChange={this.handlerChangeSearchSelector.bind(this)}>
-						{this.renderOptions()}
-					</SearchSelector>	
-				</div>
-				<div>
-				<h2>调用函数获得options的内容,清空</h2>
-				<SearchSelector clickInputEmpty placeholder='搜索浙江省内的市' onSearch={this.getOptions.bind(this)} showMaxCount={4} onChange={this.handlerChangeSearchSelector.bind(this)}>
-					{this.renderOptions()}
-				</SearchSelector>	
-			</div>
+
+
+
 				<p>1213333333333333333</p>
 				<p>1213333333333333333</p>
 				<p>1213333333333333333</p>
