@@ -35,38 +35,42 @@ export class Option extends React.Component<OptionProps,{}>{
         )
     }
 }
-export interface ISearchSelectorProps{
-    extraClassName?:string,
-    style?:React.CSSProperties,
+
+
+type SelectUnit={
+    value?:string,
+    text?:string
+}
+export interface ISearchSelectorProps extends IBaseProps{
     placeholder?:string,
-    onChange?:(data:any) => boolean,
-    extraTextClass?:string,
+    onChange?:(data:SelectUnit) => boolean,
     showMaxCount?:number,
     displaySearchInput?:boolean
     onSearch?:(searchValue:string)=>void,
     clickInputEmpty?:boolean,
     defaultvalue?:string
     value?:string,
-    children?:JSX.Element[],
     loadOptions?:SelectUnit[]   
 }
-type SelectUnit={
-    value?:string,
-    text?:string
-}
+
 export interface ISearchSelectorState{
-   isShowOption ?:boolean,    
-    selectOption?:SelectUnit,
-    searchContent?:string,
-    temp_activeIndex?:number,
-    isShowInput?:boolean
+   isShowOption ?:boolean;
+    selectOption?:SelectUnit;
+    searchContent?:string;
+    temp_activeIndex?:number;
+    isShowInput?:boolean;
 }
 export default class SearchSelector extends React.Component<ISearchSelectorProps,ISearchSelectorState>{
     public options :any[]  
+    
+    public optionsWrap : HTMLDivElement
+    
     static defaultProps:ISearchSelectorProps ={
         showMaxCount:3,
         displaySearchInput:false
-    }    
+    }
+    
+    
     constructor(props:ISearchSelectorProps){   
         super(props)
         this.state ={
@@ -221,7 +225,9 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
                 if(options.length == 0) {
                     return <div className={classnames(`${nprefix}-no-options`)}>No results match "{this.state.searchContent}"</div>
                 }
-                return <div className={classnames(`${nprefix}-options`)}  ref='optionsWrap' style = {{maxHeight:showMaxCount*40}} >{options}</div>
+                return <div className={classnames(`${nprefix}-options`)} 
+                            ref={(div)=> this.optionsWrap = div } 
+                            style={{maxHeight:showMaxCount*40}}>{options}</div>
         }
         return null
     }

@@ -13,7 +13,7 @@
 import React = require('react')
 import classnames = require('classnames')
 import assign = require('beyond-lib/lib/assign')
-import Col from './Col'
+// import Col from './Col'
 import { prefix as _prefix, IBaseProps } from '../consts'
 
 export interface IRowProps extends IBaseProps {

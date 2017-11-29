@@ -12,8 +12,8 @@ const baseStyle = {
 export interface IHeaderState {};
 
 const Header = (props : IMobileLayoutHeaderProps) : JSX.Element =>{
-	props.height = props.height || 50
-	let {height,style,className,children, ...rests} = props
+	// props.height = props.height || 50
+	let {height=50,style,children, ...rests} = props
 	style = assign({height},baseStyle,style)
 	return (
 		<div {...rests} style={style}>{children}</div>

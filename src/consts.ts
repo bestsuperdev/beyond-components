@@ -1,4 +1,4 @@
-export const prefix = 'beyond_p-'
+export const prefix = ''
 
 export interface IBaseProps {
     extraClassName? : string;

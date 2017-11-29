@@ -14,31 +14,26 @@ const baseStyle = {
 }
 
 
-function isInherit(el : JSX.Element, Base : any){
-	return el && el.type && (el.type as any).prototype instanceof Base
+function getHeight(child : JSX.Element){
+	let height = child.props.style && child.props.style.height ? child.props.style.height : (child.props.height || 0)
+	return typeof height === 'string' ? parseInt(height,10) : height
 }
+
 
 
 const Container = (props : IMobileLayoutContainerProps) : JSX.Element =>{
 	let {style,height,...rests} = props
-	let mainStyle
-	let top = 0
-	let bottom = 0
-	style = assign({},baseStyle,{height},style)
-	let children : any
-	if(props.children){
-		children = !Array.isArray(props.children) ? [props.children] : props.children
-		children.forEach((item : JSX.Element)=>{
-			if(isInherit(item,Header)){
-				top = item.props.height
-			}else if(isInherit(item,Footer)){
-				bottom = item.props.height
-			}
-		})
+	let mainStyle,top,bottom 
+	style = assign({},baseStyle,style)
+	let children = props.children as JSX.Element[]
+	if(children && children.length === 3){
+		let top = getHeight(children[0])
+		let bottom = getHeight(children[2])
+
 		children = (children as JSX.Element[]).map((item : JSX.Element,i)=> {
 			let props : any = {key : i}
-			if(isInherit(item,Main)){
-				props.style = assign({top,bottom},item.props.style)
+			if(i === 1){
+				props.style = assign({height : window.innerHeight - top - bottom},item.props.style)
 			}
 			return React.cloneElement(item,props)
 		})

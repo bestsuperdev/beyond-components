@@ -2,7 +2,7 @@
 import * as React from 'react';
 import classnames = require("classnames");
 import assign = require("beyond-lib/lib/assign");
-import { prefix as _prefix, IBaseProps } from "../consts";
+import { prefix as _prefix } from "../consts";
 
 function percentage(num : number):string {
 	return (num * 100) + "%";
@@ -43,7 +43,7 @@ const Col = (props : IColProps)=>  {
 	props.prefix = props.prefix || _prefix;
 	props.grids = props.grids || 12;
 	let {extraClassName, style , prefix, width,offsetWidth,col,offsetCol,grids,...rests} = props;
-	let className =  `${prefix}col`;
+	let className =  `${prefix}row-col`;
 
 	const _style = getStyle(props);
 
