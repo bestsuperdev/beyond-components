@@ -88,10 +88,10 @@ export default class Loading extends React.Component<ILoadingProps,ILoadingState
         message = this.state.message || message
         let nprefix =`${prefix}loading`      
         return(
-            <div className={`${nprefix}`} style={{fontSize:14}}>
+            <div className={`${nprefix}`} style={{fontSize:14,display:this.state.hidden &&'none'}}>
                 {!this.state.hidden && <div className={`${nprefix}-content`} style={{width:this.boxWidth*0.4,minHeight:this.boxWidth*0.4}}>
                     <div className={`${nprefix}-image`} style={{width:this.boxWidth*0.2,height:this.boxWidth*0.2}}>
-                        <img src={require('./images/loading.jpg')} />
+                        <img src={require('./images/loading.png')} />
                     </div>
                     <div className={`${nprefix}-message`}>{message}</div>
                 </div> }          
