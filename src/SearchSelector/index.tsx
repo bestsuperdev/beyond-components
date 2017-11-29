@@ -14,7 +14,7 @@ export interface OptionProps{
     indent?:boolean
     activeIndex?:number,
 }
-export class Option extends React.Component<OptionProps,{}>{
+class Option extends React.Component<OptionProps,{}>{
     renderText(matchValue:string,str:string){
         if(!matchValue){ 
             return null
@@ -100,7 +100,7 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
         return {selectOption,temp_activeIndex} 
     }
     componentDidMount(){
-        console.log('did')
+        // console.log('did')
         this.options = (Array.isArray(this.props.loadOptions) ? this.props.loadOptions : [this.props.loadOptions]).filter((child:any) => child!=null )    
         let {selectOption,temp_activeIndex} = this.getSelectOption(this.props,true)
         this.setState({selectOption,searchContent:'',temp_activeIndex})      
@@ -201,7 +201,6 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
         let {searchContent,temp_activeIndex,selectOption,isShowOption,clearOptions} = this.state
         //调用函数获得options时，matchValue
         let matchValue = this.props.onSearch ? '' : searchContent
-        console.log("clearOptions",clearOptions)
         let children = clearOptions?[]: (Array.isArray(this.props.loadOptions) ? this.props.loadOptions : [this.props.loadOptions]).filter((child:any) => child!=null )            
         if(isShowOption){
             let options:any[] = []

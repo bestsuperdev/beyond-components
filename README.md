@@ -669,7 +669,7 @@ SearchSelector 组件
 ```jsx
 require("beyond-components/lib/SearchSelector/index.css")
 import React, { Component } from 'react'
-import Loading from 'beyond-components/lib/SearchSelector'
+import SearchSelector from 'beyond-components/lib/SearchSelector'
 class App extends React.Component{
     constructor(props : any){
         super()
@@ -744,7 +744,7 @@ class App extends React.Component{
 ```jsx
 require("beyond-components/lib/SearchSelector/index.css")
 import React, { Component } from 'react'
-import Loading from 'beyond-components/lib/SearchSelector'
+import SearchSelector from 'beyond-components/lib/SearchSelector'
 class App extends React.Component{
     constructor(props : any){
         super()
@@ -810,7 +810,7 @@ class App extends React.Component{
 ```jsx
 require("beyond-components/lib/SearchSelector/index.css")
 import React, { Component } from 'react'
-import Loading from 'beyond-components/lib/SearchSelector'
+import SearchSelector from 'beyond-components/lib/SearchSelector'
 class App extends React.Component{
     constructor(props : any){
         super()
@@ -885,7 +885,7 @@ class App extends React.Component{
 ```jsx
 require("beyond-components/lib/SearchSelector/index.css")
 import React, { Component } from 'react'
-import Loading from 'beyond-components/lib/SearchSelector'
+import SearchSelector from 'beyond-components/lib/SearchSelector'
 class App extends React.Component{
     constructor(props : any){
         super()

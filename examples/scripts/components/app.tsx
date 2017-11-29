@@ -1,4 +1,4 @@
-// import * as classnames from 'classnames';
+import * as classnames from 'classnames';
 import "Modal/index.less";
 import "Grid/index.less";
 import "Tabs/index.less";
@@ -18,7 +18,7 @@ import Tooltip,{Trigger} from 'Tooltip'
 import Notification from 'Notification'
 import Form from 'Form'
 import Loading from 'Loading'
-import SearchSelector,{Option} from 'SearchSelector'
+import SearchSelector from 'SearchSelector'
 export default class App extends React.Component<any, any> {
 	notice2: any
 	state : any
@@ -228,11 +228,8 @@ export default class App extends React.Component<any, any> {
 			{value:'n3',text:"南3"},
 			{value:'n4',text:"南4"},
 			{value:'n5',text:"南5"},								
-				]
-		let provienceListOptions:any[]= []
-		provienceList.map((child,i:number)=>{
-				provienceListOptions.push((<Option value={child.value} key={i}>{child.text}</Option>))
-		})
+			]
+
 		return (
 			<div className='app'>
 				
