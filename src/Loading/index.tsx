@@ -49,8 +49,8 @@ export default class Loading extends React.Component<ILoadingProps,ILoadingState
     }
  
     render(){
-        let {style,children} = this.props 
-        let nprefix =`${prefix}loading`      
+        let {style,children,prefix : _prefix} = this.props 
+        let nprefix =`${_prefix || prefix}loading`      
         return(
             <div className={`${nprefix}`}>
                 <div className={`${nprefix}-content`}>

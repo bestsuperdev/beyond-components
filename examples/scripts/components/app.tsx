@@ -6,6 +6,7 @@ import "Tooltip/index.less";
 import "Notification/index.less";
 import "Loading/index.less";
 import "SearchSelector/index.less";
+import "Pagination/index.less";
 
 
 import React = require('react')
@@ -18,6 +19,7 @@ import Tooltip,{Trigger} from 'Tooltip'
 import Notification from 'Notification'
 import Form from 'Form'
 import Loading from 'Loading'
+import Pagination from 'Pagination'
 import SearchSelector,{Option} from 'SearchSelector'
 export default class App extends React.Component<any, any> {
 	notice2: any
@@ -701,20 +703,13 @@ export default class App extends React.Component<any, any> {
 					{this.renderOptions()}
 				</SearchSelector>	
 			</div>
-				<p>1213333333333333333</p>
-				<p>1213333333333333333</p>
-				<p>1213333333333333333</p>
-				<p>1213333333333333333</p>
-				<p>1213333333333333333</p>
-				<p>1213333333333333333</p>
-				<p>1213333333333333333</p>
-				<p>1213333333333333333</p>
-				<p>1213333333333333333</p>
-				<p>1213333333333333333</p>
-				<p>1213333333333333333</p>
-				
+				<h2>
+					分页
+				</h2>
+				<div>
+					<Pagination active={1} totals={100}  />
+				</div>
 			</div>
 		)
 	}
 }
-{/* */}

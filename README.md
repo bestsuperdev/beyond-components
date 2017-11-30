@@ -14,6 +14,7 @@
 - [x] Form
 - [x] Loading
 - [x] SearchSelector
+- [x] Pagination
 
 ## 安装 install
 ```bash

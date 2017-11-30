@@ -1,0 +1,30 @@
+@import "../mixins.less";
+.beyond_pagination(@prefix){
+    .@{prefix}pagination{
+        &>&-item{
+            font-size: 14px;
+            display: inline-block;
+            min-width: 36px;
+            padding: 0 10px;
+            line-height: 34px;
+            text-align: center;
+            color: black;
+            box-sizing: border-box;
+            margin-right: 10px;
+            cursor: pointer;
+            border: 1px solid #d9dade;
+            &:last-child{
+                margin-right: 0;
+            }
+        }
+
+        &>&-active{
+            cursor: default;
+            border-color:  #d9dade;
+            color: white;
+            background: #2aa5ff;
+        }
+    }
+
+}
+
