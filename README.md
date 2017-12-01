@@ -670,7 +670,7 @@ SearchSelector 组件
 ```jsx
 require("beyond-components/lib/SearchSelector/index.css")
 import React, { Component } from 'react'
-import Loading from 'beyond-components/lib/SearchSelector'
+import SearchSelector from 'beyond-components/lib/SearchSelector'
 class App extends React.Component{
     constructor(props : any){
         super()
@@ -745,13 +745,10 @@ class App extends React.Component{
 ```jsx
 require("beyond-components/lib/SearchSelector/index.css")
 import React, { Component } from 'react'
-import Loading from 'beyond-components/lib/SearchSelector'
+import SearchSelector from 'beyond-components/lib/SearchSelector'
 class App extends React.Component{
     constructor(props : any){
         super()
-        this.state ={
-            searchSelectValue:'zj',
-        }
     }
      
     render(){
@@ -800,7 +797,7 @@ class App extends React.Component{
             <div>
                 <div>
 					<h2>带搜索框的下拉框，不受控</h2>
-					<SearchSelector placeholder='选择省市' showMaxCount={4} defaultvalue={this.state.searchSelectValue} loadOptions={provienceList}> 
+					<SearchSelector placeholder='选择省市' showMaxCount={4} defaultvalue='zj' loadOptions={provienceList}> 
 					</SearchSelector>       
                 </div>        
             </div>
@@ -814,7 +811,7 @@ class App extends React.Component{
 ```jsx
 require("beyond-components/lib/SearchSelector/index.css")
 import React, { Component } from 'react'
-import Loading from 'beyond-components/lib/SearchSelector'
+import SearchSelector from 'beyond-components/lib/SearchSelector'
 class App extends React.Component{
     constructor(props : any){
         super()
@@ -889,7 +886,7 @@ class App extends React.Component{
 ```jsx
 require("beyond-components/lib/SearchSelector/index.css")
 import React, { Component } from 'react'
-import Loading from 'beyond-components/lib/SearchSelector'
+import SearchSelector from 'beyond-components/lib/SearchSelector'
 class App extends React.Component{
     constructor(props : any){
         super()
@@ -921,7 +918,6 @@ class App extends React.Component{
 				{postcode:"323000",postcodeDec:"丽水邮编-323000"},		
 				]
 				// debugger
-			this.selectValue = options[0].postcode
 			let options_final:any[]=[]
 			options.map((item:any,i:number)=>{
 				let item_final ={value:'',text:""}
@@ -970,7 +966,7 @@ class App extends React.Component{
 | extraClassName     | string |   -  | 非必需，增加className，定制样式 |
 | placeholder  |  string   |   -   | placeholder的内容 |
 | showMaxCount  |  string   |   -   | 显示的option个数 |
-| displaySearchInput     | boolean |   false  | 不显示selector选择内容 |
+| displaySearchInput     | boolean |   false  | 只显示搜索输入框 |
 | clickInputEmpty  |  boolean   |   false   | 点击搜索框是否清空 |
 | onChange     | function |   -  | 必需，获得选择后的内容 |
 | onSearch  |  function   |   -   | 非必需，若根据搜索内容调用接口获得options时，使用该属性 |
