@@ -150,7 +150,7 @@ export default class Pagination extends React.Component<IPaginationProps, IPagin
             <div className={className}>
                 {items.map((item)=> {
                     let classNames = classnames(`${className}-item`,item.type === Type.active && `${className}-active`)
-                    return <div onClick={this.handlerClick.bind(item)} className={classNames}>{item.value}</div>
+                    return <div onClick={this.handlerClick.bind(this,item)} className={classNames}>{item.value}</div>
                 })}
             </div>
         )

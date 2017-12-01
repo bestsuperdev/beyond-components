@@ -1,3 +1,6 @@
+// import React from 'react'
+
+
 import * as classnames from 'classnames';
 import "Modal/index.less";
 import "Grid/index.less";
@@ -8,10 +11,23 @@ import "Loading/index.less";
 import "SearchSelector/index.less";
 import "Pagination/index.less";
 
-
+import Document from './pages/Document'
 import React = require('react')
+
+import {
+	HashRouter as Router,
+	Route,
+	NavLink as Link
+  } from 'react-router-dom'
+
+interface IComponentPage {
+	name : string;
+	link : string;
+	component : any;
+}
+const components : IComponentPage[] = [{name : 'Document', component : Document, link : '/document'}]
 import Placeholder from 'Placeholder'
-import Document from 'Document'
+
 import Modal from 'Modal'
 import {Col,Row} from 'Grid'
 import Tabs ,{Tab} from 'Tabs'
@@ -231,7 +247,18 @@ export default class App extends React.Component<any, any> {
 			{value:'n4',text:"南4"},
 			{value:'n5',text:"南5"},								
 			]
-
+		return (
+			<Router>
+			<div className="app">
+				<div className="sidebar">
+					{components.map((item)=> <Link key={item.link}  to={item.link}>{item.name}</Link>)}
+				</div>
+				<div className="main">
+					{components.map((item)=> <Route key={item.link} path={item.link} component={item.component} /> )}
+				</div>
+			</div>
+			</Router>
+		)
 		return (
 			<div className='app'>
 				
@@ -263,17 +290,7 @@ export default class App extends React.Component<any, any> {
 	</div>
 </div>
 
-<div>
-	<h2>Document</h2>
-	<div>
-		<Document onClick={this.handlerShowClickPosition.bind(this,'out')}>
-			<div onClick={this.handlerShowClickPosition.bind(this,'inner')} style={{border : '1px solid black'}}>
-				in the document(click source from : {this.state.clickPosition})
-				<button type="button" onClick={this.handlerShowClickPosition.bind(this,'inner')}>click me</button>
-			</div>
-		</Document>
-	</div>
-</div>
+
 
 <div>
 	<h2>Modal</h2>
@@ -662,18 +679,7 @@ export default class App extends React.Component<any, any> {
 
 
 
-				<p>1213333333333333333</p>
-				<p>1213333333333333333</p>
-				<p>1213333333333333333</p>
-				<p>1213333333333333333</p>
-				<p>1213333333333333333</p>
-				<p>1213333333333333333</p>
-				<p>1213333333333333333</p>
-				<p>1213333333333333333</p>
-				<p>1213333333333333333</p>
-				<p>1213333333333333333</p>
-				<p>1213333333333333333</p>
-
+		
 			</div>
 		)
 	}

@@ -15,10 +15,14 @@
     "@types/classnames": "0.0.32",
     "@types/react": ">=0.14.0",
     "@types/react-dom": ">=0.14.0",
+    "@types/react-router": "^4.0.19",
+    "@types/react-router-dom": "^4.2.3",
     "beyond-lib": "^1.0.1",
     "classnames": "^2.2.5",
     "react": ">=0.14.0",
     "react-dom": ">=0.14.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "tslib": "^1.8.0"
   },
   "devDependencies": {
