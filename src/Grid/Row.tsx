@@ -10,10 +10,9 @@
 	 	<Col xs={6}></Col>
 	 </Row>
  */
-import React = require('react')
+import * as React from 'react'
 import classnames = require('classnames')
 import assign = require('beyond-lib/lib/assign')
-// import Col from './Col'
 import { prefix as _prefix, IBaseProps } from '../consts'
 
 export interface IRowProps extends IBaseProps {
@@ -21,10 +20,9 @@ export interface IRowProps extends IBaseProps {
 	gutter?: number;
 	verticalGutter?: number;
 	grids?: number;
-};
+}
 
-export interface IRowState { };
-
+// tslint:disable-next-line:variable-name
 const Row = (props : IRowProps)=>{
 
 	let {width, gutter = 0, verticalGutter = 0, grids = 12, prefix, extraClassName, style : _style} = props

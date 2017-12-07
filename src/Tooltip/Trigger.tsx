@@ -5,37 +5,32 @@
 </TooltipTrigger>
  */
 
-import React = require('react')
-import ReactDom = require('react-dom')
+import * as React from 'react'
+import {findDOMNode} from 'react-dom'
 import {getNewInstance,ITooltipOperator} from './tooltipFactory'
-import Tooltip,{ITooltipProps} from './Tooltip'
 import mergeFuncs = require('beyond-lib/lib/utilities/mergeFuncs')
 
 export interface ITriggerProps{
 	tooltip : JSX.Element;
 }
 
-export interface ITriggerState{
+export default class Trigger extends React.Component<ITriggerProps,{}> {
 
-}
+	tooltipOperator : ITooltipOperator
 
-export default class Trigger extends React.Component<ITriggerProps,ITriggerState> {
+	target : HTMLElement
 
-    tooltipOperator : ITooltipOperator;
-
-    target : HTMLElement;
-
-    componentDidMount() {
+	componentDidMount() {
 		this.tooltipOperator = getNewInstance(this.props.tooltip)
-		this.target = ReactDom.findDOMNode<HTMLElement>(this)
+		this.target = findDOMNode(this) as HTMLElement
 	}
 
-    render() {
+	render() {
 		let children = this.props.children as JSX.Element
-        let props = {
-            onMouseEnter : mergeFuncs(children.props.onMouseEnter,this.show.bind(this)),
-            onMouseLeave : mergeFuncs(children.props.onMouseLeave,this.hide.bind(this)) 
-        }
+		let props = {
+			onMouseEnter : mergeFuncs(children.props.onMouseEnter,this.show.bind(this)),
+			onMouseLeave : mergeFuncs(children.props.onMouseLeave,this.hide.bind(this)) 
+		}
 		return React.cloneElement(children,props) 
 	}
 

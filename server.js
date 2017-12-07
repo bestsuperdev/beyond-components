@@ -6,7 +6,7 @@ var config = require('./webpack.dev.config');
 var opn = require('opn');
 // var ip = localIp.getLocalIP4();
 var ip = '0.0.0.0';
-var port = 9004;
+var port = 9005;
 
 var webpackDevServerEntries = ["react-hot-loader/patch","webpack-dev-server/client?http://"+ip+":"+port, "webpack/hot/only-dev-server"]
 if (typeof config.entry === 'string') {
@@ -26,11 +26,11 @@ var server = new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
   historyApiFallback: false,
   // /api/* 会指向  http://127.0.0.1:3000/api/*  如  /api/users 就会指向  http://127.0.0.1:3000/api/users
-  proxy : {
-    '/api/*' : {
-      target : 'http://127.0.0.1:9001'
-    }
-  }
+  // proxy : {
+  //   '/api/*' : {
+  //     target : 'http://127.0.0.1:9001'
+  //   }
+  // }
 })
 
 

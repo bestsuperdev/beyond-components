@@ -1,12 +1,7 @@
 declare var module: any;
 // declare var require: any;
-declare var __webpack_public_path__ : string;
 
-declare namespace process{
-	export namespace env{
-		export const NODE_ENV:string;
-	}
-}
+
 declare module "react-hot-loader";
 
 declare var require: {

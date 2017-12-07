@@ -17,7 +17,16 @@
  * 	}
  * }
  * 
- * <Form className timeout={10} encType="multipart/form-data" userFormData action="example.com" method="POST" onSubmit={this.handlerSubmit} onSuccess  onError onComplete>
+ * <Form className 
+ * 		timeout={10} 
+ * 		encType="multipart/form-data" 
+ * 		userFormData 
+ * 		action="example.com" 
+ * 		method="POST" 
+ * 		onSubmit={this.handlerSubmit} 
+ * 		onSuccess={handlerSuccess}  
+ * 		onError={handlerError} 
+ * 		onComplete={handlerComplete}>
  *      <input name="file1" type="file"/>
  *      <input name="file2" type="file"/>
  *      <input type="text"/>
@@ -31,11 +40,12 @@ import assign = require('beyond-lib/lib/assign')
 
 
 const supportFormData = typeof FormData !== 'undefined'
-let id = 0
+
+// let id = 0
 
 function getIframeName(){
-	id++
-	return `beyondcomponentsForm` // + id
+	// id++
+	return '__beyondcomponentsForm' // + id
 }
 
 export interface IFormProps extends React.HTMLProps<HTMLFormElement> {

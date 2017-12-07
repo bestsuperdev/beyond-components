@@ -5,21 +5,23 @@ function test(event){
 }
 <button onClick={test}></button>
  */
-import React = require('react')
-import ReactDOM = require('react-dom')
-import Tooltip,{ITooltipProps} from './Tooltip'
+
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
+import Tooltip from './Tooltip'
 
 
 function offset(node : HTMLElement) : React.CSSProperties {
 	let box = node.getBoundingClientRect()
-	let win = window
-	let docElem = document.documentElement	
+	let {pageYOffset,pageXOffset} = window
+	let {scrollTop,clientTop,scrollLeft,clientLeft} = document.documentElement
 	let body = document.body
 	return {
-	    top: box.top + Math.max(win.pageYOffset|| 0, docElem.scrollTop, body.scrollTop) - (docElem.clientTop || body.clientTop),
-	    left: box.left + Math.max(win.pageXOffset|| 0 , docElem.scrollLeft, body.scrollLeft) - (docElem.clientLeft || body.clientLeft),
-	    width: (box.width == null ? node.offsetWidth : box.width) || 0,
-	    height: (box.height == null ? node.offsetHeight : box.height) || 0
+		top: box.top + Math.max(pageYOffset || 0, scrollTop, body.scrollTop) - (clientTop || body.clientTop),
+		// tslint:disable-next-line:max-line-length
+		left: box.left + Math.max(pageXOffset || 0, scrollLeft, body.scrollLeft) - (clientLeft || body.clientLeft),
+		width: (box.width == null ? node.offsetWidth : box.width) || 0,
+		height: (box.height == null ? node.offsetHeight : box.height) || 0
 	}
 }
 
@@ -62,18 +64,17 @@ export interface ITooltipOperator{
 	hide : ()=> void;
 }
 
-export function getNewInstance(tooltip : JSX.Element) : ITooltipOperator {
 
+export function getNewInstance(tooltip : JSX.Element) : ITooltipOperator {
 	let {props} = tooltip
 	let {children} = props
 	let wrap = document.createElement('div')
 	document.body.appendChild(wrap)
 	
 	let instance = ReactDOM.render(<Tooltip {...props}>{children}</Tooltip>,wrap) as Tooltip
-    
+
 	return {
 		show(target : HTMLElement){
-			console.log(1)
 			let style = getToolTipStyle(instance,target)
 			instance._setStyle(style)
 		},

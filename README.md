@@ -17,6 +17,7 @@
 - [x] Pagination
 
 ## 安装 install
+
 ```bash
 npm install beyond-components  --save
 

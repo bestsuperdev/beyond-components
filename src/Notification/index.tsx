@@ -1,5 +1,4 @@
-/**
- * 
+/*
 	let notice = Notification.getInstance(<Notification />)
 	notice.show("hello world",{duration : 3})
 
@@ -10,13 +9,11 @@
 import React = require('react')
 import ReactDOM = require('react-dom')
 import Content from './Content'
-import Container,{X,Y} from './Container'
-import {getNewInstance} from '../Tooltip/tooltipFactory';
-import {prefix, IBaseProps } from '../consts'
+import Container, { X, Y } from './Container'
+import { prefix, IBaseProps } from '../consts'
 import classnames = require('classnames')
-const assign = require('beyond-lib/lib/assign')
+import assign = require('beyond-lib/lib/assign')
 
-const nprefix = `${prefix}notification`
 
 export enum States {
 	none,
@@ -26,159 +23,155 @@ export enum States {
 	leaved
 }
 
-
-const getAnimationClassName = (prefix : string, state : States)=>{
-	prefix = `${prefix}notification`
+const getAnimationClassName = (_prefix: string, state: States) => {
+	_prefix = `${_prefix}notification`
 	let states = {
-		[States.none] : '',
-		[States.entering] : `${prefix}-animation-entering`, 
-		[States.entered] : `${prefix}-animation-entering ${prefix}-animation-entered`, 
-		[States.leaveing] : `${prefix}-animation-leaving`, 
-		[States.leaved] : `${prefix}-animation-leaving ${prefix}-animation-leaved`
+		[States.none]: '',
+		[States.entering]: `${_prefix}-animation-entering`,
+		[States.entered]: `${_prefix}-animation-entering ${_prefix}-animation-entered`,
+		[States.leaveing]: `${_prefix}-animation-leaving`,
+		[States.leaved]: `${_prefix}-animation-leaving ${_prefix}-animation-leaved`
 	}
 	return states[state]
 }
 
-
-
-
-export interface INotificationShowState{
-    duration? : number;
-    reverse? : boolean;
-    x? : X;
-    y? : Y;
+export interface INotificationShowState {
+	duration?: number;
+	reverse?: boolean;
+	x?: X;
+	y?: Y;
 }
 
-export interface INotificationState{
-	message? : string;
-	state? : States;
-	showState? : INotificationShowState;
+export interface INotificationState {
+	message?: string;
+	state?: States;
+	showState?: INotificationShowState;
 }
 
-
-export interface INotificationProps  extends INotificationShowState, IBaseProps{
+export interface INotificationProps extends INotificationShowState, IBaseProps {
 }
 
+export default class Notification extends React.Component<INotificationProps, INotificationState> {
 
-export default class Notification extends React.Component<INotificationProps,INotificationState> {
+	static defaultProps: INotificationProps = {
+		duration: 2,
+		reverse: false,
+		prefix
+	}
 
-    static defaultProps : INotificationProps = {
-        duration : 2,
-        reverse : false,
-		prefix  : prefix	
-    }
+	static state: INotificationState
 
-    static state : INotificationState
-
-
-	static getInstance(notification : JSX.Element){
-		if(notification){
+	static getInstance(notification: JSX.Element) {
+		if (notification) {
 			let wrap = document.createElement('div')
 			document.body.appendChild(wrap)
-			let handle = ReactDOM.render(notification,wrap) as Notification
+			let handle = ReactDOM.render(notification, wrap) as Notification
 			return {
-				show(message? : string, showState? : INotificationShowState){
-					handle.show(message,showState)
+				show(message?: string, showState?: INotificationShowState) {
+					handle.show(message, showState)
 				},
 
-				hide(){	
+				hide() {
 					handle.hide()
 				}
 			}
 		}
 	}
 
-    handle : number
+	handle: any
 
-    constructor(props : INotificationProps){
-        super(props)
-        this.state = {
-			message : '',
-			state : States.none,
-			showState : null
-        }
-        this.hide = this.hide.bind(this)
-        this.show = this.show.bind(this)
-    }
+	constructor(props: INotificationProps) {
+		super(props)
+		this.state = {
+			message: '',
+			state: States.none,
+			showState: null
+		}
+		this.hide = this.hide.bind(this)
+		this.show = this.show.bind(this)
+	}
 
 	componentDidUpdate() {
-		let {state,showState} = this.state
+		let { state, showState } = this.state
 		let duration = showState && showState.duration != null ? showState.duration : this.props.duration
 
-
 		clearTimeout(this.handle)
-		if(state === States.entering){
-			this.handle = setTimeout(()=>{
-				this.setState({state : States.entered})
-			},0)
-		}else if (state === States.entered && duration > 0) {
-			this.handle = setTimeout(()=>{
-				this.setState({state : States.leaveing})
-			},(duration+0.3) * 1000)
-		}else if(state === States.leaveing){
-			this.setState({state : States.leaved})
-		}else if(state === States.leaved){
-			this.handle = setTimeout(()=>{
-				this.setState({state : States.none, showState : null})
-			} , 300)
+		if (state === States.entering) {
+			this.handle = setTimeout(() => {
+				this.setState({ state: States.entered })
+			}, 0)
+		} else if (state === States.entered && duration > 0) {
+			this.handle = setTimeout(() => {
+				this.setState({ state: States.leaveing })
+			}, (duration + 0.3) * 1000)
+		} else if (state === States.leaveing) {
+			this.setState({ state: States.leaved })
+		} else if (state === States.leaved) {
+			this.handle = setTimeout(() => {
+				this.setState({ state: States.none, showState: null })
+			}, 300)
 		}
 	}
 
 	componentDidMount() {
-		let {state} = this.state
-		if(state === States.entering){
-			setTimeout(()=>{
-				this.setState({state : States.entered})
-			}, 0);
+		let { state } = this.state
+		if (state === States.entering) {
+			setTimeout(() => {
+				this.setState({ state: States.entered })
+			}, 0)
 		}
 	}
 
-    show(message='', showState? :INotificationShowState){
-		let {state} = this.state
-		if(showState != null){
-			showState = assign({},showState)
+	show(message = '', showState?: INotificationShowState) {
+		let { state } = this.state
+		if (showState != null) {
+			showState = assign({}, showState)
 		}
-		
-		let duration = showState && showState.duration != null ? showState.duration : this.props.duration 
+
+		let duration = showState && showState.duration != null ? showState.duration : this.props.duration
 
 		clearTimeout(this.handle)
 
-		if(state === States.none){
-			this.setState({message, state : States.entering,showState})
-		}else if(state === States.entering || (state === States.entered && duration > 0)){
-			this.setState({message})
-		}else if(state === States.leaveing){
-			this.setState({message,state : States.entered,showState})
-		}else if(state === States.leaved){
-			setTimeout(()=>{
-				this.setState({message,state : States.entering,showState})
-			},300)
+		if (state === States.none) {
+			this.setState({ message, state: States.entering, showState })
+		} else if (state === States.entering || (state === States.entered && duration > 0)) {
+			this.setState({ message })
+		} else if (state === States.leaveing) {
+			this.setState({ message, state: States.entered, showState })
+		} else if (state === States.leaved) {
+			setTimeout(() => {
+				this.setState({ message, state: States.entering, showState })
+			}, 300)
 		}
-    }
+	}
 
-	hide(){
-		let {state} = this.state
-		if(state !== States.none && state !== States.leaved && state !== States.leaveing){
+	hide() {
+		let { state } = this.state
+		if (state !== States.none && state !== States.leaved && state !== States.leaveing) {
 			clearTimeout(this.handle)
-			this.setState({state : States.leaveing})
+			this.setState({ state: States.leaveing })
 		}
 	}
 
 	render() {
-		let {reverse,children,extraClassName,x,y,style,prefix} = this.props
-		let {showState,message,state} = this.state
-		if(showState != null){
+		let { reverse, children, extraClassName, x, y, style, prefix : _prefix } = this.props
+		let { showState, message, state } = this.state
+		if (showState != null) {
 			x = showState.x || x
 			y = showState.y || y
 			reverse = showState.reverse != null ? showState.reverse : reverse
 		}
-		let child : JSX.Element = null
-		if(state !== States.none){
-			let className = classnames(getAnimationClassName(prefix,state),extraClassName) 
-			child = <Content prefix={prefix} style={style} extraClassName={className} reverse={reverse}>{message || children}</Content>
+		let child: JSX.Element = null
+		if (state !== States.none) {
+			let className = classnames(getAnimationClassName(_prefix, state), extraClassName)
+			child = (
+				<Content prefix={_prefix} style={style} extraClassName={className} reverse={reverse}>
+					{message || children}
+				</Content>
+			)
 		}
 		return (
-			<Container prefix={prefix} x={x} y={y}>{child}</Container>
+			<Container prefix={_prefix} x={x} y={y}>{child}</Container>
 		)
 	}
 }

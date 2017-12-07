@@ -1,34 +1,34 @@
-import * as React from 'react';
 import Document from 'Document'
-interface DocumentPageProps {};
+import * as React from 'react'
+// interface IDocumentPageProps {}
 
-interface DocumentPageState {
-    clickPosition? : string;
-};
+interface IDocumentPageState {
+		clickPosition? : string;
+}
 
-export default class DocumentPage extends React.Component<DocumentPageProps, DocumentPageState> {
+export default class DocumentPage extends React.Component<any, IDocumentPageState> {
 
-    constructor(props : DocumentPageProps ){
-        super(props)
-        this.state = {
-            clickPosition : ''
-        }
-    }
+	constructor(props : any ){
+		super(props)
+		this.state = {
+			clickPosition : ''
+		}
+	}
 
-    handlerShowClickPosition(clickPosition : string){
+	handlerShowClickPosition(clickPosition : string){
 		this.setState({clickPosition})
 	}
 
-    public render(): JSX.Element {
-        return (
-            <div className="page">
-                <h2>document</h2>
-                <Document onClick={this.handlerShowClickPosition.bind(this,'out')}>
-                    <div onClick={this.handlerShowClickPosition.bind(this,'inner')} style={{border : '1px solid black'}}>
-                        click source  : {this.state.clickPosition}
-                    </div>
-                </Document>
-            </div>
-        )
-    }
+	public render(): JSX.Element {
+		return (
+			<div className="page">
+				<h2>document</h2>
+				<Document onClick={this.handlerShowClickPosition.bind(this,'out')}>
+					<div onClick={this.handlerShowClickPosition.bind(this,'inner')} style={{border : '1px solid black'}}>
+							click source  : {this.state.clickPosition}
+					</div>
+				</Document>
+			</div>
+		)
+	}
 }

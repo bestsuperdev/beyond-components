@@ -8,21 +8,17 @@ import React = require('react')
 import ReactDOM = require('react-dom')
 
 export interface IDocumentProps {
-    delay? : number;
-    children? : any;
-    onClick? : (event? : React.MouseEvent<Element> ) => void;
-};
-
-export interface IDocumentState {
-
-};
+	delay? : number;
+	children? : any;
+	onClick? : (event? : React.MouseEvent<Element> ) => void;
+}
 
 
-export default class Document extends React.Component<IDocumentProps,IDocumentState> {
+export default class Document extends React.Component<IDocumentProps,{}> {
 
-    private innerClick : boolean;
+	private innerClick : boolean
 
-    static defaultProps : IDocumentProps = {
+	static defaultProps : IDocumentProps = {
 		delay : 100
 	}
 

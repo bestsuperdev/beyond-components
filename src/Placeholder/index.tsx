@@ -3,21 +3,20 @@
 	<input type="text"/>
 </Placeholder>
 */
-
-import React = require('react')
-const mergeFuncs = require('beyond-lib/lib/utilities/mergeFuncs')
+import * as React from 'react'
+import mergeFuncs = require('beyond-lib/lib/utilities/mergeFuncs')
 import assign = require('beyond-lib/lib/assign')
 
 // declare const mergeFuncs : ()=> void; 
 
-let support : boolean = null;
+let support : boolean = null
 
 
 function isPlaceholderSupport() {
 	if (support == null) {
-		support = typeof window !== 'undefined' && 'placeholder' in document.createElement('input');
+		support = typeof window !== 'undefined' && 'placeholder' in document.createElement('input')
 	}
-	return support;
+	return support
 }
 
 
@@ -54,7 +53,10 @@ export default class Placeholder extends React.Component<IPlaceholderProps,IPlac
 
 	render() {	
 		let children = this.props.children
-		if (!isPlaceholderSupport() && children && children.props && children.props.placeholder && (children.type === 'input' || children.type === 'textarea') ) {
+		if (!isPlaceholderSupport() && 
+			children && children.props && children.props.placeholder && 
+			(children.type === 'input' || children.type === 'textarea')) 
+		{
 			let props = children.props
 			const {isPlaceholder,value} = this.state
 			let nextProps :any = {
@@ -87,7 +89,7 @@ export default class Placeholder extends React.Component<IPlaceholderProps,IPlac
 		}
 	}
 
-	handleFocus(event : React.SyntheticEvent<Element>){
+	handleFocus(){
 		if (this.state.isPlaceholder) {
 			this.setState({isPlaceholder : false, value : ''})
 		}

@@ -8,7 +8,9 @@
         "baseUrl": ".",
         "paths": {
             "*" : ["src/*","node_modules/*"]
-        }
+        },
+        "noUnusedLocals": true,
+        "noUnusedParameters": true
     },
     "files": [
         "./declarations.d.ts"
