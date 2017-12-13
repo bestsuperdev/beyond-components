@@ -1,6 +1,7 @@
 import * as React from 'react'
 import SearchSelector from 'SearchSelector'
 import 'SearchSelector/index.less'
+import { join } from 'path';
 
 export default class SearchSelectorPage extends React.Component<any, any> {
 
@@ -10,7 +11,8 @@ export default class SearchSelectorPage extends React.Component<any, any> {
 		super(props)
 		this.state = {
 			searchSelectValue:'',
-			searchSelectValue1:''
+			searchSelectValue1:'',
+			options:[]
 		}
 	}
 
@@ -24,7 +26,8 @@ export default class SearchSelectorPage extends React.Component<any, any> {
 	handlerChangeSearchSelector1(obj: any) {
 
 		// this.setState({searchSelectValue:'hn1'})
-		this.setState({ searchSelectValue1: obj.value })
+		let obj1 = JSON.parse(JSON.stringify(obj))
+		this.setState({ searchSelectValue1: obj1.value })
 		return false
 	}
 
@@ -36,7 +39,6 @@ export default class SearchSelectorPage extends React.Component<any, any> {
 		}
 		this.timer = setTimeout(()=>{
 			console.log('searchOptions')
-			// 调用接口获得options，再setState
 			let options =[
 				{postcode:'310000',postcodeDec:'杭州邮编-310000'},
 				{postcode:'315000',postcodeDec:'宁波邮编-315000'},
@@ -115,27 +117,27 @@ export default class SearchSelectorPage extends React.Component<any, any> {
 		return (
 			<div className="page">
 				<h2>SearchSelector</h2>
-				<div>
+				 <div>
 					<h4>带搜索框的下拉框，受控</h4>
-					<SearchSelector placeholder="选择省市" showMaxCount={4} value={this.state.searchSelectValue}
+					<SearchSelector placeholder="选择省市" showMaxCount={4} value={this.state.searchSelectValue} 
 						onChange={this.handlerChangeSearchSelector.bind(this)} loadOptions={provienceList}>
 					</SearchSelector>
 				</div>
-				<div>
+				 <div>
 					<h4>带搜索框的下拉框，清空，受控</h4>
-					<SearchSelector clickInputEmpty placeholder="选择省市" showMaxCount={4} value={this.state.searchSelectValue}
+					<SearchSelector clearSearch placeholder="选择省市" showMaxCount={4} value={this.state.searchSelectValue} defaultvalue='zj'
 						onChange={this.handlerChangeSearchSelector.bind(this)} loadOptions={provienceList}>
 					</SearchSelector>
 				</div>
 				<div>
 					<h4>搜索框和Text合并，受控</h4>
-					<SearchSelector displaySearchInput placeholder="选择省市" showMaxCount={4} value={this.state.searchSelectValue}
+					<SearchSelector displaySearchInput placeholder="选择省市" showMaxCount={4} value={this.state.searchSelectValue} defaultvalue='zj'
 						onChange={this.handlerChangeSearchSelector.bind(this)} loadOptions={provienceList}>
 					</SearchSelector>
 				</div>
 				<div>
 					<h4>搜索框和Text合并，清空，受控</h4>
-					<SearchSelector displaySearchInput clickInputEmpty placeholder="选择省市" 
+					<SearchSelector displaySearchInput clearSearch placeholder="选择省市"  defaultvalue='zj'
 						showMaxCount={4} value={this.state.searchSelectValue}
 						onChange={this.handlerChangeSearchSelector.bind(this)} loadOptions={provienceList}>
 					</SearchSelector>
@@ -147,7 +149,7 @@ export default class SearchSelectorPage extends React.Component<any, any> {
 				</div>
 				<div>
 					<h4>带搜索框的下拉框，清空，不受控</h4>
-					<SearchSelector clickInputEmpty placeholder="选择省市" showMaxCount={4} defaultvalue="zj" loadOptions={provienceList}>
+					<SearchSelector clearSearch placeholder="选择省市" showMaxCount={4} defaultvalue="zj" loadOptions={provienceList}>
 					</SearchSelector>
 				</div>
 
@@ -159,7 +161,7 @@ export default class SearchSelectorPage extends React.Component<any, any> {
 				</div>
 				<div>
 					<h4>搜索框和Text合并,清空,不受控</h4>
-					<SearchSelector displaySearchInput clickInputEmpty placeholder="选择省市" showMaxCount={4} 
+					<SearchSelector displaySearchInput clearSearch placeholder="选择省市" showMaxCount={4} 
 						defaultvalue="zj" loadOptions={provienceList}>
 					</SearchSelector>
 				</div>
@@ -174,15 +176,15 @@ export default class SearchSelectorPage extends React.Component<any, any> {
 						onChange={this.handlerChangeSearchSelector1.bind(this)} loadOptions={this.state.options}>
 					</SearchSelector>
 				</div>
-				<div>
+				 <div>
 					<h4>调用函数获得options的内容，清空，受控</h4>
-					<SearchSelector displaySearchInput clickInputEmpty placeholder="搜索浙江省内的市" 
+					<SearchSelector displaySearchInput clearSearch placeholder="搜索浙江省内的市" 
 						showMaxCount={4} value={this.state.searchSelectValue1}
 						onSearch={this.getOptions.bind(this)} 
 						onChange={this.handlerChangeSearchSelector1.bind(this)} 
 						loadOptions={this.state.options}>
 					</SearchSelector>
-				</div>
+				</div> 
 				<div>
 					<h4>调用函数获得options的内容，受控</h4>
 					<SearchSelector placeholder="搜索浙江省内的市" showMaxCount={4} value={this.state.searchSelectValue1}
@@ -193,7 +195,7 @@ export default class SearchSelectorPage extends React.Component<any, any> {
 				</div>
 				<div>
 					<h4>调用函数获得options的内容，清空，受控</h4>
-					<SearchSelector clickInputEmpty placeholder="搜索浙江省内的市" showMaxCount={4} 
+					<SearchSelector clearSearch placeholder="搜索浙江省内的市" showMaxCount={4} 
 						value={this.state.searchSelectValue1}
 						onSearch={this.getOptions.bind(this)} 
 						onChange={this.handlerChangeSearchSelector1.bind(this)} 
@@ -205,10 +207,10 @@ export default class SearchSelectorPage extends React.Component<any, any> {
 					<SearchSelector displaySearchInput placeholder="搜索浙江省内的市" showMaxCount={4}
 						onSearch={this.getOptions.bind(this)} loadOptions={this.state.options}>
 					</SearchSelector>
-				</div>
+				</div> 
 				<div>
 					<h4>调用函数获得options的内容，清空，不受控</h4>
-					<SearchSelector displaySearchInput clickInputEmpty placeholder="搜索浙江省内的市" showMaxCount={4}
+					<SearchSelector displaySearchInput clearSearch placeholder="搜索浙江省内的市" showMaxCount={4}
 						onSearch={this.getOptions.bind(this)} loadOptions={this.state.options}>
 					</SearchSelector>
 				</div>
@@ -220,10 +222,10 @@ export default class SearchSelectorPage extends React.Component<any, any> {
 				</div>
 				<div>
 					<h4>调用函数获得options的内容，清空，不受控</h4>
-					<SearchSelector clickInputEmpty placeholder="搜索浙江省内的市" showMaxCount={4}
+					<SearchSelector clearSearch placeholder="搜索浙江省内的市" showMaxCount={4}
 						onSearch={this.getOptions.bind(this)} loadOptions={this.state.options}>
 					</SearchSelector>
-				</div>
+				</div> 
 			</div>
 		)
 	}
