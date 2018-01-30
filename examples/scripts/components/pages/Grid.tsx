@@ -102,7 +102,7 @@ export default class GridPage extends React.Component<any, any> {
 				</Row>
 
 				<h4>custom prefix grid</h4>
-				<Row tmpPrefix="example" verticalGutter={10} gutter={4}>
+				<Row prefix="example" verticalGutter={10} gutter={4}>
 					<Col key="1" col={1}>1</Col>
 					<Col key="2" col={1}>1</Col>
 					<Col key="3" col={1}>1</Col>

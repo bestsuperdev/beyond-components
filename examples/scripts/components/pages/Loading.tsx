@@ -17,7 +17,7 @@ export default class LoadingPage extends React.Component<any, any> {
 		this.loading.show('正在加载中...', { duration: 3 })
 	}
 	handlerShowLoading2() {
-		this.loading.show('加载中...。', { duration: 3 })
+		this.loading.show('加载中...', { duration: 3 })
 	}
 	handlerHideLoading() {
 		this.loading.hide()
@@ -29,7 +29,6 @@ export default class LoadingPage extends React.Component<any, any> {
 
 				<h2>Loading</h2>
 				<div>
-					<h2>Loading</h2>
 					<button type="button" onClick={this.handlerShowLoading.bind(this)}>click me to show loading</button>
 					<button type="button" onClick={this.handlerShowLoading2.bind(this)}>click me to show other set loading</button>
 				</div>

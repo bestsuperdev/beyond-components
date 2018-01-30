@@ -48,7 +48,7 @@ export default class TabsPage extends React.Component<any, any> {
 				</div>
 				<div>
 					<h4>自定义前缀</h4>
-					<Tabs tmpPrefix="example" defaultActiveKey={this.state.tabActiveKey}>
+					<Tabs prefix="example" defaultActiveKey={this.state.tabActiveKey}>
 						<Tab title="页面1" key="0">页面1的内容</Tab>
 						<Tab title="页面2" key="1">页面2的内容</Tab>
 						<Tab title="页面3" key="2">页面3的内容</Tab>

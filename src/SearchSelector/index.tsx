@@ -81,7 +81,7 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
 	}
 	getSelectOption(props:ISearchSelectorProps,isAllOptions:boolean){
 		//找到选中项在options中的位置(全局和筛选)
-		let children = isAllOptions ? (Array.isArray(props.loadOptions) ? props.loadOptions : [props.loadOptions]).filter((child:any) => child!=null ) : this.options        
+		let children = isAllOptions ? (Array.isArray(props.loadOptions) ? props.loadOptions : [props.loadOptions]).filter((child:any) => child!=null ) : this.options       
 		let temp_activeIndex = 0
 		let {selectOption}= this.state
 		let value = props.value || selectOption.value

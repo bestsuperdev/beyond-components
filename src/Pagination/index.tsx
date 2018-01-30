@@ -46,62 +46,72 @@ export interface IPaginationItem{
 
 function getPageItems(props : IPaginationProps) : IPaginationItem[]{
 	let items : IPaginationItem[] = [],i:number
-	let {active,offset,totals,prev,next,first,last,omission} = props
+	let {page,offset,totals,prev,next,first,last,omission} = props
 
 	//页数不为1，则插入pre
 
-	if(active > 1 && first) {
+	if(page > 1 && first) {
 		items.push({type : Type.first,value : first})
 	}
-	if(active > 1 && prev){
+	if(page > 1 && prev){
 		items.push({type : Type.prev ,value : prev})
 	}
 
 	//对当前页前半部分进行判断
 
 
-	if(active - 2 * offset - 1 <= 1 ) {
-		for (i = 1; i < active; i++) { items.push({type : Type.page,value : i}) }
+	if(page - 2 * offset - 1 <= 1 ) {
+		for (i = 1; i < page; i++) { items.push({type : Type.page,value : i}) }
 	}else{
 		//期间页数太多,则添加省略号
 		for (i = 1; i <= offset; i++) { items.push({type : Type.page,value : i}) }
 		items.push({type : Type.omission, value : omission })
-		for (i = active - offset; i < active; i++) { items.push({type : Type.page,value : i}) }
+		for (i = page - offset; i < page; i++) { items.push({type : Type.page,value : i}) }
 	}
 	
 	//插入当前页
-	items.push({type : Type.active, value : active})
+	items.push({type : Type.active, value : page})
 	
 	//对当前页后半部分进行处理
-	if(totals - active > 2 * offset + 1 ){
+	if(totals - page > 2 * offset + 1 ){
 		//期间页数太多,则添加省略号
-		for (i = active+1; i <= active + offset; i++) { items.push({type : Type.page,value : i}) }
+		for (i = page+1; i <= page + offset; i++) { items.push({type : Type.page,value : i}) }
 		items.push({type : Type.omission, value : omission })
 		for (i = totals - offset + 1; i <= totals; i++) { items.push({type : Type.page,value : i}) }
 	}else{
-		for (i = active+1; i <= totals; i++) { items.push({type : Type.page,value : i}) }
+		for (i = page+1; i <= totals; i++) { items.push({type : Type.page,value : i}) }
 	}
 
 	//如果当前页数非最后一页,则插入next
-	if(active < totals && next) { items.push({type : Type.next, value : next}) }
-	if(active < totals && last) { items.push({type : Type.last, value : last}) }
+	if(page < totals && next) { items.push({type : Type.next, value : next}) }
+	if(page < totals && last) { items.push({type : Type.last, value : last}) }
 	return items
 }
 
 interface IPaginationProps extends IBaseProps{
-	active? : number;
+	page? : number;
 	totals? : number;
 	offset? : number;
 	omission? : string;
-	onChange? : (active : number)=> void;
+	onChange? : (options : {page : number})=> void;
 	first? : any;
 	last? : any;
 	prev? : any;
 	next? : any;
+	showSizeChange? : boolean;
+	showGoto? : boolean;
+	size? : number;
+	defaultSize? : number;
+	sizes? : number[];
+	
 } 
 
 
 export default class Pagination extends React.Component<IPaginationProps, {}> {
+
+	constructor(props : IPaginationProps){
+		super(props)
+	}
 
 	static defaultProps = {
 		offset : 1,
@@ -110,33 +120,47 @@ export default class Pagination extends React.Component<IPaginationProps, {}> {
 		prev : '上一页',
 		first : '首页',
 		last : '尾页',
-		prefix
+		prefix,
+		showSizeChange : false,
+		showGoto : false,
+		sizes : [10,20,30,50]
 	}
+
+	input : HTMLInputElement
 
 	handlerClick(item : IPaginationItem){
 		if(typeof this.props.onChange === 'function'){
-			let value
-			let {totals,active} = this.props
+			let page
+			let {totals,page : current} = this.props
 			switch (item.type) {
 				case Type.page:
-					value = item.value
+					page = item.value
 					break
 				case Type.first:
-					value = 1
+					page = 1
 					break
 				case Type.last:
-					value = totals
+					page = totals
 					break
 				case Type.prev:
-					value = active - 1
+					page = current - 1
 					break
 				case Type.next:
-					value = active + 1
+					page = current + 1
 					break
 			}
-			if(value != null){
-				this.props.onChange(value)
+			if(page != null){
+				this.props.onChange({page})
 			}
+		}
+	}
+
+	handlerGodo = (e : React.KeyboardEvent<HTMLInputElement>)=>{
+		if(e.which === 13 && typeof this.props.onChange === 'function'){
+			this.props.onChange({page : +e.currentTarget.value})
+			setTimeout(() => {
+				this.input.value = ''
+			}, 0)
 		}
 	}
 
@@ -144,12 +168,26 @@ export default class Pagination extends React.Component<IPaginationProps, {}> {
 
 		const className = `${this.props.prefix}pagination`
 		const items = getPageItems(this.props)
+		const {showSizeChange,sizes,showGoto} = this.props
 		return (
 			<div className={className}>
 				{items.map((item)=> {
 					let classNames = classnames(`${className}-item`,item.type === Type.active && `${className}-active`)
-					return <div key={item.value} onClick={this.handlerClick.bind(this,item)} className={classNames}>{item.value}</div>
+					return (
+						<div key={item.value} onClick={this.handlerClick.bind(this,item)} className={classNames}>
+							{item.value}
+						</div>
+					)
 				})}
+				{showSizeChange &&(
+					<select>
+						{sizes.map((size)=> <option value={size}>{size}</option> )}
+					</select>
+				)}
+				{showGoto && (
+
+					<input ref={(input)=> this.input = input } onKeyDown={this.handlerGodo} type="text" placeholder="Goto"/>
+				)}
 			</div>
 		)
 	}

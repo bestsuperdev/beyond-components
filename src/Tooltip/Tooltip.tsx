@@ -20,7 +20,7 @@ export default class Tooltip  extends React.Component<ITooltipProps,ITooltipStat
 
 	static defaultProps : ITooltipProps = {
 		prefix,
-		defaultVisible : false,
+		defaultVisible : true,
 		placement : 'top'
 	}
 

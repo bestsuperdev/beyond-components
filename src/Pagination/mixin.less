@@ -1,8 +1,9 @@
 @import "../mixins.less";
 .beyond_pagination(@prefix){
     .@{prefix}pagination{
+        font-size: 14px;
         &>&-item{
-            font-size: 14px;
+            font-size: inherit;
             display: inline-block;
             min-width: 34px;
             padding: 0 10px;
@@ -23,6 +24,19 @@
             border-color:  #d9dade;
             color: white;
             background: #2aa5ff;
+        }
+        select,input{
+            height: 34px;
+            border-color: #d9dade;
+            box-sizing: border-box;
+            line-height: 32px;
+            font-size: inherit;
+            padding: 0 5px;
+            margin-right: 6px;
+        }
+        input{
+            border: 1px solid #d9dade;
+            width: 50px;
         }
     }
 

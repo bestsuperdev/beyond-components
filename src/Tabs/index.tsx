@@ -31,7 +31,7 @@ export interface ITabsState {
 type TabElement = React.ReactElement<ITabProps>
 
 // tslint:disable-next-line:variable-name
-export const Tab = ()=> <div></div>
+export const Tab = (props : ITabProps)=> <div></div>
 
 export default class Tabs extends React.Component<ITabsProps,ITabsState> {
 
@@ -93,7 +93,6 @@ export default class Tabs extends React.Component<ITabsProps,ITabsState> {
 
 
 	renderTabs(){
-		// let children : TabElement[]
 		let {children, prefix : _prefix} = this.props
 		const activeKey = this.getActiveKey()
 		let className = `${_prefix}tabs`
@@ -103,8 +102,7 @@ export default class Tabs extends React.Component<ITabsProps,ITabsState> {
 			children = [children]
 		}
 		const panes = (children as  TabElement[] ).filter((child)=> child != null).map((child)=>{ 
-			// tslint:disable-next-line:triple-equals
-			const active = activeKey == child.key
+			const active = activeKey === child.key
 			return <div key={child.key} className={classnames(`${className}-pane`,{active})}>{child.props.children}</div>
 		})
 		return <div className={`${className}-panes`}>{panes}</div>

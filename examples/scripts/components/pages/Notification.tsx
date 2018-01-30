@@ -18,7 +18,7 @@ export default class NotificationPage extends React.Component<any, any> {
 	}
 	handlerShowMessage2() {
 		if (!this.notice2) {
-			let noticejsx = <Notification tmpPrefix="example" duration={3}>hello notification(5s)</Notification>
+			let noticejsx = <Notification prefix="example" duration={3}>hello notification(5s)</Notification>
 			this.notice2 = Notification.getInstance(noticejsx)
 		}
 		this.notice2.show('hello world', { x: 'right', y: 'top', duration: 5 })

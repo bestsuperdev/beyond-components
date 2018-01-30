@@ -20,16 +20,24 @@ export default class Trigger extends React.Component<ITriggerProps,{}> {
 
 	target : HTMLElement
 
+	constructor(props :ITriggerProps){
+		super(props)
+		this.show = this.show.bind(this)
+		this.hide = this.hide.bind(this)
+	}
+
 	componentDidMount() {
-		this.tooltipOperator = getNewInstance(this.props.tooltip)
-		this.target = findDOMNode(this) as HTMLElement
+		if(this.props.tooltip){
+			this.tooltipOperator = getNewInstance(this.props.tooltip)
+			this.target = findDOMNode(this) as HTMLElement
+		}
 	}
 
 	render() {
 		let children = this.props.children as JSX.Element
 		let props = {
-			onMouseEnter : mergeFuncs(children.props.onMouseEnter,this.show.bind(this)),
-			onMouseLeave : mergeFuncs(children.props.onMouseLeave,this.hide.bind(this)) 
+			onMouseEnter : mergeFuncs(children.props.onMouseEnter,this.show),
+			onMouseLeave : mergeFuncs(children.props.onMouseLeave,this.hide) 
 		}
 		return React.cloneElement(children,props) 
 	}

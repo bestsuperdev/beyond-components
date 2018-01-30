@@ -1,6 +1,6 @@
 import * as React from 'react'
-import Tabs, { Tab } from 'Tabs'
-import 'Tabs/index.less'
+import Tooltip,{Trigger} from 'Tooltip'
+import 'Tooltip/index.less'
 export default class TabsPage extends React.Component<any, any> {
 
 	constructor(props: any) {
@@ -9,51 +9,47 @@ export default class TabsPage extends React.Component<any, any> {
 			tabActiveKey: '0'
 		}
 	}
-	
-	handlerToggleTab(key : string, event : React.MouseEvent<Element>){
-		this.setState({tabActiveKey : key})
+
+	handlerToggleTab(key: string, event: React.MouseEvent<Element>) {
+		this.setState({ tabActiveKey: key })
 		return false
 	}
-	
+
 	render(): JSX.Element {
 		return (
 			<div className="page">
-				<h2>Tabs</h2>
+				<h2>tooltip</h2>
 				<div>
-					<h4>受控 Tabs</h4>
-					<Tabs activeKey={this.state.tabActiveKey} onChange={this.handlerToggleTab.bind(this)}>
-						<Tab title="页面1" key="0">页面1的内容</Tab>
-						<Tab title="页面2" key="1">页面2的内容</Tab>
-						<Tab title="页面3" key="2">页面3的内容</Tab>
-						<Tab title="页面4" key="3">页面4的内容</Tab>
-					</Tabs>
+					<Tooltip style={{ marginRight: 20 }} >hello world</Tooltip>
+					<Tooltip style={{ marginRight: 20 }} placement="left"  >hello world</Tooltip>
+					<Tooltip style={{ marginRight: 20 }} placement="right"  >hello world</Tooltip>
+					<Tooltip style={{ marginRight: 20 }} placement="bottom"  >hello world</Tooltip>
+
+				</div>
+				<div style={{ marginTop: 30, marginBottom: 30 }}>
+					<Trigger tooltip={<Tooltip placement="top">hello world</Tooltip>}>
+						<span 
+							onMouseEnter={(e) => console.log('enter')} 
+							onMouseOut={(e) => console.log('out')} 
+							className="tooltip-btn">top</span>
+					</Trigger>
+					<Trigger tooltip={<Tooltip placement="bottom">hello world</Tooltip>}>
+						<span className="tooltip-btn">bottom</span>
+					</Trigger>
+					<Trigger tooltip={<Tooltip placement="left">hello world</Tooltip>}>
+						<span className="tooltip-btn">left</span>
+					</Trigger>
+					<Trigger tooltip={<Tooltip placement="right">hello world</Tooltip>}>
+						<span className="tooltip-btn">right</span>
+					</Trigger>
 				</div>
 				<div>
-					<h4>不受控 Tabs</h4>
-					<Tabs defaultActiveKey={this.state.tabActiveKey}>
-						<Tab title="页面1" key="0">页面1的内容</Tab>
-						<Tab title="页面2" key="1">页面2的内容</Tab>
-						<Tab title="页面3" key="2">页面3的内容</Tab>
-						<Tab title="页面4" key="3">页面4的内容</Tab>
-					</Tabs>
-				</div>
-				<div>
-					<h4>disabled 页面 2</h4>
-					<Tabs defaultActiveKey={this.state.tabActiveKey}>
-						<Tab title="页面1" key="0">页面1的内容</Tab>
-						<Tab disabled title="页面2" key="1">页面2的内容</Tab>
-						<Tab title="页面3" key="2">页面3的内容</Tab>
-						<Tab title="页面4" key="3">页面4的内容</Tab>
-					</Tabs>
-				</div>
-				<div>
-					<h4>自定义前缀</h4>
-					<Tabs prefix="example" defaultActiveKey={this.state.tabActiveKey}>
-						<Tab title="页面1" key="0">页面1的内容</Tab>
-						<Tab title="页面2" key="1">页面2的内容</Tab>
-						<Tab title="页面3" key="2">页面3的内容</Tab>
-						<Tab title="页面4" key="3">页面4的内容</Tab>
-					</Tabs>
+					<h4>自定义前缀 </h4>
+					<Tooltip prefix="example"  style={{ marginRight: 20 }} >hello world</Tooltip>
+					<Tooltip prefix="example"  style={{ marginRight: 20 }} placement="left">hello world</Tooltip>
+					<Tooltip prefix="example"  style={{ marginRight: 20 }} placement="right">hello world</Tooltip>
+					<Tooltip prefix="example"  style={{ marginRight: 20 }} placement="bottom">hello world</Tooltip>
+
 				</div>
 			</div>
 		)

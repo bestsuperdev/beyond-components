@@ -69,7 +69,7 @@ export default class ModalPage extends React.Component<any, any> {
 				</Modal>
 
 				<Modal
-					tmpPrefix="example"
+					prefix="example"
 					onClose={this.handlerToggleModal.bind(this,'showModal2', false)}
 					title="this is custom prefix modal title11111"
 					maxWidth="70%"

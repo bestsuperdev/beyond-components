@@ -2,7 +2,6 @@
 
 
 import * as  React from 'react'
-import * as classnames from 'classnames'
 
 import Document from './pages/Document'
 import Placeholder from './pages/Placeholder'

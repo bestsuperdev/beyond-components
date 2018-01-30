@@ -9,18 +9,18 @@ export default class FormPage extends React.Component<any, any> {
 		super(props)
 	}
 
-	handlerSubmit(event: React.FormEvent<any>) {
+	handlerSubmit() {
 		// event.preventDefault()
 		alert('submit')
 	}
 
-	handlerFormSuccess(res: any) {
+	handlerFormSuccess() {
 		alert('success')
 	}
-	handlerFormError(res: any) {
+	handlerFormError() {
 		alert('error')
 	}
-	handlerFormComplete(res: any) {
+	handlerFormComplete() {
 		alert('complete')
 
 	}

@@ -13,6 +13,10 @@ export default class PaginationPage extends React.Component<any, any> {
 		}
 	}
 
+	handlerChange = (page : {page : number})=>{
+		this.setState({active : page.page})
+	}
+
 
 	render(): JSX.Element {
 	
@@ -20,7 +24,29 @@ export default class PaginationPage extends React.Component<any, any> {
 			<div className="page">
 				<h2>Pagination</h2>
 				<div>
-					<Pagination active={this.state.active} totals={100} onChange={(active)=> this.setState({active}) }  />
+					<Pagination page={this.state.active} totals={100} onChange={this.handlerChange}  />
+				</div>
+				<div style={{marginTop : 20}}>
+					<Pagination showSizeChange 
+						page={this.state.active} 
+						totals={100} 
+						onChange={this.handlerChange}  />
+				</div>
+				<div style={{marginTop : 20}}>
+					<Pagination 
+						showGoto
+						showSizeChange 
+						page={this.state.active} 
+						totals={100} 
+						onChange={this.handlerChange}  />
+				</div>
+				<div style={{marginTop : 20}}>
+					<Pagination 
+						showGoto
+						// showSizeChange 
+						page={this.state.active} 
+						totals={100} 
+						onChange={this.handlerChange}  />
 				</div>
 			</div>
 		)

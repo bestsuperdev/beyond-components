@@ -68,10 +68,11 @@ export interface ITooltipOperator{
 export function getNewInstance(tooltip : JSX.Element) : ITooltipOperator {
 	let {props} = tooltip
 	let {children} = props
+	let instance : Tooltip = null
 	let wrap = document.createElement('div')
 	document.body.appendChild(wrap)
 	
-	let instance = ReactDOM.render(<Tooltip {...props}>{children}</Tooltip>,wrap) as Tooltip
+	ReactDOM.render(<Tooltip ref={(ref)=> instance = ref } {...props} defaultVisible={false} />,wrap)
 
 	return {
 		show(target : HTMLElement){
