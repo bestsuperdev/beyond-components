@@ -44,10 +44,10 @@ export interface IPaginationItem{
 }
 
 
-function getPageItems(props : IPaginationProps) : IPaginationItem[]{
+function getPageItems(props : IPaginationProps,state : IPaginationState) : IPaginationItem[]{
 	let items : IPaginationItem[] = [],i:number
 	let {page,offset,totals,prev,next,first,last,omission} = props
-
+	page = page || state.page
 	//页数不为1，则插入pre
 
 	if(page > 1 && first) {
@@ -88,12 +88,14 @@ function getPageItems(props : IPaginationProps) : IPaginationItem[]{
 	return items
 }
 
-interface IPaginationProps extends IBaseProps{
+export interface IPaginationProps extends IBaseProps{
 	page? : number;
+	defaultPage? : number;
 	totals? : number;
 	offset? : number;
 	omission? : string;
-	onChange? : (options : {page : number})=> void;
+	onChange? : (page : number)=> void;
+	onSizeChange? : (size : number)=> void;
 	first? : any;
 	last? : any;
 	prev? : any;
@@ -106,11 +108,19 @@ interface IPaginationProps extends IBaseProps{
 	
 } 
 
+export interface IPaginationState {
+	size? : number;
+	page? : number;
+}
 
-export default class Pagination extends React.Component<IPaginationProps, {}> {
+export default class Pagination extends React.Component<IPaginationProps, IPaginationState> {
 
 	constructor(props : IPaginationProps){
 		super(props)
+		this.state = {
+			size : props.defaultSize,
+			page : props.defaultPage
+		}
 	}
 
 	static defaultProps = {
@@ -123,54 +133,79 @@ export default class Pagination extends React.Component<IPaginationProps, {}> {
 		prefix,
 		showSizeChange : false,
 		showGoto : false,
-		sizes : [10,20,30,50]
+		sizes : [10,20,30,50],
+		defaultPage : 1,
+		defaultSize : 10
 	}
 
 	input : HTMLInputElement
 
 	handlerClick(item : IPaginationItem){
-		if(typeof this.props.onChange === 'function'){
-			let page
-			let {totals,page : current} = this.props
-			switch (item.type) {
-				case Type.page:
-					page = item.value
-					break
-				case Type.first:
-					page = 1
-					break
-				case Type.last:
-					page = totals
-					break
-				case Type.prev:
-					page = current - 1
-					break
-				case Type.next:
-					page = current + 1
-					break
-			}
-			if(page != null){
-				this.props.onChange({page})
-			}
+		let page,result
+		let {totals,page : current} = this.props
+		switch (item.type) {
+			case Type.page:
+				page = item.value
+				break
+			case Type.first:
+				page = 1
+				break
+			case Type.last:
+				page = totals
+				break
+			case Type.prev:
+				page = current - 1
+				break
+			case Type.next:
+				page = current + 1
+				break
+		}
+		if(page != null && typeof this.props.onChange === 'function' ){
+			result = this.props.onChange(page)
+		}
+		if(result !== false){
+			this.setState({page})
 		}
 	}
 
 	handlerGodo = (e : React.KeyboardEvent<HTMLInputElement>)=>{
-		if(e.which === 13 && typeof this.props.onChange === 'function'){
-			this.props.onChange({page : +e.currentTarget.value})
+		let page = +e.currentTarget.value
+		if(e.which === 13 && page > 0){
+			let result 
+			if(typeof this.props.onChange === 'function' ){
+				result = this.props.onChange(page)
+			}
+			if(result !== false){
+				this.setState({page})
+			}
 			setTimeout(() => {
 				this.input.value = ''
 			}, 0)
 		}
 	}
 
+	handlerSizeChange = (e : React.ChangeEvent<HTMLSelectElement>)=>{
+		let size = +e.currentTarget.value
+		let result
+		if(typeof this.props.onSizeChange === 'function' ){
+			result = this.props.onSizeChange(size)
+		}
+		if(result !== false){
+			this.setState({size})
+		}
+	}
+
 	public render(): JSX.Element {
 
+		let {size,showSizeChange,sizes,showGoto,style,extraClassName} = this.props
 		const className = `${this.props.prefix}pagination`
-		const items = getPageItems(this.props)
-		const {showSizeChange,sizes,showGoto} = this.props
+		const items = getPageItems(this.props,this.state)
+		size = size || this.state.size
+		if(sizes.indexOf(size) < 0){
+			sizes = [size].concat(sizes) 
+		}
 		return (
-			<div className={className}>
+			<div className={classnames(className,extraClassName) } style={style}>
 				{items.map((item)=> {
 					let classNames = classnames(`${className}-item`,item.type === Type.active && `${className}-active`)
 					return (
@@ -180,8 +215,8 @@ export default class Pagination extends React.Component<IPaginationProps, {}> {
 					)
 				})}
 				{showSizeChange &&(
-					<select>
-						{sizes.map((size)=> <option value={size}>{size}</option> )}
+					<select value={size} onChange={this.handlerSizeChange}>
+						{sizes.map((s)=> <option key={s} value={s}>{s}</option> )}
 					</select>
 				)}
 				{showGoto && (
