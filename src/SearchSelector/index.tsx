@@ -43,7 +43,7 @@ export interface ISearchSelectorProps extends IBaseProps{
 	clickInputEmpty?:boolean,
 	defaultvalue?:string
 	value?:string,
-	loadOptions?:ISelectUnit[]   
+	options?:ISelectUnit[]   
 }
 export interface ISelectUnit{
 	value?:string,
@@ -81,7 +81,7 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
 	}
 	getSelectOption(props:ISearchSelectorProps,isAllOptions:boolean){
 		//找到选中项在options中的位置(全局和筛选)
-		let children = isAllOptions ? (Array.isArray(props.loadOptions) ? props.loadOptions : [props.loadOptions]).filter((child:any) => child!=null ) : this.options       
+		let children = isAllOptions ? (Array.isArray(props.options) ? props.options : [props.options]).filter((child:any) => child!=null ) : this.options       
 		let temp_activeIndex = 0
 		let {selectOption}= this.state
 		let value = props.value || selectOption.value
@@ -96,7 +96,7 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
 	}
 	componentDidMount(){
 		// console.log('did')
-		this.options = (Array.isArray(this.props.loadOptions) ? this.props.loadOptions : [this.props.loadOptions]).filter((child:any) => child!=null )    
+		this.options = (Array.isArray(this.props.options) ? this.props.options : [this.props.options]).filter((child:any) => child!=null )    
 		let {selectOption,temp_activeIndex} = this.getSelectOption(this.props,true)
 		this.setState({selectOption,searchContent:'',temp_activeIndex})      
 	}
@@ -144,13 +144,12 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
 		if(typeof this.props.onChange == 'function'){
 			result = this.props.onChange(selectOption)
 		}
-		console.log('result',result)
 		if(result !== false){
 			// 不受控刷新
 			let temp_activeIndex = this.state.temp_activeIndex              
 			if(this.props.clickInputEmpty){
 				//重新计算得到temp_active
-				this.options = (Array.isArray(this.props.loadOptions) ? this.props.loadOptions : [this.props.loadOptions]).filter((child:any) => child!=null )
+				this.options = (Array.isArray(this.props.options) ? this.props.options : [this.props.options]).filter((child:any) => child!=null )
 				this.options.map((item:any,i:number)=>{
 					if(item.value == selectOption.value){
 						temp_activeIndex = i
@@ -167,17 +166,17 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
 		// debugger
 		let keyCode = event.keyCode
 		let {temp_activeIndex} =  this.state
-		if(keyCode === '38'){
+		if(keyCode === 38){
 			if(temp_activeIndex > 0){
 				temp_activeIndex --
 			}
 			this.setState({isShowOption:true,temp_activeIndex})
-		}else if(keyCode === '40'){
+		}else if(keyCode === 40){
 			if(temp_activeIndex < this.options.length-1){
 				temp_activeIndex ++
 			}
 			this.setState({isShowOption:true,temp_activeIndex})
-		}else if(keyCode === '13'){
+		}else if(keyCode === 13){
 			let child = this.options[this.state.temp_activeIndex]
 			this.handlerClickOption(child,null)            
 		}else{
@@ -197,7 +196,7 @@ export default class SearchSelector extends React.Component<ISearchSelectorProps
 		let {searchContent,temp_activeIndex,selectOption,isShowOption,clearOptions} = this.state
 		//调用函数获得options时，matchValue
 		let matchValue = this.props.onSearch ? '' : searchContent
-		let children = clearOptions?[]: (Array.isArray(this.props.loadOptions) ? this.props.loadOptions : [this.props.loadOptions]).filter((child:any) => child!=null )            
+		let children = clearOptions?[]: (Array.isArray(this.props.options) ? this.props.options : [this.props.options]).filter((child:any) => child!=null )            
 		if(isShowOption){
 			let options:any[] = []
 			let temp_options:any[] = []

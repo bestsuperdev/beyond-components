@@ -118,49 +118,49 @@ export default class SearchSelectorPage extends React.Component<any, any> {
 				<div>
 					<h4>带搜索框的下拉框，受控</h4>
 					<SearchSelector placeholder="选择省市" showMaxCount={4} value={this.state.searchSelectValue}
-						onChange={this.handlerChangeSearchSelector.bind(this)} loadOptions={provienceList}>
+						onChange={this.handlerChangeSearchSelector.bind(this)} options={provienceList}>
 					</SearchSelector>
 				</div>
 				<div>
 					<h4>带搜索框的下拉框，清空，受控</h4>
 					<SearchSelector clickInputEmpty placeholder="选择省市" showMaxCount={4} value={this.state.searchSelectValue}
-						onChange={this.handlerChangeSearchSelector.bind(this)} loadOptions={provienceList}>
+						onChange={this.handlerChangeSearchSelector.bind(this)} options={provienceList}>
 					</SearchSelector>
 				</div>
 				<div>
 					<h4>搜索框和Text合并，受控</h4>
 					<SearchSelector displaySearchInput placeholder="选择省市" showMaxCount={4} value={this.state.searchSelectValue}
-						onChange={this.handlerChangeSearchSelector.bind(this)} loadOptions={provienceList}>
+						onChange={this.handlerChangeSearchSelector.bind(this)} options={provienceList}>
 					</SearchSelector>
 				</div>
 				<div>
 					<h4>搜索框和Text合并，清空，受控</h4>
 					<SearchSelector displaySearchInput clickInputEmpty placeholder="选择省市" 
 						showMaxCount={4} value={this.state.searchSelectValue}
-						onChange={this.handlerChangeSearchSelector.bind(this)} loadOptions={provienceList}>
+						onChange={this.handlerChangeSearchSelector.bind(this)} options={provienceList}>
 					</SearchSelector>
 				</div>
 				<div>
 					<h4>带搜索框的下拉框，不受控</h4>
-					<SearchSelector placeholder="选择省市" showMaxCount={4} defaultvalue="zj" loadOptions={provienceList}>
+					<SearchSelector placeholder="选择省市" showMaxCount={4} defaultvalue="zj" options={provienceList}>
 					</SearchSelector>
 				</div>
 				<div>
 					<h4>带搜索框的下拉框，清空，不受控</h4>
-					<SearchSelector clickInputEmpty placeholder="选择省市" showMaxCount={4} defaultvalue="zj" loadOptions={provienceList}>
+					<SearchSelector clickInputEmpty placeholder="选择省市" showMaxCount={4} defaultvalue="zj" options={provienceList}>
 					</SearchSelector>
 				</div>
 
 				<div>
 					<h4>搜索框和Text合并，不受控</h4>
 					<SearchSelector displaySearchInput placeholder="选择省市" showMaxCount={4} defaultvalue="zj" 
-						loadOptions={provienceList}>
+						options={provienceList}>
 					</SearchSelector>
 				</div>
 				<div>
 					<h4>搜索框和Text合并,清空,不受控</h4>
 					<SearchSelector displaySearchInput clickInputEmpty placeholder="选择省市" showMaxCount={4} 
-						defaultvalue="zj" loadOptions={provienceList}>
+						defaultvalue="zj" options={provienceList}>
 					</SearchSelector>
 				</div>
 				<div>
@@ -171,7 +171,7 @@ export default class SearchSelectorPage extends React.Component<any, any> {
 						showMaxCount={4} 
 						value={this.state.searchSelectValue1}
 						onSearch={this.getOptions.bind(this)} 
-						onChange={this.handlerChangeSearchSelector1.bind(this)} loadOptions={this.state.options}>
+						onChange={this.handlerChangeSearchSelector1.bind(this)} options={this.state.options}>
 					</SearchSelector>
 				</div>
 				<div>
@@ -180,7 +180,7 @@ export default class SearchSelectorPage extends React.Component<any, any> {
 						showMaxCount={4} value={this.state.searchSelectValue1}
 						onSearch={this.getOptions.bind(this)} 
 						onChange={this.handlerChangeSearchSelector1.bind(this)} 
-						loadOptions={this.state.options}>
+						options={this.state.options}>
 					</SearchSelector>
 				</div>
 				<div>
@@ -188,7 +188,7 @@ export default class SearchSelectorPage extends React.Component<any, any> {
 					<SearchSelector placeholder="搜索浙江省内的市" showMaxCount={4} value={this.state.searchSelectValue1}
 						onSearch={this.getOptions.bind(this)} 
 						onChange={this.handlerChangeSearchSelector1.bind(this)} 
-						loadOptions={this.state.options}>
+						options={this.state.options}>
 					</SearchSelector>
 				</div>
 				<div>
@@ -197,31 +197,31 @@ export default class SearchSelectorPage extends React.Component<any, any> {
 						value={this.state.searchSelectValue1}
 						onSearch={this.getOptions.bind(this)} 
 						onChange={this.handlerChangeSearchSelector1.bind(this)} 
-						loadOptions={this.state.options}>
+						options={this.state.options}>
 					</SearchSelector>
 				</div>
 				<div>
 					<h4>调用函数获得options的内容，不受控</h4>
 					<SearchSelector displaySearchInput placeholder="搜索浙江省内的市" showMaxCount={4}
-						onSearch={this.getOptions.bind(this)} loadOptions={this.state.options}>
+						onSearch={this.getOptions.bind(this)} options={this.state.options}>
 					</SearchSelector>
 				</div>
 				<div>
 					<h4>调用函数获得options的内容，清空，不受控</h4>
 					<SearchSelector displaySearchInput clickInputEmpty placeholder="搜索浙江省内的市" showMaxCount={4}
-						onSearch={this.getOptions.bind(this)} loadOptions={this.state.options}>
+						onSearch={this.getOptions.bind(this)} options={this.state.options}>
 					</SearchSelector>
 				</div>
 				<div>
 					<h4>调用函数获得options的内容，不受控</h4>
 					<SearchSelector placeholder="搜索浙江省内的市" showMaxCount={4}
-						onSearch={this.getOptions.bind(this)} loadOptions={this.state.options}>
+						onSearch={this.getOptions.bind(this)} options={this.state.options}>
 					</SearchSelector>
 				</div>
 				<div>
 					<h4>调用函数获得options的内容，清空，不受控</h4>
 					<SearchSelector clickInputEmpty placeholder="搜索浙江省内的市" showMaxCount={4}
-						onSearch={this.getOptions.bind(this)} loadOptions={this.state.options}>
+						onSearch={this.getOptions.bind(this)} options={this.state.options}>
 					</SearchSelector>
 				</div>
 			</div>
