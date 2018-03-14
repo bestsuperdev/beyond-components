@@ -968,6 +968,9 @@ class App extends React.Component{
 | placeholder  |  string   |   -   | placeholder的内容 |
 | showMaxCount  |  string   |   -   | 显示的option个数 |
 | displaySearchInput     | boolean |   false  | 只显示搜索输入框 |
-| clickInputEmpty  |  boolean   |   false   | 点击搜索框是否清空 |
+| clearSearch  |  boolean   |   false   | 点击搜索框是否清空 |
 | onChange     | function |   -  | 必需，获得选择后的内容 |
 | onSearch  |  function   |   -   | 非必需，若根据搜索内容调用接口获得options时，使用该属性 |
+| defaultvalue  |  string   |   -   | 默认选中值 |
+| value     | string |   -  | 受控组件必填，选中值 |
+| loadOptions  |  object[]   |   -   | 必需，选项数据，每项数据包含value和text字段 |
