@@ -1,5 +1,6 @@
+
+
 declare var module: any;
-// declare var require: any;
 
 
 declare module "react-hot-loader";
@@ -21,3 +22,11 @@ declare interface Document {
     attachEvent(type : string,handler :(event : any)=>void) : void;
     detachEvent(type : string,handler :(event : any)=>void) : void;
 }
+
+// declare namespace process {
+//     export namespace env {
+//         export const NODE_ENV;
+//     }
+// }
+
+// declare const __webpack_public_path__ : string;

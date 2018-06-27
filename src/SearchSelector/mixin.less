@@ -1,97 +1,94 @@
 @import "../mixins.less";
-.beyond_searchSelector(@prefix) {
-    @nprefix : ~"@{prefix}searchSelector";
-    .@{nprefix}{
+.beyond_searchSelector(@globalPrefix) {
+    @prefix : ~"@{globalPrefix}search-selector";
+    @height : 36px;
+    .@{prefix}{
         box-sizing: border-box;
         position:relative;
         font-size: 14px;
-        // padding:0 10px;
         width: 240px;
         color:black;
         input{
-            height:40px;
-            text-decoration: none;
-            padding:0px 10px 0 20px;
-            font-size: 16px;
+            font-size: inherit;
+            height:@height;
+            padding:0px 10px;
             width:100%;
             box-sizing: border-box;
-            // border:1px solid grey;
             border:none;
             outline: none;
             color:black;
+            border: 1px solid #d9dade;
+            border-top: none;
+            border-bottom: none;
             // outline:0 none !important;// blr:expression(this.onFocus=this.blur());         
         }      
-        .@{nprefix}-text{
-            height:40px;
-            line-height: 40px;
-            text-indent: 10px;
-            border:1px solid grey;
-            border-bottom:none;
+
+        .@{prefix}-text{
+            height:@height;
+            line-height: @height;
+            border: 1px solid #d9dade;
+            // border-bottom:none;
             box-sizing: border-box;
             padding:0 10px;
             position:relative;
             cursor: pointer;
             background-color:#fff;
+            &:after{
+                content:'';
+                display:inline-block;
+                position:absolute;
+                top:15px;
+                right:10px;
+                width:0;
+                height:0;
+                border-style: solid;
+                border-color:transparent;
+                border-width:5px 3px;
+                border-top-color:black;
+            }
             
         }
-        .@{nprefix}-input{
+        .@{prefix}-input{
             position:relative;
-            // margin-left:10px;
-            // margin-right:10px;  
         }
-        .@{nprefix}-container{
-            position:absolute;
-            box-sizing: border-box;
-            border: 1px solid grey;
-            border-top:none;
-            left:0px;
-            right:0px;
-            background-color:#fff;
-        }
-        .container-relative{
-            position:relative;
-            border-top:1px solid grey;
-        }
-        .@{nprefix}-icon-container{
+        .@{prefix}-icon-container{
             position:absolute;
             right:0px;
             top:0px;
         }
-        .@{nprefix}-icon-container img{
+        .@{prefix}-icon-container img{
             display: block;
             padding:10px 10px;
             height:16px;
         }
-        .@{nprefix}-options,.@{nprefix}-no-options,.@{nprefix}-on-searching{
-            // width:auto;
-            box-sizing: border-box;
-            // width:200px;
-            white-space: nowrap;//长度大小根据内容多少而定
-            // max-height: 80px;
-            overflow-y: auto;//自动出现滚动条
-            border:1px solid grey;
-            border-top:none;
-            position:absolute;
-            left:-1px;
-            top:100%;
-            right:-1px;
-            z-index:55;        
-            background-color:#fff;
-            text-indent: 10px;
-            // color:grey;
-        
+        .@{prefix}-options-wrap{
+            position: absolute;
+            left: 0;
+            top:100%;     
+            width: 100%;        
+            z-index:9999;  
         }
-        .@{nprefix}-no-options,.@{nprefix}-on-searching{
-            height: 40px;
-            line-height: 40px;
+        .@{prefix}-options,.@{prefix}-tip{    
+            width: 100%;
+            box-sizing: border-box;
+            white-space: nowrap;//长度大小根据内容多少而定
+            overflow-y: auto;//自动出现滚动条
+            border: 1px solid #d9dade;
+            border-top:none;
+           
+            background-color:#fff;
+        }
+        .@{prefix}-tip{
+            height:@height;
+            line-height: @height;
+            padding: 0 10px;
             overflow-y: hidden;
         }
-
-        .@{nprefix}-option{
-            text-indent: 20px;
-            height:40px;
-            line-height: 40px;
+        .@{prefix}-option{
+            height:@height;
+            line-height: @height;
             position: relative;
+            padding: 0 10px;
             cursor: pointer;
             img{
                 vertical-align: middle;
@@ -103,40 +100,40 @@
         .active{
             background:#eeeeee;
         }
-        .@{nprefix}-option:hover{
+        .@{prefix}-option:hover{
             background:#eeeeee;
             
         }
     }
-    .@{nprefix}-arrowDown{
-        &:after{
-            content:' ';
-            display:inline-block;
-            position:absolute;
-            top:20px;
-            right:10px;
-            width:0;
-            height:0;
-            border-style: solid;
-            border-color:transparent;
-            border-width:5px 3px;
-            border-top-color:black;
-        }   
-    }
-    .@{nprefix}-arrowUp{
-        &:after{
-            content:' ';
-            display:inline-block;
-            position:absolute;
-            top:15px;
-            right:10px;
-            width:0;
-            height:0;
-            border-style: solid;
-            border-color:transparent;
-            border-width:5px 3px;
-            border-bottom-color:black;
+    // .@{prefix}-arrowDown{
+    //     &:after{
+    //         content:' ';
+    //         display:inline-block;
+    //         position:absolute;
+    //         top:20px;
+    //         right:10px;
+    //         width:0;
+    //         height:0;
+    //         border-style: solid;
+    //         border-color:transparent;
+    //         border-width:5px 3px;
+    //         border-top-color:black;
+    //     }   
+    // }
+    // .@{prefix}-arrowUp{
+    //     &:after{
+    //         content:' ';
+    //         display:inline-block;
+    //         position:absolute;
+    //         top:15px;
+    //         right:10px;
+    //         width:0;
+    //         height:0;
+    //         border-style: solid;
+    //         border-color:transparent;
+    //         border-width:5px 3px;
+    //         border-bottom-color:black;
 
-        }     
-    }
+    //     }     
+    // }
 }
